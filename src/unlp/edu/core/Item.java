@@ -1,6 +1,10 @@
+package unlp.edu.core;
 
 
+
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 
 public class Item {
@@ -17,9 +21,10 @@ public class Item {
 	
 	public Item(String desc, TipoItem tipo)
 	{
+		Date date= Calendar.getInstance().getTime();
 		this.descripcion = desc;
-		this.estadoActual = new EstadoItem(); /** ver parámetro */
-		this.historialEstados = new HashSet<EstadoItem>(); /** Esta bien? */
+		this.estadoActual = new EstadoItem(null,null,date,null,null,null);
+		this.historialEstados = new HashSet<EstadoItem>();
 		this.prioridad = 0;
 		this.tipoItem = tipo;
 	}
@@ -82,19 +87,36 @@ public class Item {
 	 * 
 	 */
 	
-	public void cambiarEstadoItem(Estado e)
+	public void cambiarEstadoItem(Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles)
 	{
+		Date date= Calendar.getInstance().getTime();
+		estadoActual.setFechaFin(date);
+		this.historialEstados.add(estadoActual);	
+		this.setEstadoActual(new EstadoItem(estado,null,date,"",miembrosDisponibles,responsable));
+	
 	}
 
-	public void cambiarResponsable(Miembro m, EstadoItem ei)
-	{		
-	}
+	public void cambiarResponsable(Miembro responsable)//Guarda el estadoItem y crea un nuevo estadoItem con el responsable
+	{
+		Date date= Calendar.getInstance().getTime();
+		estadoActual.setFechaFin(date);
+		this.historialEstados.add(estadoActual);
+		this.setEstadoActual(new EstadoItem(estadoActual.getEstado(),null, date, "", estadoActual.getMiembrosDisponibles(), responsable));
+	}	
 	
+	/**
+	 * @param estadoActual the estadoActual to set
+	 */
+	public void setEstadoActual(EstadoItem estadoActual) {
+		this.estadoActual = estadoActual;
+	}
 	public EstadoItem devolverEstadoAtual()
 	{
+		return this.estadoActual;
 	}
 	
-	public Usuario responsableActual()
+	public Miembro responsableActual()
 	{
+		return this.estadoActual.getResponsable();
 	}
 }

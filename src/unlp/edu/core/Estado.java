@@ -1,4 +1,7 @@
+package unlp.edu.core;
+
 import java.util.Collection;
+import java.util.HashSet;
 
 
 public class Estado {
@@ -6,9 +9,10 @@ public class Estado {
 	private String descripcion;
 	private Collection<Estado> estadosSiguientes;
 	
-	public Estado()
+	public Estado(String descripcion)
 	{
-	
+		this.descripcion= descripcion;
+		this.estadosSiguientes = new HashSet<Estado>();
 	}
 
 	public String getDescripcion() {
@@ -38,5 +42,8 @@ public class Estado {
 		 */
 		return e;
 	}
-
+	public void agregarEstadoSiguiente(Estado e)
+	{
+		this.estadosSiguientes.add(e);
+	}
 }

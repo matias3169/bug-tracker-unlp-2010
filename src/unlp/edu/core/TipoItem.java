@@ -1,3 +1,5 @@
+package unlp.edu.core;
+
 import java.util.Collection;
 
 
@@ -42,22 +44,13 @@ public class TipoItem {
 	 * Metodos
 	 */
 	
-	public Estado agregarEstado(Collection<Estado> q)
+	public Estado agregarEstado(String descripcion) // crea un estado y lo agrega a la lista de estados
 	{
-		/**
-		 * cambiar retorno
-		 */
-		return q;
-	}
-	
-	public Estado cambiarEstado(Estado e)
-	{
-		
-		/**
-		 * cambiar retorno
-		 */
+		Estado e= new Estado(descripcion);
+		this.estadosPosibles.add(e);
 		return e;
 	}
+	
 	
 	public Estado estadoInicial()
 	{
