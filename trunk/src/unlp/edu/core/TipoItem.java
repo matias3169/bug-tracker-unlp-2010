@@ -1,6 +1,6 @@
 package unlp.edu.core;
 
-import java.util.Collection;
+import java.util.*;
 
 
 public class TipoItem {
