@@ -1,8 +1,6 @@
 package unlp.edu.core;
 
-import java.util.Collection;
-import java.util.Date;
-
+import java.util.*;
 
 public class EstadoItem {
 	
@@ -11,18 +9,19 @@ public class EstadoItem {
 	 * @param fechaFin
 	 * @param fechaInicio
 	 * @param fichaDeTrabajo
-	 * @param historialResponsables
 	 * @param miembrosDisponibles
 	 * @param responsable
 	 */
 	private Estado estado;
 	private Date fechaFin, fechaInicio;
 	private String fichaDeTrabajo;
-	private Collection<Miembro> historialResponsables;
 	private Collection<Miembro> miembrosDisponibles;
 	private Miembro responsable;
 	
-	//metodos
+	/**
+	 * Metodos
+	 * 
+	 */
 	
 	public EstadoItem(Estado estado, Date fechaFin, Date fechaInicio,
 			String fichaDeTrabajo,Collection<Miembro> miembrosDisponibles,
@@ -39,7 +38,6 @@ public class EstadoItem {
 		return fechaInicio;
 	}
 
-
 	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
@@ -52,16 +50,6 @@ public class EstadoItem {
 
 	public void setFichaDeTrabajo(String fichaDeTrabajo) {
 		this.fichaDeTrabajo = fichaDeTrabajo;
-	}
-
-
-	public Collection<Miembro> getHistorialResponsables() {
-		return historialResponsables;
-	}
-
-
-	public void setHistorialResponsables(Collection<Miembro> historialResponsables) {
-		this.historialResponsables = historialResponsables;
 	}
 
 
@@ -95,7 +83,6 @@ public class EstadoItem {
 		this.estado = e;
 	}
 	
-	
 	public Date getFechaFin()
 	{
 		return this.fechaFin;
@@ -106,24 +93,4 @@ public class EstadoItem {
 		this.fechaFin = f;
 	}
 	
-	/**
-	 * Metodos
-	 * 
-	 * 
-	 */
-	public void cambiarResponsable(Miembro responsable)
-	{
-
-	}
-	
-	public Collection<Miembro> obtenerMiembrosDisponibles()
-	{
-		return this.miembrosDisponibles;
-	}
-	
-	public Miembro responsableActual()
-	{
-		return this.getResponsable();
-	}
-
 }
