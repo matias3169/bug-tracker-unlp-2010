@@ -32,13 +32,13 @@ public class Miembro {
 		this.usuario = usuario;
 	}
 	/**
-	 * @return the rol
+	 * @return the role
 	 */
 	public Role getRole() {
 		return role;
 	}
 	/**
-	 * @param rol the rol to set
+	 * @param role the role to set
 	 */
 	public void setRole(Role role) {
 		this.role = role;
