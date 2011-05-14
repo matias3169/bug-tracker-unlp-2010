@@ -1,11 +1,6 @@
 package unlp.edu.core;
 
-
-
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
+import java.util.*;
 
 public class Item {
 
@@ -14,19 +9,20 @@ public class Item {
 	 */
 	
 	private String descripcion;
+	private TipoItem tipoItem;
+	private int prioridad;
 	private EstadoItem estadoActual;
 	private Collection<EstadoItem> historialEstados;
-	private int prioridad;
-	private TipoItem tipoItem;
 	
-	public Item(String desc, TipoItem tipo)
+	//Constructor de la clase
+	public Item(String desc, TipoItem tipo, int prioridad1)
 	{
-		Date date= Calendar.getInstance().getTime();
+		Date date= new Date();
 		this.descripcion = desc;
+		this.tipoItem = tipo;
+		this.prioridad = prioridad1;
 		this.estadoActual = new EstadoItem(null,null,date,null,null,null);
 		this.historialEstados = new HashSet<EstadoItem>();
-		this.prioridad = 0;
-		this.tipoItem = tipo;
 	}
 	/**
 	 * 
@@ -43,12 +39,32 @@ public class Item {
 		this.descripcion = desc;
 	}
 	
+	public TipoItem getTipoItem()
+	{
+		return this.tipoItem;
+	}
+	
+	public void setTipoItem(TipoItem tipo)
+	{
+		this.tipoItem = tipo;
+	}
+	
+	public int getPrioridad()
+	{
+		return this.prioridad;
+	}
+	
+	public void setPrioridad(int prioridad1)
+	{
+		this.prioridad = prioridad1;
+	}
+	
 	public EstadoItem getEstadoActual()
 	{
 		return this.estadoActual;
 	}
 		
-	public void setDescripcion(EstadoItem  estado)
+	public void setEstadoActual(EstadoItem estado)
 	{
 		this.estadoActual = estado;
 	}
@@ -61,26 +77,7 @@ public class Item {
 	{
 		this.historialEstados = histo;
 	}
-	
-	public int getPrioridad()
-	{
-		return this.prioridad;
-	}
-	public void setPrioridad(int prio)
-	{
-		this.prioridad = prio;
-	}
-	
-	public TipoItem getTipoItem()
-	{
-		return this.tipoItem;
-	}
-	
-	public void setTipoItem(TipoItem tipo)
-	{
-		this.tipoItem = tipo;
-	}
-	
+		
 	
 	/** 
 	 * Metodos 
@@ -89,34 +86,30 @@ public class Item {
 	
 	public void cambiarEstadoItem(Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles)
 	{
-		Date date= Calendar.getInstance().getTime();
-		estadoActual.setFechaFin(date);
-		this.historialEstados.add(estadoActual);	
-		this.setEstadoActual(new EstadoItem(estado,null,date,"",miembrosDisponibles,responsable));
-	
+		Date date= new Date();
+		if (miembrosDisponibles.contains(responsable)) {
+			estadoActual.setFechaFin(date);
+			this.historialEstados.add(estadoActual);
+			this.setEstadoActual(new EstadoItem(estado,null,date,"",miembrosDisponibles,responsable));
+		} else {
+			System.out.println("El responsable no es un miembro disponible");
+		}
 	}
 
-	public void cambiarResponsable(Miembro responsable)//Guarda el estadoItem y crea un nuevo estadoItem con el responsable
+	public void cambiarResponsable(Miembro responsable, Collection<Miembro> miembrosDisponibles)//Guarda el estadoItem y crea un nuevo estadoItem con el responsable
 	{
-		Date date= Calendar.getInstance().getTime();
-		estadoActual.setFechaFin(date);
-		this.historialEstados.add(estadoActual);
-		this.setEstadoActual(new EstadoItem(estadoActual.getEstado(),null, date, "", estadoActual.getMiembrosDisponibles(), responsable));
+		Date date= new Date();
+		if (miembrosDisponibles.contains(responsable)) {
+			estadoActual.setFechaFin(date);
+			this.historialEstados.add(estadoActual);
+			this.setEstadoActual(new EstadoItem(estadoActual.getEstado(),null, date, "", estadoActual.getMiembrosDisponibles(), responsable));
+		} else {
+			System.out.println("El responsable no es un miembro disponible");
+		}
 	}	
 	
-	/**
-	 * @param estadoActual the estadoActual to set
-	 */
-	public void setEstadoActual(EstadoItem estadoActual) {
-		this.estadoActual = estadoActual;
-	}
-	public EstadoItem devolverEstadoAtual()
+	public Usuario responsableActual()
 	{
-		return this.estadoActual;
-	}
-	
-	public Miembro responsableActual()
-	{
-		return this.estadoActual.getResponsable();
+		return this.estadoActual.getResponsable().getUsuario();
 	}
 }
