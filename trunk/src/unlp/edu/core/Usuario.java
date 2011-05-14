@@ -1,6 +1,3 @@
-/**
- * 
- */
 package unlp.edu.core;
 
 /**
