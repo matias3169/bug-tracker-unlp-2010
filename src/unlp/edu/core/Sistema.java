@@ -3,8 +3,7 @@
  */
 package unlp.edu.core;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * @author G2_UNLP
