@@ -1,7 +1,5 @@
-/**
- * 
- */
 package unlp.edu.core;
+
 
 /**
  * @author G2_UNLP
