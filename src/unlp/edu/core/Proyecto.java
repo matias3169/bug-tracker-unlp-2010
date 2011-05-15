@@ -78,5 +78,27 @@ public class Proyecto {
 	 */
 	public void setMiembros(Collection<Miembro> miembros) {
 		this.miembros = miembros;
-	};
+	}
+	
+	public void nuevoEstado(TipoItem tipo, String estado){ //agregar un nuevo estado a la lista de estados del TipoItem
+		
+		tipo.agregarEstado(estado);
+	}
+	
+	public void nuevoItem(String desc, TipoItem tipo, int prioridad1){
+		this.items.add(new Item(desc, tipo, prioridad1));
+	}
+	
+	public void agregarMiembro(Miembro miembro){
+		this.miembros.add(miembro);
+	}
+	
+	public void nuevoTipoItem(String descripcion){ //creo el tipo de item sin estados
+		this.tiposItems.add(new TipoItem(descripcion, null, new HashSet<Estado>()));
+	}
+	
+	public void cambiarEstadoItem( Item item, Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles){
+		item.cambiarEstadoItem(estado, responsable, miembrosDisponibles);
+	}
 }
+
