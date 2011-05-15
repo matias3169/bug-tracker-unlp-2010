@@ -12,7 +12,7 @@ public class Miembro {
 	private Role role;
 	private Proyecto proyecto;
 	
-	public Miembro(Usuario usuario, Role role, Proyecto proyecto){
+	public Miembro(Proyecto proyecto, Usuario usuario, Role role){
 		this.setUsuario(usuario);
 		this.setRole(role);
 		this.setProyecto(proyecto);
