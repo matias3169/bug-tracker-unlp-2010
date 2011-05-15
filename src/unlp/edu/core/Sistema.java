@@ -133,4 +133,32 @@ public class Sistema {
     	return (HashSet<String>)permisos;
     }
     
+    public void nuevoMiembro(Proyecto proyecto, Usuario usuario, Role rol){
+    	Miembro miembro = new Miembro(proyecto, usuario, rol);
+    	proyecto.agregarMiembro(miembro);
+    }
+    
+    public void nuevoEstado(Proyecto proyecto, TipoItem tipoItem, String descripcion){
+    	proyecto.nuevoEstado(tipoItem, descripcion);
+    }
+    
+    public void nuevoProyecto(String nombre, Usuario usuario){
+    	Proyecto proyecto = new Proyecto(nombre);
+    	Role rol = new Role("Lider",new HashSet<String>()); // Revisar como queremos poner el rol y los permisos
+    	Miembro miembro = new Miembro(proyecto,usuario,rol);
+    	proyecto.agregarMiembro(miembro);
+    	this.proyectos.add(proyecto);
+    }
+    
+    public void nuevoTipoItem(String descripcion, Proyecto proyecto){
+    	proyecto.nuevoTipoItem(descripcion);
+    }
+    
+    public void nuevoUsuario(String nombre, Role rolSistema){
+    	this.usuarios.add(new Usuario(nombre, rolSistema));
+    }
+    
+    public void cambiarEstadoItem(Proyecto proyecto, Item item, Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles){
+    	proyecto.cambiarEstadoItem(item, estado, responsable, miembrosDisponibles);
+    }
 }
