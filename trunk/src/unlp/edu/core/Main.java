@@ -46,10 +46,10 @@ public class Main {
 		
 		Proyecto proyecto = new Proyecto("PROYECTO1");
 		
-		Miembro miembro1 = new Miembro(usuario1, role1, proyecto);
-		Miembro miembro2 = new Miembro(usuario2, role2, proyecto);
-		Miembro miembro3 = new Miembro(usuario3, role3, proyecto);
-		Miembro miembro4 = new Miembro(usuario4, role3, proyecto);
+		Miembro miembro1 = new Miembro(proyecto, usuario1, role1);
+		Miembro miembro2 = new Miembro(proyecto, usuario2, role2);
+		Miembro miembro3 = new Miembro(proyecto, usuario3, role3);
+		Miembro miembro4 = new Miembro(proyecto, usuario4, role3);
 		
 		miembrosDisponibles.add(miembro1);
 		miembrosDisponibles.add(miembro2);
@@ -58,7 +58,8 @@ public class Main {
 		TipoItem tipo1 = new TipoItem("Reporte de Bug",estado1,estadosPosibles);
 		Item item1=new Item("Corregir falla",tipo1,0);
 	
-		item1.cambiarEstadoItem(estado1, miembro1, miembrosDisponibles);
+		proyecto.cambiarEstadoItem(item1, estado1, miembro1, miembrosDisponibles);
+		//item1.cambiarEstadoItem(estado1, miembro1, miembrosDisponibles);
 		System.out.print("estadoActual= ");
 		System.out.println(item1.getEstadoActual().getEstado().getDescripcion());
 		System.out.print("fechaInicio= ");
