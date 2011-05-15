@@ -44,17 +44,9 @@ public class TipoItem {
 	 * Metodos
 	 */
 	
-	public Estado agregarEstado(String descripcion) // crea un estado y lo agrega a la lista de estados
+	public void agregarEstado(String descripcion) // crea un estado y lo agrega a la lista de estados del tipo
 	{
-		Estado e= new Estado(descripcion);
-		this.estadosPosibles.add(e);
-		return e;
+		this.estadosPosibles.add(new Estado(descripcion));
 	}
 	
-	
-	public Estado estadoInicial()
-	{
-		return this.estadoInicial;
-	}
-
 }
