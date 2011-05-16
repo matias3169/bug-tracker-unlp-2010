@@ -18,11 +18,7 @@ public class EstadoItem {
 	private Collection<Miembro> miembrosDisponibles;
 	private Miembro responsable;
 	
-	/**
-	 * Metodos
-	 * 
-	 */
-	
+	// Constructor de la clase
 	public EstadoItem(Estado estado, Date fechaFin, Date fechaInicio,
 			String fichaDeTrabajo,Collection<Miembro> miembrosDisponibles,
 			Miembro responsable) {
