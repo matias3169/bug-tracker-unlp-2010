@@ -9,8 +9,7 @@ public class TipoItem {
 	public Estado estadoInicial;
 	public Collection<Estado> estadosPosibles;
 	
-	public TipoItem(String descripcion, Estado estadoInicial,
-			Collection<Estado> estadosPosibles) {
+	public TipoItem(String descripcion, Estado estadoInicial, Collection<Estado> estadosPosibles) {
 		this.descripcion = descripcion;
 		this.estadoInicial = estadoInicial;
 		this.estadosPosibles = estadosPosibles;
@@ -44,9 +43,36 @@ public class TipoItem {
 	 * Metodos
 	 */
 	
-	public void agregarEstado(String descripcion) // crea un estado y lo agrega a la lista de estados del tipo
+	public Estado agregarEstado(String descripcion) // crea un estado y lo agrega a la lista de estados del tipo
 	{
-		this.estadosPosibles.add(new Estado(descripcion));
+		Estado estado = new Estado(descripcion);
+		this.estadosPosibles.add(estado);
+		return estado;
+	}
+	
+	public void agregarEstadoSiguiente(Estado estadoI, Estado estadoF){
+		if (this.estadosPosibles.contains(estadoI)) {
+			estadoI.agregarEstadoSiguiente(estadoF);
+		} else {
+			System.out.println("Estado Inicial inexistente.");
+		}
+	}
+	
+	public void listarEstadosPosibles(){
+		System.out.print("Estados Posibles del tipo de item ");
+		System.out.print(this.getDescripcion());
+		System.out.println(":");
+		Iterator<Estado> it = estadosPosibles.iterator();
+    	while(it.hasNext())
+    	{
+    		System.out.print(it.next().getDescripcion());
+    		System.out.print(", ");
+    	}
+    	System.out.println();
+	}
+	
+	public void listarEstadosSiguientes(Estado estado){
+		estado.listarEstadosSiguientes();
 	}
 	
 }
