@@ -12,6 +12,58 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		
+		Sistema sistema1 = new Sistema();
+		
+		Role rolSistema1 = sistema1.nuevoRolSistema("Super");
+		Role rolSistema2 = sistema1.nuevoRolSistema("Normal");
+		Role rolProyecto1 = sistema1.nuevoRolProyecto("Normal");
+		Usuario usuario1 = sistema1.nuevoUsuario("Usuario1", rolSistema1);
+		Usuario usuario2 = sistema1.nuevoUsuario("Usuario2", rolSistema2);
+		sistema1.listarUsuarios();
+		
+		Proyecto proyecto1 = new Proyecto("PROYECTO1");
+		
+		TipoItem tipo1 = sistema1.nuevoTipoItem("Reporte de Bug", proyecto1);
+		TipoItem tipo2 = sistema1.nuevoTipoItem("Nueva funcionalidad", proyecto1);
+		sistema1.listarTiposItem(proyecto1);
+		
+		sistema1.listarRolesSistema();
+		sistema1.listarRolesProyecto();
+		
+		Miembro miembro1 = sistema1.nuevoMiembro(proyecto1, usuario1,rolProyecto1);
+		Miembro miembro2 = sistema1.nuevoMiembro(proyecto1, usuario2,rolProyecto1);
+		
+		Item item1 = sistema1.nuevoItem(proyecto1, "Item1", tipo1, 0);
+		Item item2 = sistema1.nuevoItem(proyecto1, "Item2", tipo2, 3);
+		sistema1.listarItems(proyecto1);
+		
+		Estado estado1 = sistema1.nuevoEstado(proyecto1, tipo1, "Creado");
+		Estado estado2 = sistema1.nuevoEstado(proyecto1, tipo1, "Desarrollo");
+		Estado estado3 = sistema1.nuevoEstado(proyecto1, tipo1, "Validación");
+		Estado estado4 = sistema1.nuevoEstado(proyecto1, tipo1, "Terminado");
+		sistema1.agregarEstadoSiguiente(proyecto1, tipo1, estado1, estado2);
+		sistema1.agregarEstadoSiguiente(proyecto1, tipo1, estado2, estado3);
+		sistema1.agregarEstadoSiguiente(proyecto1, tipo1, estado3, estado4);
+		sistema1.agregarEstadoSiguiente(proyecto1, tipo1, estado3, estado2);
+		sistema1.listarEstadosPosibles(proyecto1, tipo1);
+		sistema1.listarEstadosSiguientes(proyecto1, tipo1, estado3);
+		
+		Collection<Miembro> miembrosDisponibles = new HashSet<Miembro>();
+		miembrosDisponibles.add(miembro1);
+		
+		sistema1.cambiarEstadoItem(proyecto1, item1, estado1, miembro1, miembrosDisponibles);
+		System.out.print("Estado actual del item ");
+		System.out.print(item1.getDescripcion());
+		System.out.print(": ");
+		System.out.println(sistema1.verEstadoActualItem(proyecto1, item1));
+		
+		sistema1.cambiarEstadoItem(proyecto1, item1, estado3, miembro2, miembrosDisponibles);
+		System.out.print("Estado actual del item ");
+		System.out.print(item1.getDescripcion());
+		System.out.print(": ");
+		System.out.println(sistema1.verEstadoActualItem(proyecto1, item1));
+		
+		/*
 		Collection<Estado> estadosPosibles = new HashSet<Estado>();
 		Collection<Miembro> miembrosDisponibles = new HashSet<Miembro>();
 			
@@ -84,5 +136,7 @@ public class Main {
 		System.out.println(item1.getEstadoActual().getFechaInicio());
 		System.out.print("responsable= ");
 		System.out.println(item1.getEstadoActual().getResponsable().getUsuario().getNombre());
+	*/
 	}
+	
 }
