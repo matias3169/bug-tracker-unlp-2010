@@ -18,10 +18,11 @@ public class Item {
 	public Item(String desc, TipoItem tipo, int prioridad1)
 	{
 		Date date= new Date();
+		Estado estadoIni = new Estado("Recien creado"); // VER ESTO
 		this.descripcion = desc;
 		this.tipoItem = tipo;
 		this.prioridad = prioridad1;
-		this.estadoActual = new EstadoItem(null,null,date,null,null,null);
+		this.estadoActual = new EstadoItem(estadoIni,null,date,null,null,null);
 		this.historialEstados = new HashSet<EstadoItem>();
 	}
 	/**
@@ -91,8 +92,15 @@ public class Item {
 			estadoActual.setFechaFin(date);
 			this.historialEstados.add(estadoActual);
 			this.setEstadoActual(new EstadoItem(estado,null,date,"",miembrosDisponibles,responsable));
+		/*	if (this.estadoActual.getEstado().getEstadosSiguientes().contains(estado)) { // Controla si estado es un estado siguiente posible
+				estadoActual.setFechaFin(date);
+				this.historialEstados.add(estadoActual);
+				this.setEstadoActual(new EstadoItem(estado,null,date,"",miembrosDisponibles,responsable));
+			} else {
+				System.out.println("El estado al que quiere pasar no es un estado posible.");
+			}*/
 		} else {
-			System.out.println("El responsable no es un miembro disponible");
+			System.out.println("El responsable no es un miembro disponible.");
 		}
 	}
 
@@ -111,5 +119,9 @@ public class Item {
 	public Usuario responsableActual()
 	{
 		return this.estadoActual.getResponsable().getUsuario();
+	}
+	
+	public String verEstadoActual(){
+		return this.estadoActual.getEstado().getDescripcion();
 	}
 }
