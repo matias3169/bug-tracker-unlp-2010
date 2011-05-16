@@ -15,7 +15,7 @@ public class Role {
 	private String nombre;
 	private Collection<String> permisos;
 	
-	
+	//Constructor de la clase
 	public Role(String nombre, Collection<String> permisos) {
 		this.setNombre(nombre);
 		this.setPermisos(permisos);
@@ -47,6 +47,10 @@ public class Role {
 	 */
 	public void setPermisos(Collection<String> permisos) {
 		this.permisos = permisos;
+	}
+	
+	public void agregarPermiso(String descripcion){
+		this.permisos.add(descripcion);
 	}
 
 }
