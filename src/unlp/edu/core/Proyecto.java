@@ -80,25 +80,66 @@ public class Proyecto {
 		this.miembros = miembros;
 	}
 	
-	public void nuevoEstado(TipoItem tipo, String estado){ //agregar un nuevo estado a la lista de estados del TipoItem
-		
-		tipo.agregarEstado(estado);
+	public Estado nuevoEstado(TipoItem tipo, String descripcion){ //crea un nuevo estado y lo agrega a la lista de estados del TipoItem
+		 return tipo.agregarEstado(descripcion);
 	}
 	
-	public void nuevoItem(String desc, TipoItem tipo, int prioridad1){
-		this.items.add(new Item(desc, tipo, prioridad1));
+	public Item nuevoItem(String desc, TipoItem tipo, int prioridad1){
+		Item item = new Item(desc, tipo, prioridad1);
+		this.items.add(item);
+		return item;
 	}
 	
 	public void agregarMiembro(Miembro miembro){
 		this.miembros.add(miembro);
 	}
 	
-	public void nuevoTipoItem(String descripcion){ //creo el tipo de item sin estados
-		this.tiposItems.add(new TipoItem(descripcion, null, new HashSet<Estado>()));
+	public TipoItem nuevoTipoItem(String descripcion){ //creo el tipo de item sin estados
+		TipoItem tipo = new TipoItem(descripcion, null, new HashSet<Estado>());
+		this.tiposItems.add(tipo);
+		return tipo;
 	}
 	
 	public void cambiarEstadoItem( Item item, Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles){
 		item.cambiarEstadoItem(estado, responsable, miembrosDisponibles);
+	}
+	public void agregarEstadoSiguiente(TipoItem tipo, Estado estadoI, Estado estadoF){
+		tipo.agregarEstadoSiguiente(estadoI, estadoF);
+	}
+	
+	public String verEstadoActualItem(Item item){
+		return item.verEstadoActual();
+	}
+	
+	public void listarTiposItem(){
+		System.out.println("Tipos de item del proyecto:");
+		Iterator<TipoItem> it = tiposItems.iterator();
+    	while(it.hasNext())
+    	{
+    		System.out.print(it.next().getDescripcion());
+    		System.out.print(", ");
+    	}
+    	System.out.println();
+	}
+	public void listarItems(){
+		System.out.print("Items del proyecto ");
+		System.out.print(this.getNombre());
+		System.out.println(":");
+		Iterator<Item> it = items.iterator();
+    	while(it.hasNext())
+    	{
+    		System.out.print(it.next().getDescripcion());
+    		System.out.print(", ");
+    	}
+    	System.out.println();
+	}
+	
+	public void listarEstadosPosibles(TipoItem tipo){
+		tipo.listarEstadosPosibles();
+	}
+	
+	public void listarEstadosSiguientes(TipoItem tipo, Estado estado){
+		tipo.listarEstadosSiguientes(estado);
 	}
 }
 
