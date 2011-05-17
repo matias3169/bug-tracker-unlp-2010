@@ -7,7 +7,14 @@ public class Item {
 	/**
 	 * @param args
 	 */
-	
+	private String nombre;
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
 	private String descripcion;
 	private TipoItem tipoItem;
 	private int prioridad;
@@ -15,10 +22,11 @@ public class Item {
 	private Collection<EstadoItem> historialEstados;
 	
 	//Constructor de la clase
-	public Item(String desc, TipoItem tipo, int prioridad1)
+	public Item(String nombre, String desc, TipoItem tipo, int prioridad1)
 	{
 		Date date= new Date();
-		Estado estadoIni = new Estado("Recien creado"); // VER ESTO
+		this.nombre = nombre;
+		Estado estadoIni = null;
 		this.descripcion = desc;
 		this.tipoItem = tipo;
 		this.prioridad = prioridad1;
@@ -85,13 +93,13 @@ public class Item {
 	 * 
 	 */
 	
-	public void cambiarEstadoItem(Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles)
+	public void cambiarEstadoItem(Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fechaFin)
 	{
-		Date date= new Date();
+	
 		if (miembrosDisponibles.contains(responsable)) {
-			estadoActual.setFechaFin(date);
+			estadoActual.setFechaFin(fechaFin);
 			this.historialEstados.add(estadoActual);
-			this.setEstadoActual(new EstadoItem(estado,null,date,"",miembrosDisponibles,responsable));
+			this.setEstadoActual(new EstadoItem(estado,null,fechaFin,"",miembrosDisponibles,responsable));
 		/*	if (this.estadoActual.getEstado().getEstadosSiguientes().contains(estado)) { // Controla si estado es un estado siguiente posible
 				estadoActual.setFechaFin(date);
 				this.historialEstados.add(estadoActual);
@@ -104,13 +112,13 @@ public class Item {
 		}
 	}
 
-	public void cambiarResponsable(Miembro responsable, Collection<Miembro> miembrosDisponibles)//Guarda el estadoItem y crea un nuevo estadoItem con el responsable
+	public void cambiarResponsable(Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fechaFin)//Guarda el estadoItem y crea un nuevo estadoItem con el responsable
 	{
-		Date date= new Date();
+	
 		if (miembrosDisponibles.contains(responsable)) {
-			estadoActual.setFechaFin(date);
+			estadoActual.setFechaFin(fechaFin);
 			this.historialEstados.add(estadoActual);
-			this.setEstadoActual(new EstadoItem(estadoActual.getEstado(),null, date, "", estadoActual.getMiembrosDisponibles(), responsable));
+			this.setEstadoActual(new EstadoItem(estadoActual.getEstado(),null, fechaFin, "", estadoActual.getMiembrosDisponibles(), responsable));
 		} else {
 			System.out.println("El responsable no es un miembro disponible");
 		}
