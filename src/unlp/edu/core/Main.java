@@ -33,8 +33,8 @@ public class Main {
 		Miembro miembro1 = sistema1.nuevoMiembro(proyecto1, usuario1,rolProyecto1);
 		Miembro miembro2 = sistema1.nuevoMiembro(proyecto1, usuario2,rolProyecto1);
 		
-		Item item1 = sistema1.nuevoItem(proyecto1, "Item1", tipo1, 0);
-		Item item2 = sistema1.nuevoItem(proyecto1, "Item2", tipo2, 3);
+		Item item1 = sistema1.nuevoItem("Item1", "descripcion item1", tipo1, 0, proyecto1);
+		Item item2 = sistema1.nuevoItem("Item2", "descripcion item2", tipo2, 3, proyecto1);
 		sistema1.listarItems(proyecto1);
 		
 		Estado estado1 = sistema1.nuevoEstado(proyecto1, tipo1, "Creado");
@@ -50,93 +50,85 @@ public class Main {
 		
 		Collection<Miembro> miembrosDisponibles = new HashSet<Miembro>();
 		miembrosDisponibles.add(miembro1);
+		miembrosDisponibles.add(miembro2);
 		
-		sistema1.cambiarEstadoItem(proyecto1, item1, estado1, miembro1, miembrosDisponibles);
+		Calendar cal = Calendar.getInstance();
+		cal.set(2010, 11, 11);
+		sistema1.cambiarEstadoItem(proyecto1, item1, estado1, miembro1, miembrosDisponibles,cal.getTime());
 		System.out.print("Estado actual del item ");
-		System.out.print(item1.getDescripcion());
+		System.out.print(item1.getNombre());
 		System.out.print(": ");
 		System.out.println(sistema1.verEstadoActualItem(proyecto1, item1));
 		
-		sistema1.cambiarEstadoItem(proyecto1, item1, estado3, miembro2, miembrosDisponibles);
+		cal.set(2010, 11, 20);
+		sistema1.cambiarEstadoItem(proyecto1, item1, estado3, miembro2, miembrosDisponibles,cal.getTime());
 		System.out.print("Estado actual del item ");
-		System.out.print(item1.getDescripcion());
+		System.out.print(item1.getNombre());
 		System.out.print(": ");
 		System.out.println(sistema1.verEstadoActualItem(proyecto1, item1));
 		
 		/*
-		Collection<Estado> estadosPosibles = new HashSet<Estado>();
-		Collection<Miembro> miembrosDisponibles = new HashSet<Miembro>();
-			
-		Estado estado1 = new Estado("Iniciado");
-		Estado estado2 = new Estado("Desarrollo");
-		Estado estado3 = new Estado("Validacion");
-		Estado estado4 = new Estado("Cerrado");
-		estado1.agregarEstadoSiguiente(estado2);
-		estado2.agregarEstadoSiguiente(estado3);
-		estado3.agregarEstadoSiguiente(estado2);
-		estado3.agregarEstadoSiguiente(estado4);
-		System.out.print("estado1= ");
-		System.out.println(estado1.getDescripcion());
+		//Creacion de sistema, usuarios y proyecto
+		Sistema sistema = new Sistema();
+		sistema.nuevoUsuario("Linus Torvals", sistema.getRoleSistema("Developer"));
+		sistema.nuevoUsuario("Steve Jobs", sistema.getRoleSistema("Developer"));
+		sistema.nuevoUsuario("Richard Stallman", sistema.getRoleSistema("Developer"));
+		sistema.nuevoProyecto("PROYECTO1", sistema.getUsuario("Linus Torvals"));
 		
-		estadosPosibles.add(estado1);
-		estadosPosibles.add(estado2);
-		estadosPosibles.add(estado3);
-		estadosPosibles.add(estado4);
+		//Se agregan nuevos miembros al proyecto
+		sistema.nuevoMiembro(sistema.getProyecto("PROYECTO1"), sistema.getUsuario("Steve Jobs"), sistema.getRoleProyecto("DBA"));
+		sistema.nuevoMiembro(sistema.getProyecto("PROYECTO1"), sistema.getUsuario("Richard Stallman"), sistema.getRoleProyecto("Tester"));
 		
-		Role role1 = new Role("Analista funcional", new HashSet<String>());
-		Role role2 = new Role("Desarrollador", new HashSet<String>());
-		Role role3 = new Role("Tester", new HashSet<String>());
+		//Se crean nuevos tipos de items para el proyecto y se settean sus estados
+		sistema.nuevoTipoItem("Reporte de Bug", sistema.getProyecto("PROYECTO1"));
+		sistema.nuevoEstado(sistema.getProyecto("PROYECTO1"), sistema.getTipoItem("Reporte de Bug", sistema.getProyecto("PROYECTO1")),"Iniciado");
+		sistema.nuevoEstado(sistema.getProyecto("PROYECTO1"), sistema.getTipoItem("Reporte de Bug", sistema.getProyecto("PROYECTO1")),"Desarrollo");
+		sistema.nuevoEstado(sistema.getProyecto("PROYECTO1"), sistema.getTipoItem("Reporte de Bug", sistema.getProyecto("PROYECTO1")),"Validacion");
+		sistema.nuevoEstado(sistema.getProyecto("PROYECTO1"), sistema.getTipoItem("Reporte de Bug", sistema.getProyecto("PROYECTO1")),"Cerrado");
+		sistema.asignarEstadoSiguiente(sistema.getProyecto("PROYECTO1"),sistema.getTipoItem("Reporte de Bug", sistema.getProyecto("PROYECTO1")),"Iniciado","Desarrollo");
+		sistema.asignarEstadoSiguiente(sistema.getProyecto("PROYECTO1"),sistema.getTipoItem("Reporte de Bug", sistema.getProyecto("PROYECTO1")),"Desarrollo","Validacion");
+		sistema.asignarEstadoSiguiente(sistema.getProyecto("PROYECTO1"),sistema.getTipoItem("Reporte de Bug", sistema.getProyecto("PROYECTO1")),"Desarrollo","Cerrado");
+		sistema.asignarEstadoSiguiente(sistema.getProyecto("PROYECTO1"),sistema.getTipoItem("Reporte de Bug", sistema.getProyecto("PROYECTO1")),"Validacion","Desarrollo");
+		sistema.asignarEstadoSiguiente(sistema.getProyecto("PROYECTO1"),sistema.getTipoItem("Reporte de Bug", sistema.getProyecto("PROYECTO1")),"Validacion","Cerrado");
 		
-		Role roleSistema1 = new Role("SysAdmin", new HashSet<String>());
-		Role roleSistema2 = new Role("Usuario", new HashSet<String>());
-		Role roleSistema3 = new Role("Usuario", new HashSet<String>());
-			
-		Usuario usuario1 = new Usuario("Vale", roleSistema1);
-		Usuario usuario2 = new Usuario("Santi", roleSistema2);
-		Usuario usuario3 = new Usuario("Matias", roleSistema3);
-		Usuario usuario4 = new Usuario("Usuario4", roleSistema3);
+		sistema.nuevoTipoItem("Evolutivo", sistema.getProyecto("PROYECTO1"));
+		sistema.nuevoEstado(sistema.getProyecto("PROYECTO1"), sistema.getTipoItem("Evolutivo", sistema.getProyecto("PROYECTO1")),"Iniciado");
+		sistema.nuevoEstado(sistema.getProyecto("PROYECTO1"), sistema.getTipoItem("Evolutivo", sistema.getProyecto("PROYECTO1")),"Desarrollo");
+		sistema.nuevoEstado(sistema.getProyecto("PROYECTO1"), sistema.getTipoItem("Evolutivo", sistema.getProyecto("PROYECTO1")),"Cerrado");
+		sistema.asignarEstadoSiguiente(sistema.getProyecto("PROYECTO1"),sistema.getTipoItem("Evolutivo", sistema.getProyecto("PROYECTO1")),"Iniciado","Desarrollo");
+		sistema.asignarEstadoSiguiente(sistema.getProyecto("PROYECTO1"),sistema.getTipoItem("Evolutivo", sistema.getProyecto("PROYECTO1")),"Desarrollo","Cerrado");		
 		
-		Proyecto proyecto = new Proyecto("PROYECTO1");
+		//Se crean nuevos items y setean sus estados iniciales
+		sistema.nuevoItem("RB0001","Error en casteo en formater", sistema.getTipoItem("Reporte de Bug", sistema.getProyecto("PROYECTO1")), 5, sistema.getProyecto("PROYECTO1"));
+		sistema.cambiarEstadoItem(sistema.getProyecto("PROYECTO1"), 
+				sistema.getItem(sistema.getProyecto("PROYECTO1"),"RB0001"), 
+				sistema.getEstado(sistema.getProyecto("PROYECTO1"), sistema.getTipoItem("Reporte de Bug", sistema.getProyecto("PROYECTO1")), "Iniciado"),
+				sistema.getMiembro(sistema.getProyecto("PROYECTO1"), "Steve Jobs"),
+				sistema.getProyecto("PROYECTO1").getMiembros(),
+				new Date());
+		sistema.nuevoItem("E0002","Cambios para interoperabilidad", sistema.getTipoItem("Evolutivo", sistema.getProyecto("PROYECTO1")), 0, sistema.getProyecto("PROYECTO1"));
+		sistema.cambiarEstadoItem(sistema.getProyecto("PROYECTO1"), 
+				sistema.getItem(sistema.getProyecto("PROYECTO1"),"E0002"), 
+				sistema.getEstado(sistema.getProyecto("PROYECTO1"), sistema.getTipoItem("Evolutivo", sistema.getProyecto("PROYECTO1")), "Iniciado"),
+				sistema.getMiembro(sistema.getProyecto("PROYECTO1"), "Steve Jobs"),
+				sistema.getProyecto("PROYECTO1").getMiembros(),
+				new Date());
 		
-		Miembro miembro1 = new Miembro(proyecto, usuario1, role1);
-		Miembro miembro2 = new Miembro(proyecto, usuario2, role2);
-		Miembro miembro3 = new Miembro(proyecto, usuario3, role3);
-		Miembro miembro4 = new Miembro(proyecto, usuario4, role3);
+		//Se cambian de estados los items
+		System.out.println("Estado inicial:" + sistema.getEstadoActualItem(sistema.getProyecto("PROYECTO1"), "RB0001").getEstado().getDescripcion());
+		sistema.cambiarEstadoItem(sistema.getProyecto("PROYECTO1"), 
+				sistema.getItem(sistema.getProyecto("PROYECTO1"),"RB0001"), 
+				sistema.getEstado(sistema.getProyecto("PROYECTO1"), sistema.getTipoItem("Reporte de Bug", sistema.getProyecto("PROYECTO1")), "Validacion"),
+				sistema.getMiembro(sistema.getProyecto("PROYECTO1"), "Steve Jobs"),
+				sistema.getProyecto("PROYECTO1").getMiembros(),
+				new Date());
+		System.out.println("Estado final:" + sistema.getEstadoActualItem(sistema.getProyecto("PROYECTO1"), "RB0001").getEstado().getDescripcion());
 		
-		miembrosDisponibles.add(miembro1);
-		miembrosDisponibles.add(miembro2);
-		miembrosDisponibles.add(miembro3);
-		
-		TipoItem tipo1 = new TipoItem("Reporte de Bug",estado1,estadosPosibles);
-		Item item1=new Item("Corregir falla",tipo1,0);
-	
-		proyecto.cambiarEstadoItem(item1, estado1, miembro1, miembrosDisponibles);
-		//item1.cambiarEstadoItem(estado1, miembro1, miembrosDisponibles);
-		System.out.print("estadoActual= ");
-		System.out.println(item1.getEstadoActual().getEstado().getDescripcion());
-		System.out.print("fechaInicio= ");
-		System.out.println(item1.getEstadoActual().getFechaInicio());
-		System.out.print("responsable= ");
-		System.out.println(item1.getEstadoActual().getResponsable().getUsuario().getNombre());
-		System.out.println();
-		
-		item1.cambiarEstadoItem(estado2, miembro4, miembrosDisponibles);
-		System.out.print("estadoActual= ");
-		System.out.println(item1.getEstadoActual().getEstado().getDescripcion());
-		System.out.print("fechaInicio= ");
-		System.out.println(item1.getEstadoActual().getFechaInicio());
-		System.out.print("responsable= ");
-		System.out.println(item1.getEstadoActual().getResponsable().getUsuario().getNombre());
-		System.out.println();
-		
-		item1.cambiarResponsable(miembro3, miembrosDisponibles);
-		System.out.print("estadoActual= ");
-		System.out.println(item1.getEstadoActual().getEstado().getDescripcion());
-		System.out.print("fechaInicio= ");
-		System.out.println(item1.getEstadoActual().getFechaInicio());
-		System.out.print("responsable= ");
-		System.out.println(item1.getEstadoActual().getResponsable().getUsuario().getNombre());
-	*/
+		//Se mantiene el estado y se cambia el responsable
+		System.out.println("Responsable inicial:" + sistema.getProyecto("PROYECTO1").getItem("RB0001").getEstadoActual().getResponsable().getUsuario().getNombre());
+		sistema.getProyecto("PROYECTO1").getItem("RB0001").cambiarResponsable(sistema.getProyecto("PROYECTO1").getMiembro("Richard Stallman"), sistema.getProyecto("PROYECTO1").getMiembros(), new Date());
+		System.out.println("Responsable final:" + sistema.getProyecto("PROYECTO1").getItem("RB0001").getEstadoActual().getResponsable().getUsuario().getNombre());
+		*/
 	}
 	
 }
