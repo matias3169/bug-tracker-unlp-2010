@@ -84,8 +84,8 @@ public class Proyecto {
 		 return tipo.agregarEstado(descripcion);
 	}
 	
-	public Item nuevoItem(String desc, TipoItem tipo, int prioridad1){
-		Item item = new Item(desc, tipo, prioridad1);
+	public Item nuevoItem(String nombre, String desc, TipoItem tipo, int prioridad1){
+		Item item = new Item(nombre, desc, tipo, prioridad1);
 		this.items.add(item);
 		return item;
 	}
@@ -95,15 +95,67 @@ public class Proyecto {
 	}
 	
 	public TipoItem nuevoTipoItem(String descripcion){ //creo el tipo de item sin estados
-		TipoItem tipo = new TipoItem(descripcion, null, new HashSet<Estado>());
-		this.tiposItems.add(tipo);
-		return tipo;
+		TipoItem tipoItem = new TipoItem(descripcion, null, new HashSet<Estado>());
+		this.tiposItems.add(tipoItem);
+		return tipoItem;
 	}
 	
-	public void cambiarEstadoItem( Item item, Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles){
-		item.cambiarEstadoItem(estado, responsable, miembrosDisponibles);
+	public void cambiarEstadoItem( Item item, Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fecha){
+		item.cambiarEstadoItem(estado, responsable, miembrosDisponibles, fecha);
 	}
-	public void agregarEstadoSiguiente(TipoItem tipo, Estado estadoI, Estado estadoF){
+
+	public Estado getEstado(TipoItem tipoItem, String descripcion) {
+		return tipoItem.getEstado(descripcion);
+	}
+	
+    public TipoItem getTipoItem(String descripcion){
+    	Iterator<TipoItem> it = this.getTiposItems().iterator();
+    	boolean notFound = true;
+    	TipoItem tit, tipoItem = null; 
+    		
+    	while (it.hasNext() && notFound) {
+    		
+			tit = (TipoItem) it.next();
+			if (tit.getDescripcion().equals(descripcion)){
+				notFound = false;
+				tipoItem = tit;
+			}
+		}
+    	return tipoItem;
+    }
+    
+    public Item getItem(String nombre){
+    	Iterator<Item> it = this.getItems().iterator();
+    	boolean notFound = true;
+    	Item iit, item = null; 
+    		
+    	while (it.hasNext() && notFound) {
+    		
+			iit = (Item) it.next();
+			if (iit.getNombre().equals(nombre)){
+				notFound = false;
+				item = iit;
+			}
+		}
+    	return item;
+    }
+
+	public Miembro getMiembro(String nombre) {
+    	Iterator<Miembro> it = this.getMiembros().iterator();
+    	boolean notFound = true;
+    	Miembro mit, miembro = null; 
+    		
+    	while (it.hasNext() && notFound) {
+    		
+			mit = (Miembro) it.next();
+			if (mit.getUsuario().getNombre().equals(nombre)){
+				notFound = false;
+				miembro = mit;
+			}
+		}
+    	return miembro;
+	}
+	public void agregarEstadoSiguiente(TipoItem tipo, String estadoI, String estadoF){
 		tipo.agregarEstadoSiguiente(estadoI, estadoF);
 	}
 	
@@ -128,7 +180,7 @@ public class Proyecto {
 		Iterator<Item> it = items.iterator();
     	while(it.hasNext())
     	{
-    		System.out.print(it.next().getDescripcion());
+    		System.out.print(it.next().getNombre());
     		System.out.print(", ");
     	}
     	System.out.println();
