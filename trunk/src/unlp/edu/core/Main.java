@@ -39,12 +39,12 @@ public class Main {
 		
 		Estado estado1 = sistema1.nuevoEstado(proyecto1, tipo1, "Creado");
 		Estado estado2 = sistema1.nuevoEstado(proyecto1, tipo1, "Desarrollo");
-		Estado estado3 = sistema1.nuevoEstado(proyecto1, tipo1, "Validación");
+		Estado estado3 = sistema1.nuevoEstado(proyecto1, tipo1, "Validacion");
 		Estado estado4 = sistema1.nuevoEstado(proyecto1, tipo1, "Terminado");
-		sistema1.agregarEstadoSiguiente(proyecto1, tipo1, estado1, estado2);
-		sistema1.agregarEstadoSiguiente(proyecto1, tipo1, estado2, estado3);
-		sistema1.agregarEstadoSiguiente(proyecto1, tipo1, estado3, estado4);
-		sistema1.agregarEstadoSiguiente(proyecto1, tipo1, estado3, estado2);
+		sistema1.agregarEstadoSiguiente(proyecto1, tipo1, "Creado", "Desarrollo");
+		sistema1.agregarEstadoSiguiente(proyecto1, tipo1, "Desarrollo", "Validacion");
+		sistema1.agregarEstadoSiguiente(proyecto1, tipo1, "Validacion", "Terminado");
+		sistema1.agregarEstadoSiguiente(proyecto1, tipo1, "Validacion", "Terminado");
 		sistema1.listarEstadosPosibles(proyecto1, tipo1);
 		sistema1.listarEstadosSiguientes(proyecto1, tipo1, estado3);
 		
