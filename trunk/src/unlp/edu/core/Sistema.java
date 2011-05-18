@@ -175,16 +175,112 @@ public class Sistema {
     	return rol;
     }
     
-    public Item nuevoItem(Proyecto proyecto, String descripcion, TipoItem tipo, int prioridad2){
-    	return proyecto.nuevoItem(descripcion, tipo, prioridad2);
+    public Item nuevoItem(String nombre, String descripcion, TipoItem tipo, int prioridad, Proyecto proyecto){
+    	return proyecto.nuevoItem(nombre, descripcion, tipo, prioridad);
     }
     
-    public void cambiarEstadoItem(Proyecto proyecto, Item item, Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles){
-    	proyecto.cambiarEstadoItem(item, estado, responsable, miembrosDisponibles);
+    public void cambiarEstadoItem(Proyecto proyecto, Item item, Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fecha){
+    	proyecto.cambiarEstadoItem(item, estado, responsable, miembrosDisponibles, fecha);
     }
     
-    public void agregarEstadoSiguiente(Proyecto proyecto, TipoItem tipo, Estado estadoI, Estado estadoF){
-    	proyecto.agregarEstadoSiguiente(tipo, estadoI, estadoF);
+	public void agregarEstadoSiguiente(Proyecto proyecto, TipoItem tipo, String estadoI, String estadoF){
+	    	proyecto.agregarEstadoSiguiente(tipo, estadoI, estadoF);
+	}
+    
+    public Collection<TipoItem> getTiposItems(Proyecto proyecto){
+    	return proyecto.getTiposItems();
+    }
+
+	public Estado getEstado(Proyecto proyecto, TipoItem tipoItem, String descripcion) {
+		return proyecto.getEstado(tipoItem,descripcion);
+	}
+	
+	public Miembro getMiembro(Proyecto proyecto, String nombre){
+		return proyecto.getMiembro(nombre);
+	}
+	
+	public Role getRoleSistema(String descripcion){
+	  	Iterator<Role> it = this.getRolesSistema().iterator();
+	   	boolean notFound = true;
+	   	Role rit, role = null; 
+	    		
+	   	while (it.hasNext() && notFound) {
+	   		
+			rit = (Role) it.next();
+			if (rit.getNombre().equals(descripcion)){
+				notFound = false;
+				role = rit;
+			}
+		}
+	   	return role;
+	}
+	    
+	public Proyecto getProyecto(String descripcion){
+	   	Iterator<Proyecto> it = this.getProyectos().iterator();
+	   	boolean notFound = true;
+	   	Proyecto pit, proyecto = null; 
+	    		
+	  	while (it.hasNext() && notFound) {
+	    		
+			pit = (Proyecto) it.next();
+			if (pit.getNombre().equals(descripcion)){
+				notFound = false;
+				proyecto = pit;
+			}
+		}
+	   	return proyecto;
+	}
+	    
+	public Usuario getUsuario(String nombre){
+	   	Iterator<Usuario> it = this.getUsuarios().iterator();
+	   	boolean notFound = true;
+	   	Usuario uit, usuario = null; 
+	    		
+    	while (it.hasNext() && notFound) {
+    		
+			uit = (Usuario) it.next();
+			if (uit.getNombre().equals(nombre)){
+				notFound = false;
+				usuario = uit;
+			}
+		}
+    	return usuario;
+    }
+	    
+    public TipoItem getTipoItem(String descripcion, Proyecto proyecto){
+    	Iterator<TipoItem> it = this.getTiposItems(proyecto).iterator();
+    	boolean notFound = true;
+    	TipoItem tit, tipoItem = null; 
+    		
+    	while (it.hasNext() && notFound) {
+    		
+			tit = (TipoItem) it.next();
+			if (tit.getDescripcion().equals(descripcion)){
+				notFound = false;
+				tipoItem = tit;
+			}
+		}
+    	return tipoItem;
+    }
+	    
+    public Role getRoleProyecto(String descripcion){
+    	Iterator<Role> it = this.getRolesProyecto().iterator();
+    	boolean notFound = true;
+    	Role rit, role = null; 
+    		
+    	while (it.hasNext() && notFound) {
+    		
+			rit = (Role) it.next();
+			if (rit.getNombre().equals(descripcion)){
+				notFound = false;
+				role = rit;
+			}
+		}
+    	return role;
+    }
+	    
+    public Item getItem(Proyecto proyecto, String nombre){
+    	return proyecto.getItem(nombre);
     }
     
     public String verEstadoActualItem(Proyecto proyecto, Item item){

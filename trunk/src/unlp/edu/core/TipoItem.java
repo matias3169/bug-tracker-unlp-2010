@@ -49,6 +49,26 @@ public class TipoItem {
 		this.estadosPosibles.add(estado);
 		return estado;
 	}
+
+	public Estado getEstado(String descripcion) {
+		Iterator<Estado> it = this.getEstadosPosibles().iterator();
+    	boolean notFound = true;
+    	Estado eit, estado = null; 
+    		
+    	while (it.hasNext() && notFound) {
+    		
+			eit = (Estado) it.next();
+			if (eit.getDescripcion().equals(descripcion)){
+				notFound = false;
+				estado = eit;
+			}
+		}
+    	return estado;
+	}
+	
+	public void agregarEstadoSiguiente(String estadoI, String estadoF){
+		this.getEstado(estadoI).agregarEstadoSiguiente(this.getEstado(estadoF));
+	}
 	
 	public void agregarEstadoSiguiente(Estado estadoI, Estado estadoF){
 		if (this.estadosPosibles.contains(estadoI)) {
