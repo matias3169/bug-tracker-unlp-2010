@@ -88,7 +88,7 @@ public class TipoItem {
     		System.out.print(it.next().getDescripcion());
     		System.out.print(", ");
     	}
-    	System.out.println();
+    	System.out.println("\n");
 	}
 	
 	public void listarEstadosSiguientes(Estado estado){

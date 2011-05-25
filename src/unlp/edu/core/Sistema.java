@@ -21,11 +21,8 @@ public class Sistema {
 	{
 		this.setProyectos(new HashSet<Proyecto>());
 		this.setUsuarios(new HashSet<Usuario>());
-		
 		this.setRolesSistema();
 		this.setRolesProyecto();
-
-		System.out.println("Sistema creado");
 	}
 	
 	/**
@@ -175,8 +172,8 @@ public class Sistema {
     	return rol;
     }
     
-    public Item nuevoItem(String nombre, String descripcion, TipoItem tipo, int prioridad, Proyecto proyecto){
-    	return proyecto.nuevoItem(nombre, descripcion, tipo, prioridad);
+    public Item nuevoItem(String nombre, String descripcion, TipoItem tipo, int prioridad, Proyecto proyecto, Miembro responsable){
+    	return proyecto.nuevoItem(nombre, descripcion, tipo, prioridad, responsable);
     }
     
     public void cambiarEstadoItem(Proyecto proyecto, Item item, Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fecha){
@@ -295,7 +292,7 @@ public class Sistema {
     		System.out.print(it.next().getNombre());
     		System.out.print(", ");
     	}
-    	System.out.println();
+    	System.out.println("\n");
     }
     
     public void listarRolesSistema(){
@@ -306,7 +303,7 @@ public class Sistema {
     		System.out.print(it.next().getNombre());
     		System.out.print(", ");
     	}
-    	System.out.println();
+    	System.out.println("\n");
     }
     
     public void listarRolesProyecto(){
@@ -317,7 +314,7 @@ public class Sistema {
     		System.out.print(it.next().getNombre());
     		System.out.print(", ");
     	}
-    	System.out.println();
+    	System.out.println("\n");
     }
     
     public void listarTiposItem(Proyecto proyecto){
@@ -334,5 +331,24 @@ public class Sistema {
     
     public void listarEstadosSiguientes(Proyecto proyecto, TipoItem tipo, Estado estado){
     	proyecto.listarEstadosSiguientes(tipo, estado);
+    }
+    
+    public HashSet<EstadoItem> getEstadosHistoricosItem(Proyecto proyecto, Item item, Date fec_inicio, Date fec_fin){
+    	return proyecto.getEstadosHistoricosItem(item,fec_inicio,fec_fin);
+    }
+    
+    public void listarEstadosHistoricosItem(Proyecto proyecto, Item item, Date fec_inicio, Date fec_fin){
+	    System.out.println("Estados historicos de item:" + item.getNombre());
+		Iterator<EstadoItem> it = this.getEstadosHistoricosItem(proyecto, item, fec_inicio, fec_fin).iterator();
+		
+		while(it.hasNext())
+		{
+			EstadoItem ei = it.next();
+			if (ei.getEstado() != null)
+			{
+				System.out.println("Estado:" + ei.getEstado().getDescripcion() + " Fecha inicio:" + ei.getFechaInicio() + " Responsable:" + ei.getResponsable().getUsuario().getNombre());
+			}
+		}
+		System.out.println("\n");
     }
 }

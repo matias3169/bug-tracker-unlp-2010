@@ -48,6 +48,6 @@ public class Estado {
     		System.out.print(it.next().getDescripcion());
     		System.out.print(", ");
     	}
-    	System.out.println();
+    	System.out.println("\n");
 	}
 }
