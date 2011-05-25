@@ -84,8 +84,8 @@ public class Proyecto {
 		 return tipo.agregarEstado(descripcion);
 	}
 	
-	public Item nuevoItem(String nombre, String desc, TipoItem tipo, int prioridad1){
-		Item item = new Item(nombre, desc, tipo, prioridad1);
+	public Item nuevoItem(String nombre, String desc, TipoItem tipo, int prioridad1, Miembro responsable){
+		Item item = new Item(nombre, desc, tipo, prioridad1, responsable);
 		this.items.add(item);
 		return item;
 	}
@@ -171,7 +171,7 @@ public class Proyecto {
     		System.out.print(it.next().getDescripcion());
     		System.out.print(", ");
     	}
-    	System.out.println();
+    	System.out.println("\n");
 	}
 	public void listarItems(){
 		System.out.print("Items del proyecto ");
@@ -183,7 +183,7 @@ public class Proyecto {
     		System.out.print(it.next().getNombre());
     		System.out.print(", ");
     	}
-    	System.out.println();
+    	System.out.println("\n");
 	}
 	
 	public void listarEstadosPosibles(TipoItem tipo){
@@ -192,6 +192,12 @@ public class Proyecto {
 	
 	public void listarEstadosSiguientes(TipoItem tipo, Estado estado){
 		tipo.listarEstadosSiguientes(estado);
+	}
+
+	public HashSet<EstadoItem> getEstadosHistoricosItem(Item item, Date fec_inicio,
+			Date fec_fin) {
+		return this.getItem(item.getNombre()).getEstadosHistoricos(fec_inicio,fec_fin);
+		
 	}
 }
 

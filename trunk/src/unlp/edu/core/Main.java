@@ -33,8 +33,8 @@ public class Main {
 		Miembro miembro1 = sistema1.nuevoMiembro(proyecto1, usuario1,rolProyecto1);
 		Miembro miembro2 = sistema1.nuevoMiembro(proyecto1, usuario2,rolProyecto1);
 		
-		Item item1 = sistema1.nuevoItem("Item1", "descripcion item1", tipo1, 0, proyecto1);
-		Item item2 = sistema1.nuevoItem("Item2", "descripcion item2", tipo2, 3, proyecto1);
+		Item item1 = sistema1.nuevoItem("Item1", "descripcion item1", tipo1, 0, proyecto1, sistema1.getMiembro(proyecto1, "Usuario1"));
+		sistema1.nuevoItem("Item2", "descripcion item2", tipo2, 3, proyecto1,  sistema1.getMiembro(proyecto1, "Usuario2"));
 		sistema1.listarItems(proyecto1);
 		
 		Estado estado1 = sistema1.nuevoEstado(proyecto1, tipo1, "Creado");
@@ -44,7 +44,7 @@ public class Main {
 		sistema1.agregarEstadoSiguiente(proyecto1, tipo1, "Creado", "Desarrollo");
 		sistema1.agregarEstadoSiguiente(proyecto1, tipo1, "Desarrollo", "Validacion");
 		sistema1.agregarEstadoSiguiente(proyecto1, tipo1, "Validacion", "Terminado");
-		sistema1.agregarEstadoSiguiente(proyecto1, tipo1, "Validacion", "Terminado");
+		sistema1.agregarEstadoSiguiente(proyecto1, tipo1, "Validacion", "Desarrollo");
 		sistema1.listarEstadosPosibles(proyecto1, tipo1);
 		sistema1.listarEstadosSiguientes(proyecto1, tipo1, estado3);
 		
@@ -55,18 +55,21 @@ public class Main {
 		Calendar cal = Calendar.getInstance();
 		cal.set(2010, 11, 11);
 		sistema1.cambiarEstadoItem(proyecto1, item1, estado1, miembro1, miembrosDisponibles,cal.getTime());
-		System.out.print("Estado actual del item ");
-		System.out.print(item1.getNombre());
-		System.out.print(": ");
-		System.out.println(sistema1.verEstadoActualItem(proyecto1, item1));
+		System.out.print("Estado actual del item:" + item1.getNombre() + " Estado:"+sistema1.verEstadoActualItem(proyecto1, item1) + "\n");
 		
 		cal.set(2010, 11, 20);
-		sistema1.cambiarEstadoItem(proyecto1, item1, estado3, miembro2, miembrosDisponibles,cal.getTime());
-		System.out.print("Estado actual del item ");
-		System.out.print(item1.getNombre());
-		System.out.print(": ");
-		System.out.println(sistema1.verEstadoActualItem(proyecto1, item1));
+		sistema1.cambiarEstadoItem(proyecto1, item1, estado2, miembro2, miembrosDisponibles,cal.getTime());
+		System.out.print("Estado actual del item:"+item1.getNombre()+ " Estado:"+sistema1.verEstadoActualItem(proyecto1, item1)+ "\n\n");
 		
+		//cambiamos el estado del item para probar funcionalidad de historicos
+		cal.set(2010, 12, 10);
+		sistema1.cambiarEstadoItem(proyecto1, item1, estado3, miembro1, miembrosDisponibles,cal.getTime());
+		
+		cal.set(2011, 01, 01);
+		sistema1.cambiarEstadoItem(proyecto1, item1, estado4, miembro2, miembrosDisponibles,cal.getTime());
+		
+		cal.set(2010, 11, 19);
+		sistema1.listarEstadosHistoricosItem(proyecto1, item1, cal.getTime() , null);
 		/*
 		//Creacion de sistema, usuarios y proyecto
 		Sistema sistema = new Sistema();

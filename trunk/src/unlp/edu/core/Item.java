@@ -4,40 +4,33 @@ import java.util.*;
 
 public class Item {
 
-	/**
-	 * @param args
-	 */
 	private String nombre;
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
 	private String descripcion;
 	private TipoItem tipoItem;
 	private int prioridad;
 	private EstadoItem estadoActual;
 	private Collection<EstadoItem> historialEstados;
-	
-	//Constructor de la clase
-	public Item(String nombre, String desc, TipoItem tipo, int prioridad1)
+
+	/**
+	 * 
+	 * @param nombre
+	 * @param desc
+	 * @param tipo
+	 * @param prioridad
+	 * @param responsable
+	 */
+	public Item(String nombre, String desc, TipoItem tipo, int prioridad, Miembro responsable)
 	{
 		Date date= new Date();
 		this.nombre = nombre;
 		Estado estadoIni = null;
 		this.descripcion = desc;
 		this.tipoItem = tipo;
-		this.prioridad = prioridad1;
-		this.estadoActual = new EstadoItem(estadoIni,null,date,null,null,null);
+		this.prioridad = prioridad;
+		this.estadoActual = new EstadoItem(estadoIni,null,date,null,null,responsable);
 		this.historialEstados = new HashSet<EstadoItem>();
 	}
-	/**
-	 * 
-	 * getters y setters
-	 * 
-	 */
+
 	public String getDescripcion()
 	{
 		return this.descripcion;
@@ -87,11 +80,13 @@ public class Item {
 		this.historialEstados = histo;
 	}
 		
-	
-	/** 
-	 * Metodos 
-	 * 
-	 */
+
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 	
 	public void cambiarEstadoItem(Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fechaFin)
 	{
@@ -131,5 +126,67 @@ public class Item {
 	
 	public String verEstadoActual(){
 		return this.estadoActual.getEstado().getDescripcion();
+	}
+
+	/**
+	 * Se retorna la lista de Estados items entre las fechas indicadas.
+	 * Si busquedaCriterio = 0 -> retornar EstadosItem entre fechas indicadas.
+	 * Si busquedaCriterio = 1 -> retornar EstadosItem menores a fec_fin.
+	 * Si busquedaCriterio = 2 -> retornar EstadosItems mayores a fec_inicio.
+	 * Si busquedaCriterio = 3 -> retornar todos los EstadosItem.
+	 * 
+	 * @param fec_inicio
+	 * @param fec_fin
+	 */
+	public HashSet<EstadoItem> getEstadosHistoricos(Date fec_inicio, Date fec_fin) {
+		HashSet<EstadoItem> todosHistoricos = new HashSet<EstadoItem>();
+
+		//Todos los estados historicos incluyendo el estado actual
+		todosHistoricos.addAll(this.getHistorialEstados());
+		todosHistoricos.add(this.getEstadoActual());
+		Iterator<EstadoItem> it = todosHistoricos.iterator();
+		
+		HashSet<EstadoItem> historicosCriterio = new HashSet<EstadoItem>();
+	   	
+		EstadoItem ei; 
+	    int busquedaCriterio;
+	    
+	    busquedaCriterio = 0;
+	    
+	   	if (fec_inicio == null)
+	   	{
+	   		busquedaCriterio = 1;
+	   		if (fec_fin == null)
+	   		{
+	   			busquedaCriterio = 3;
+	   		}
+	   	} else {
+	   		if (fec_fin == null)
+	   		{
+	   			busquedaCriterio = 2;
+	   		}
+	   	}
+	   	
+	   	while (it.hasNext()) {
+	   		ei = (EstadoItem) it.next();
+	   		
+	   		if (busquedaCriterio == 0){	
+	   			if (ei.getFechaInicio().after(fec_inicio) && ei.getFechaInicio().before(fec_fin))
+	   				historicosCriterio.add(ei);
+			} else {
+				if (busquedaCriterio == 1){	
+		   			if (ei.getFechaInicio().before(fec_fin))
+		   				historicosCriterio.add(ei);
+				}else {
+					if (busquedaCriterio == 2){	
+			   			if (ei.getFechaInicio().after(fec_inicio))
+			   				historicosCriterio.add(ei);
+					} else 
+						historicosCriterio.add(ei);	
+				}
+			}
+	   	}
+	   	return historicosCriterio;
+		
 	}
 }
