@@ -100,7 +100,7 @@ public class Proyecto {
 		return tipoItem;
 	}
 	
-	public void cambiarEstadoItem( Item item, Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fecha){
+	public void cambiarEstadoItem( Item item, Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fecha) throws Exception{
 		item.cambiarEstadoItem(estado, responsable, miembrosDisponibles, fecha);
 	}
 
@@ -173,6 +173,7 @@ public class Proyecto {
     	}
     	System.out.println("\n");
 	}
+	
 	public void listarItems(){
 		System.out.print("Items del proyecto ");
 		System.out.print(this.getNombre());

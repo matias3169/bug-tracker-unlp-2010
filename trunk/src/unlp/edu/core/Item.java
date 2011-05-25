@@ -88,26 +88,18 @@ public class Item {
 		this.nombre = nombre;
 	}
 	
-	public void cambiarEstadoItem(Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fechaFin)
+	public void cambiarEstadoItem(Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fechaFin) throws Exception
 	{
-	
 		if (miembrosDisponibles.contains(responsable)) {
 			estadoActual.setFechaFin(fechaFin);
 			this.historialEstados.add(estadoActual);
 			this.setEstadoActual(new EstadoItem(estado,null,fechaFin,"",miembrosDisponibles,responsable));
-		/*	if (this.estadoActual.getEstado().getEstadosSiguientes().contains(estado)) { // Controla si estado es un estado siguiente posible
-				estadoActual.setFechaFin(date);
-				this.historialEstados.add(estadoActual);
-				this.setEstadoActual(new EstadoItem(estado,null,date,"",miembrosDisponibles,responsable));
-			} else {
-				System.out.println("El estado al que quiere pasar no es un estado posible.");
-			}*/
 		} else {
-			System.out.println("El responsable no es un miembro disponible.");
+			throw new Exception("El responsable no es un miembro disponible.");
 		}
 	}
 
-	public void cambiarResponsable(Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fechaFin)//Guarda el estadoItem y crea un nuevo estadoItem con el responsable
+	public void cambiarResponsable(Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fechaFin) throws Exception//Guarda el estadoItem y crea un nuevo estadoItem con el responsable
 	{
 	
 		if (miembrosDisponibles.contains(responsable)) {
@@ -115,7 +107,7 @@ public class Item {
 			this.historialEstados.add(estadoActual);
 			this.setEstadoActual(new EstadoItem(estadoActual.getEstado(),null, fechaFin, "", estadoActual.getMiembrosDisponibles(), responsable));
 		} else {
-			System.out.println("El responsable no es un miembro disponible");
+			throw new Exception("El responsable no es un miembro disponible.");
 		}
 	}	
 	

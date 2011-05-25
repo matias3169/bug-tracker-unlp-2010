@@ -12,17 +12,28 @@ import java.util.*;
  */
 public class Sistema {
 	
+	private static Sistema sistema;
+    private static boolean yaCreado = false;
+
 	private Collection<Proyecto> proyectos;
 	private Collection<Role> rolesSistema;
 	private Collection<Role> rolesProyecto;
 	private Collection<Usuario> usuarios;
 	
-	public Sistema () 
-	{
+	private Sistema(){
 		this.setProyectos(new HashSet<Proyecto>());
 		this.setUsuarios(new HashSet<Usuario>());
 		this.setRolesSistema();
 		this.setRolesProyecto();
+	}
+
+	public static Sistema getInstance() 
+	{
+        if(yaCreado == false) {
+            sistema = new Sistema();
+            yaCreado = true;
+      }
+      return sistema;
 	}
 	
 	/**
@@ -176,7 +187,7 @@ public class Sistema {
     	return proyecto.nuevoItem(nombre, descripcion, tipo, prioridad, responsable);
     }
     
-    public void cambiarEstadoItem(Proyecto proyecto, Item item, Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fecha){
+    public void cambiarEstadoItem(Proyecto proyecto, Item item, Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fecha) throws Exception{
     	proyecto.cambiarEstadoItem(item, estado, responsable, miembrosDisponibles, fecha);
     }
     
@@ -351,4 +362,20 @@ public class Sistema {
 		}
 		System.out.println("\n");
     }
+
+	public void listarMiembros(Proyecto proyecto1) {
+	    System.out.println("Miembros de proyecto:" + proyecto1.getNombre());
+		Iterator<Miembro> it = proyecto1.getMiembros().iterator();
+		Miembro mi;
+		
+		while(it.hasNext())
+		{
+			mi = (Miembro)it.next();
+			if (mi.getUsuario() != null)
+			{
+				System.out.println(mi.getUsuario().getNombre());
+			}
+		}
+		System.out.println("\n");
+	}
 }
