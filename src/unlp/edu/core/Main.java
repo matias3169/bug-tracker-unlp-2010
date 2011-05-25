@@ -12,64 +12,126 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		
-		Sistema sistema1 = new Sistema();
+		//Creacion del sistema
+		Sistema sistema = Sistema.getInstance();
 		
-		Role rolSistema1 = sistema1.nuevoRolSistema("Super");
-		Role rolSistema2 = sistema1.nuevoRolSistema("Normal");
-		Role rolProyecto1 = sistema1.nuevoRolProyecto("Normal");
-		Usuario usuario1 = sistema1.nuevoUsuario("Usuario1", rolSistema1);
-		Usuario usuario2 = sistema1.nuevoUsuario("Usuario2", rolSistema2);
-		sistema1.listarUsuarios();
+		//Creacion de roles sistema y de proyecto
+		Role rolsistema = sistema.nuevoRolSistema("Super");
+		Role rolSistema2 = sistema.nuevoRolSistema("Normal");
+		Role rolProyecto1 = sistema.nuevoRolProyecto("Normal");
 		
+		//Listado de roles sistema y de proyecto
+		sistema.listarRolesSistema();
+		sistema.listarRolesProyecto();
+
+		//Creacion de usuarios
+		Usuario usuario1 = sistema.nuevoUsuario("Usuario1", rolsistema);
+		Usuario usuario2 = sistema.nuevoUsuario("Usuario2", rolSistema2);
+		Usuario usuario3 = sistema.nuevoUsuario("Usuario3", rolSistema2);
+		
+		//Listado de usuarios
+		sistema.listarUsuarios();
+		
+		//Creacion de nuevo proyecto
 		Proyecto proyecto1 = new Proyecto("PROYECTO1");
 		
-		TipoItem tipo1 = sistema1.nuevoTipoItem("Reporte de Bug", proyecto1);
-		TipoItem tipo2 = sistema1.nuevoTipoItem("Nueva funcionalidad", proyecto1);
-		sistema1.listarTiposItem(proyecto1);
+		//Creacion de nuevos tipos de items para el proyecto
+		TipoItem tipo1 = sistema.nuevoTipoItem("Reporte de Bug", proyecto1);
+		TipoItem tipo2 = sistema.nuevoTipoItem("Nueva funcionalidad", proyecto1);
 		
-		sistema1.listarRolesSistema();
-		sistema1.listarRolesProyecto();
+		//Listado de tipos de items para proyecto
+		sistema.listarTiposItem(proyecto1);
 		
-		Miembro miembro1 = sistema1.nuevoMiembro(proyecto1, usuario1,rolProyecto1);
-		Miembro miembro2 = sistema1.nuevoMiembro(proyecto1, usuario2,rolProyecto1);
+		//Creacion de estados y flowchart para tipos de items
+		Estado estado1 = sistema.nuevoEstado(proyecto1, tipo1, "Creado");
+		Estado estado2 = sistema.nuevoEstado(proyecto1, tipo1, "Desarrollo");
+		Estado estado3 = sistema.nuevoEstado(proyecto1, tipo1, "Validacion");
+		Estado estado4 = sistema.nuevoEstado(proyecto1, tipo1, "Terminado");
+		sistema.agregarEstadoSiguiente(proyecto1, tipo1, "Creado", "Desarrollo");
+		sistema.agregarEstadoSiguiente(proyecto1, tipo1, "Desarrollo", "Validacion");
+		sistema.agregarEstadoSiguiente(proyecto1, tipo1, "Validacion", "Terminado");
+		sistema.agregarEstadoSiguiente(proyecto1, tipo1, "Validacion", "Desarrollo");
 		
-		Item item1 = sistema1.nuevoItem("Item1", "descripcion item1", tipo1, 0, proyecto1, sistema1.getMiembro(proyecto1, "Usuario1"));
-		sistema1.nuevoItem("Item2", "descripcion item2", tipo2, 3, proyecto1,  sistema1.getMiembro(proyecto1, "Usuario2"));
-		sistema1.listarItems(proyecto1);
+		//Listado estados posibles tipo item
+		sistema.listarEstadosPosibles(proyecto1, tipo1);
+		//Listado estados siguientes tipo item para un estado
+		sistema.listarEstadosSiguientes(proyecto1, tipo1, estado3);
 		
-		Estado estado1 = sistema1.nuevoEstado(proyecto1, tipo1, "Creado");
-		Estado estado2 = sistema1.nuevoEstado(proyecto1, tipo1, "Desarrollo");
-		Estado estado3 = sistema1.nuevoEstado(proyecto1, tipo1, "Validacion");
-		Estado estado4 = sistema1.nuevoEstado(proyecto1, tipo1, "Terminado");
-		sistema1.agregarEstadoSiguiente(proyecto1, tipo1, "Creado", "Desarrollo");
-		sistema1.agregarEstadoSiguiente(proyecto1, tipo1, "Desarrollo", "Validacion");
-		sistema1.agregarEstadoSiguiente(proyecto1, tipo1, "Validacion", "Terminado");
-		sistema1.agregarEstadoSiguiente(proyecto1, tipo1, "Validacion", "Desarrollo");
-		sistema1.listarEstadosPosibles(proyecto1, tipo1);
-		sistema1.listarEstadosSiguientes(proyecto1, tipo1, estado3);
+		//Creacion de nuevos miembros para proyecto
+		Miembro miembro1 = sistema.nuevoMiembro(proyecto1, usuario1,rolProyecto1);
+		Miembro miembro2 = sistema.nuevoMiembro(proyecto1, usuario2,rolProyecto1);
+		Miembro miembro3 = sistema.nuevoMiembro(proyecto1, usuario3,rolProyecto1);
 		
+		//Listado de miembros de un proyecto
+		sistema.listarMiembros(proyecto1);
+		
+		//Creacion de nuevos items para proyecto
+		Item item1 = sistema.nuevoItem("Item1", "descripcion item1", tipo1, 0, proyecto1, sistema.getMiembro(proyecto1, "Usuario1"));
+		Item item2 = sistema.nuevoItem("Item2", "descripcion item2", tipo2, 3, proyecto1,  sistema.getMiembro(proyecto1, "Usuario2"));
+		
+		//Listado de items para proyecto
+		sistema.listarItems(proyecto1);
+		
+		//Creacion de miembros disponibles para un item
 		Collection<Miembro> miembrosDisponibles = new HashSet<Miembro>();
 		miembrosDisponibles.add(miembro1);
 		miembrosDisponibles.add(miembro2);
 		
 		Calendar cal = Calendar.getInstance();
+		
+		//Cambiar estado de un item y mostrar estado actual
 		cal.set(2010, 11, 11);
-		sistema1.cambiarEstadoItem(proyecto1, item1, estado1, miembro1, miembrosDisponibles,cal.getTime());
-		System.out.print("Estado actual del item:" + item1.getNombre() + " Estado:"+sistema1.verEstadoActualItem(proyecto1, item1) + "\n");
 		
+		try
+		{
+			sistema.cambiarEstadoItem(proyecto1, item1, estado1, miembro1, miembrosDisponibles,cal.getTime());
+		} catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+		
+		System.out.print("Estado actual del item:" + item1.getNombre() + " Estado:"+sistema.verEstadoActualItem(proyecto1, item1) + "\n");
+		
+		//Cambiar estado de un item y mostrar estado actual
 		cal.set(2010, 11, 20);
-		sistema1.cambiarEstadoItem(proyecto1, item1, estado2, miembro2, miembrosDisponibles,cal.getTime());
-		System.out.print("Estado actual del item:"+item1.getNombre()+ " Estado:"+sistema1.verEstadoActualItem(proyecto1, item1)+ "\n\n");
 		
-		//cambiamos el estado del item para probar funcionalidad de historicos
+		try
+		{
+			sistema.cambiarEstadoItem(proyecto1, item1, estado2, miembro2, miembrosDisponibles,cal.getTime());
+		}  catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+		System.out.print("Estado actual del item:"+item1.getNombre()+ " Estado:"+sistema.verEstadoActualItem(proyecto1, item1)+ "\n");
+		
+		//Cambiar estado de un item y probamos funcionalidad de historicos
 		cal.set(2010, 12, 10);
-		sistema1.cambiarEstadoItem(proyecto1, item1, estado3, miembro1, miembrosDisponibles,cal.getTime());
+		
+		try
+		{
+			sistema.cambiarEstadoItem(proyecto1, item1, estado3, miembro1, miembrosDisponibles,cal.getTime());
+		}  catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+		System.out.print("Estado actual del item:"+item1.getNombre()+ " Estado:"+sistema.verEstadoActualItem(proyecto1, item1)+ "\n\n");
+		
+		cal.set(2010, 11, 12);
+		sistema.listarEstadosHistoricosItem(proyecto1, item1, cal.getTime() , null);
+		
+		
+		//Cambiar estado de un item con miembro no valido
 		
 		cal.set(2011, 01, 01);
-		sistema1.cambiarEstadoItem(proyecto1, item1, estado4, miembro2, miembrosDisponibles,cal.getTime());
+		try
+		{
+			sistema.cambiarEstadoItem(proyecto1, item1, estado4, miembro3, miembrosDisponibles,cal.getTime());
+		}  catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
 		
-		cal.set(2010, 11, 19);
-		sistema1.listarEstadosHistoricosItem(proyecto1, item1, cal.getTime() , null);
+
 		/*
 		//Creacion de sistema, usuarios y proyecto
 		Sistema sistema = new Sistema();
