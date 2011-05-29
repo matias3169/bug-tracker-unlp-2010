@@ -1,4 +1,4 @@
-package unlp.edu.servlet;
+package unlp.edu.servlets;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
