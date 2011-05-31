@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<project name="BugTracker" default="webapp" basedir=".">
+
+<property name="tomcat.home" value="C:\Archivos de programa\apache-tomcat-5.5.27" />
+<target name="webapp" depends="compileWebapp" />
+<target name="compileWebapp">
+ 	<javac srcdir="src"
+ 		destdir="build">
+ 		<classpath>
+ 		<fileset dir="${tomcat.home}/common/lib">
+ 			<include name="*.jar" />
+	 	</fileset>	
+	 	</classpath>
+ 	</javac>
+</target>
+
+</project>
