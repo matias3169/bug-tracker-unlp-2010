@@ -1,17 +1,132 @@
 <?xml version="1.0" ?>
-<project name="BugTracker" default="webapp" basedir=".">
+<project name="BugTracker" default="all" basedir=".">
 
-<property name="tomcat.home" value="C:\Archivos de programa\apache-tomcat-5.5.27" />
-<target name="webapp" depends="compileWebapp" />
-<target name="compileWebapp">
- 	<javac srcdir="src"
- 		destdir="build">
- 		<classpath>
- 		<fileset dir="${tomcat.home}/common/lib">
- 			<include name="*.jar" />
-	 	</fileset>	
-	 	</classpath>
- 	</javac>
-</target>
+	<!-- PROPERTIES -->
+	<property name="webapp.name" value="BugTracker" />
+	<property name="build.dir" value="C:\Documents and Settings\Cliente Preferencial\workspace\UNLP-BBDD-WEB-2010\build" />
+	<property name="tomcat.deployment.dir" value="C:\Archivos de programa\apache-tomcat-7.0.14\webapps" />
+	<property name="tomcat.home" value="C:\Archivos de programa\apache-tomcat-7.0.14" />
+	<property name="webapp.build.dir" value="C:\Documents and Settings\Cliente Preferencial\workspace\UNLP-BBDD-WEB-2010\WebContent" />	
+	<property name="webapp.dir" value="C:\Documents and Settings\Cliente Preferencial\workspace\UNLP-BBDD-WEB-2010" />
+		
 
+	<target name="clean" depends="cleanBuildDirectory, cleanWebContent, cleanTomcat, cleanTmpFiles" />
+	<target name="all" depends="clean, undeployWebapp,deployWebapp" />
+
+	
+	<!-- ****************************** TARGET HELP *********************************************-->
+	<target name="help">
+	<echo>
+		Construccion de Aplicacion Web. Ejecutar:
+			help = para mostrar este mensaje
+			all= borra todo y, compila y genera deployment
+			clean = borra todo
+	</echo>
+	</target>
+		
+	<!-- ***************************** TARGET CLEAN *********************************************-->
+	
+	<!-- TARGET CLEANWEBCONTENT -->
+	<target name="cleanWebContent" >
+		<delete>
+			<fileset dir="${webapp.build.dir}" defaultexcludes="no" includes="*.html" />
+			<fileset dir="${webapp.build.dir}" defaultexcludes="no" includes="*.css" />
+			<fileset dir="${webapp.build.dir}" defaultexcludes="no" includes="*.js" />
+		</delete>
+		<delete dir="${webapp.build.dir}/WEB-INF/classes"/>
+		<delete dir="${webapp.build.dir}/WEB-INF/lib"/>
+		<delete dir="${webapp.build.dir}/iconos"/>
+		<delete file="${webapp.build.dir}/WEB-INF/web.xml"/>
+	</target>
+	
+	<!-- TARGET CLEANWEBAPP -->
+	<target name="cleanBuildDirectory" >
+		<delete>
+			<fileset dir="${build.dir}" />
+		</delete>
+	</target>
+			
+	<!-- TARGET CLEANTOMCAT -->
+	<target name="cleanTomcat" >
+		<delete >
+			<fileset dir="${tomcat.deployment.dir}" />
+		</delete>
+	</target>
+		
+	<!-- TARGET CLEAN TEMPORARY FILES -->
+	<target name="cleanTmpFiles" >
+		<delete>
+			<fileset dir="." defaultexcludes="no" includes="**/*~" />
+		</delete>
+	</target>
+	
+	<!-- ****************************** TARGET ALL *********************************************-->	
+	
+	<!--TARGET DEPLOYWEBAPP -->
+	<target name="deployWebapp" depends="undeployWebapp,buildWebapp">
+		<copy file="${build.dir}/${webapp.name}.war"
+		      todir="${tomcat.deployment.dir}" />
+	</target>
+		
+	<!-- TARGET UNDEPLOY -->
+	<target name="undeployWebapp">
+		<!-- delete deployment directory -->
+		<delete dir="${tomcat.deployment.dir}/${webapp.name}"/>
+		<delete file="${tomcat.deployment.dir}/${webapp.name}.war"/>
+	</target>
+		
+	<!-- TARGET COPY STATIC WEB FILES - deployContent -->
+	<target name="deployContent"
+		description="Este target copia archivos html y jsp a tomcat" >
+		<copy todir="${tomcat.deployment.dir}/{webapp.name}/" >
+			<fileset dir="html" />
+		</copy>
+	</target>
+			
+	<!-- TARGET BUILD WAR FILE -->
+	<target name="buildWebapp" depends="compileWebapp">
+		<jar destfile="${build.dir}/${webapp.name}.war"
+			basedir="${webapp.build.dir}" />
+	</target>
+
+	<!-- TARGET COMPILE WEB COMPONENTS -->
+	<target name="compileWebapp" depends="staticWebapp">
+		<javac srcdir="src"
+		 		destdir="${webapp.build.dir}/WEB-INF/classes/"
+		deprecation="off" debug="on" optimize="off">
+			<classpath>
+			<!-- include all jar files in my local library -->
+				<fileset dir="lib">
+					<include name="*.jar"/>
+				</fileset>
+			<!-- include all common libraries in Tomcat -->
+				<fileset dir="${tomcat.home}/lib">
+					<include name="*.jar"/>
+				</fileset>
+			</classpath>
+		</javac>
+	</target>	
+		
+	<!-- TARGET COPY STATIC WEB FILES -->
+	<target name="staticWebapp" depends="prepareWebapp">
+		<!-- copy web files -->
+		<copy todir="${webapp.build.dir}/">
+			<fileset dir="html" />
+		</copy>
+		<!-- copy library files -->
+		<copy todir="${webapp.build.dir}/WEB-INF/lib/">
+			<fileset dir="lib" />
+		</copy>
+		<!-- copy web.xml files -->
+		<copy file="${webapp.dir}/web.xml"
+		      todir="${webapp.build.dir}/WEB-INF/" />
+	</target>
+		
+	<!-- TARGET CREATE WEBAPP DIRECTORIES -->
+	<target name="prepareWebapp">
+		<mkdir dir="${webapp.build.dir}" />
+		<mkdir dir="${webapp.build.dir}/WEB-INF" />
+		<mkdir dir="${webapp.build.dir}/WEB-INF/lib" />
+		<mkdir dir="${webapp.build.dir}/WEB-INF/classes" />
+	</target>
 </project>
