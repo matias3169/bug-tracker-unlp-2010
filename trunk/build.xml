@@ -2,85 +2,58 @@
 <project name="BugTracker" default="all" basedir=".">
 
 	<!-- PROPERTIES -->
-	<property name="webapp.name" value="BugTracker" />
-	<property name="build.dir" value="C:\Documents and Settings\Cliente Preferencial\workspace\UNLP-BBDD-WEB-2010\build" />
-	<property name="tomcat.deployment.dir" value="C:\Archivos de programa\apache-tomcat-7.0.14\webapps" />
-	<property name="tomcat.home" value="C:\Archivos de programa\apache-tomcat-7.0.14" />
-	<property name="webapp.build.dir" value="C:\Documents and Settings\Cliente Preferencial\workspace\UNLP-BBDD-WEB-2010\WebContent" />	
-	<property name="webapp.dir" value="C:\Documents and Settings\Cliente Preferencial\workspace\UNLP-BBDD-WEB-2010" />
-		
-
-	<target name="clean" depends="cleanBuildDirectory, cleanWebContent, cleanTomcat, cleanTmpFiles" />
-	<target name="all" depends="clean, undeployWebapp,deployWebapp" />
-
+	<property file="build.properties" />
 	
-	<!-- ****************************** TARGET HELP *********************************************-->
+	<!-- ****************************** MAIN TARGETS *********************************************-->	
+	<target name="clean" depends="cleanWebApp, cleanTomcat, cleanWebContent" />
+	<target name="all" depends="clean, undeployWebapp,deployWebapp" />
 	<target name="help">
 	<echo>
 		Construccion de Aplicacion Web. Ejecutar:
 			help = para mostrar este mensaje
-			all= borra todo y, compila y genera deployment
+			all= borra todo, compila y genera deployment
 			clean = borra todo
 	</echo>
 	</target>
 		
 	<!-- ***************************** TARGET CLEAN *********************************************-->
 	
-	<!-- TARGET CLEANWEBCONTENT -->
-	<target name="cleanWebContent" >
-		<delete>
-			<fileset dir="${webapp.build.dir}" defaultexcludes="no" includes="*.html" />
-			<fileset dir="${webapp.build.dir}" defaultexcludes="no" includes="*.css" />
-			<fileset dir="${webapp.build.dir}" defaultexcludes="no" includes="*.js" />
-		</delete>
-		<delete dir="${webapp.build.dir}/WEB-INF/classes"/>
-		<delete dir="${webapp.build.dir}/WEB-INF/lib"/>
-		<delete dir="${webapp.build.dir}/iconos"/>
-		<delete file="${webapp.build.dir}/WEB-INF/web.xml"/>
-	</target>
-	
 	<!-- TARGET CLEANWEBAPP -->
-	<target name="cleanBuildDirectory" >
-		<delete>
-			<fileset dir="${build.dir}" />
-		</delete>
+	<target name="cleanWebApp" 
+		description="Este target elimina el contenido del directorio build" >
+		<delete dir="${build.dir}/classes" quiet="true"/>
+		<delete file="${build.dir}/${webapp.name}.war" quiet="true"/>
 	</target>
 			
 	<!-- TARGET CLEANTOMCAT -->
-	<target name="cleanTomcat" >
-		<delete >
-			<fileset dir="${tomcat.deployment.dir}" />
+	<target name="cleanTomcat" 
+		description="Este target elimina la webapp del directorio de deploy de Tomcat" >
+		<delete includeemptydirs="true" quiet="true">
+			<fileset dir="${tomcat.deployment.dir}/${webapp.name}" />
 		</delete>
+		<delete file="${tomcat.deployment.dir}/${webapp.name}.war" quiet="true"/>
 	</target>
-		
-	<!-- TARGET CLEAN TEMPORARY FILES -->
-	<target name="cleanTmpFiles" >
-		<delete>
-			<fileset dir="." defaultexcludes="no" includes="**/*~" />
-		</delete>
-	</target>
+	
+	<!-- TARGET CLEANWEBCONTENT -->
+		<target name="cleanWebContent" 
+			description="Este target elimina el contenido del WebContent" >
+			<delete dir="${webapp.build.dir}" quiet="true"/>
+		</target>
 	
 	<!-- ****************************** TARGET ALL *********************************************-->	
 	
 	<!--TARGET DEPLOYWEBAPP -->
-	<target name="deployWebapp" depends="undeployWebapp,buildWebapp">
+	<target name="deployWebapp" depends="undeployWebapp, buildWebapp"
+		description="Este target copia el nuevo war para deploy" >
 		<copy file="${build.dir}/${webapp.name}.war"
 		      todir="${tomcat.deployment.dir}" />
 	</target>
 		
 	<!-- TARGET UNDEPLOY -->
-	<target name="undeployWebapp">
-		<!-- delete deployment directory -->
-		<delete dir="${tomcat.deployment.dir}/${webapp.name}"/>
-		<delete file="${tomcat.deployment.dir}/${webapp.name}.war"/>
-	</target>
-		
-	<!-- TARGET COPY STATIC WEB FILES - deployContent -->
-	<target name="deployContent"
-		description="Este target copia archivos html y jsp a tomcat" >
-		<copy todir="${tomcat.deployment.dir}/{webapp.name}/" >
-			<fileset dir="html" />
-		</copy>
+	<target name="undeployWebapp"
+		description="Este target borra el antiguo deploy de tomcat" >
+		<delete dir="${tomcat.deployment.dir}/${webapp.name}" quiet="true"/>
+		<delete file="${tomcat.deployment.dir}/${webapp.name}.war" quiet="true"/>
 	</target>
 			
 	<!-- TARGET BUILD WAR FILE -->
@@ -89,37 +62,45 @@
 			basedir="${webapp.build.dir}" />
 	</target>
 
-	<!-- TARGET COMPILE WEB COMPONENTS -->
+	<!-- TARGET COMPILE SOURCE -->
 	<target name="compileWebapp" depends="staticWebapp">
 		<javac srcdir="src"
-		 		destdir="${webapp.build.dir}/WEB-INF/classes/"
-		deprecation="off" debug="on" optimize="off">
+			   destdir="${webapp.build.dir}/WEB-INF/classes/"
+		       deprecation="off" debug="on" optimize="off">
 			<classpath>
-			<!-- include all jar files in my local library -->
 				<fileset dir="lib">
-					<include name="*.jar"/>
-				</fileset>
-			<!-- include all common libraries in Tomcat -->
-				<fileset dir="${tomcat.home}/lib">
 					<include name="*.jar"/>
 				</fileset>
 			</classpath>
 		</javac>
-	</target>	
+	</target>
 		
 	<!-- TARGET COPY STATIC WEB FILES -->
 	<target name="staticWebapp" depends="prepareWebapp">
 		<!-- copy web files -->
-		<copy todir="${webapp.build.dir}/">
+		<!--<copy todir="${webapp.build.dir}/">
 			<fileset dir="html" />
+		</copy> -->
+		<copy todir="${webapp.build.dir}/">
+			<fileset dir="jsp" />
 		</copy>
-		<!-- copy library files -->
-		<copy todir="${webapp.build.dir}/WEB-INF/lib/">
+		<!-- copy configuration files -->
+		<copy file="web.xml"
+				     todir="${webapp.build.dir}/WEB-INF" />
+		<copy file="validation.xml"
+				     todir="${webapp.build.dir}/WEB-INF" />
+		<copy file="validator-rules.xml"
+				     todir="${webapp.build.dir}/WEB-INF" />
+		<copy file="struts-config.xml"
+				     todir="${webapp.build.dir}/WEB-INF" />
+		<copy file="ApplicationResources.properties"
+				     todir="${webapp.build.dir}/WEB-INF/classes" />
+
+
+	<!-- copy library files -->
+				<copy todir="${webapp.build.dir}/WEB-INF/lib/">
 			<fileset dir="lib" />
-		</copy>
-		<!-- copy web.xml files -->
-		<copy file="${webapp.dir}/web.xml"
-		      todir="${webapp.build.dir}/WEB-INF/" />
+		</copy> 
 	</target>
 		
 	<!-- TARGET CREATE WEBAPP DIRECTORIES -->
