@@ -1,0 +1,83 @@
+@CHARSET "ISO-8859-1";
+body
+{
+        background-color:#cccccc;
+        font-family: Arial, Helvetica, Sans-serif;
+        font-size: 14px;
+}
+
+h1
+{
+        font-size: 30px;
+        text-align:center;
+}
+
+h2
+{
+        font-size: 20px;
+        text-align:center;
+}
+
+h3
+{
+        font-size: 16px;
+        text-align:center;
+}
+
+table
+{
+        margin-left:auto;
+        margin-right: auto;
+}
+td
+{
+        text-align:left;
+}	
+
+.tabla_etiqueta
+{
+        text-align:right;
+}
+.acciones_usuario
+{
+        text-align:right;
+        font-weight:bold;
+        font-size:19px;
+        margin-right:5px;
+}
+
+
+.tabla_input
+{
+        text-align:left;
+}
+
+.tabla_centrado
+{
+        text-align:center;
+}
+
+.footer
+{
+        font-size: 10px;
+        color: #777777;
+}
+
+a img.icono
+{
+	border: 2px outset #cccccc;
+}
+
+.icono_chico
+{
+	width:30px;
+	border: 2px outset #cccccc;
+}
+a:hover
+{
+	background-color:#dddddd;
+}
+.encabezado_tabla
+{
+	font-weight: bold;
+}
