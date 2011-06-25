@@ -12,13 +12,17 @@ import java.util.*;
  */
 public class Role {
 
+	private int id;
+	private String tipo;
 	private String nombre;
 	private Collection<String> permisos;
 	
 	//Constructor de la clase
-	public Role(String nombre, Collection<String> permisos) {
-		this.setNombre(nombre);
-		this.setPermisos(permisos);
+	public Role(int id, String tipo, String nombre, Collection<String> permisos) {
+		this.tipo = tipo;
+		this.id = id;
+		this.nombre = nombre;
+		this.permisos = permisos;
 	}
 	
 	/**
@@ -28,6 +32,19 @@ public class Role {
 		return nombre;
 	}
 
+	public int getId() {
+		return id;
+	}
+	
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	
 	/**
 	 * @param nombre the nombre to set
 	 */

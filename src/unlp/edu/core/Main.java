@@ -16,24 +16,27 @@ public class Main {
 		Sistema sistema = Sistema.getInstance();
 		
 		//Creacion de roles sistema y de proyecto
-		Role rolsistema = sistema.nuevoRolSistema("Super");
-		Role rolSistema2 = sistema.nuevoRolSistema("Normal");
-		Role rolProyecto1 = sistema.nuevoRolProyecto("Normal");
+		//Role rolsistema = sistema.nuevoRolSistema("Super");
+		//Role rolSistema2 = sistema.nuevoRolSistema("Normal");
+		//Role rolProyecto1 = sistema.nuevoRolProyecto("Normal");
 		
 		//Listado de roles sistema y de proyecto
 		sistema.listarRolesSistema();
 		sistema.listarRolesProyecto();
 
 		//Creacion de usuarios
-		Usuario usuario1 = sistema.nuevoUsuario("Usuario1", rolsistema);
-		Usuario usuario2 = sistema.nuevoUsuario("Usuario2", rolSistema2);
-		Usuario usuario3 = sistema.nuevoUsuario("Usuario3", rolSistema2);
+		Usuario usuario1 = sistema.nuevoUsuario("Usuario1", "clave1", sistema.getRoleSistema("Admin"));
+		Usuario usuario2 = sistema.nuevoUsuario("Usuario2", "clave2", sistema.getRoleSistema("Developer"));
+		Usuario usuario3 = sistema.nuevoUsuario("Usuario3", "clave3", sistema.getRoleSistema("Guest"));
 		
 		//Listado de usuarios
 		sistema.listarUsuarios();
 		
 		//Creacion de nuevo proyecto
-		Proyecto proyecto1 = new Proyecto("PROYECTO1");
+		sistema.nuevoProyecto("PROYECTO1", usuario1);
+		sistema.nuevoProyecto("PROYECTO1", usuario1);
+		
+		Proyecto proyecto1 = sistema.getProyecto("PROYECTO1");
 		
 		//Creacion de nuevos tipos de items para el proyecto
 		TipoItem tipo1 = sistema.nuevoTipoItem("Reporte de Bug", proyecto1);
@@ -58,9 +61,9 @@ public class Main {
 		sistema.listarEstadosSiguientes(proyecto1, tipo1, estado3);
 		
 		//Creacion de nuevos miembros para proyecto
-		Miembro miembro1 = sistema.nuevoMiembro(proyecto1, usuario1,rolProyecto1);
-		Miembro miembro2 = sistema.nuevoMiembro(proyecto1, usuario2,rolProyecto1);
-		Miembro miembro3 = sistema.nuevoMiembro(proyecto1, usuario3,rolProyecto1);
+		Miembro miembro1 = sistema.nuevoMiembro(proyecto1, usuario1,sistema.getRoleProyecto("Lider"));
+		Miembro miembro2 = sistema.nuevoMiembro(proyecto1, usuario2,sistema.getRoleSistema("Desarrollador"));
+		Miembro miembro3 = sistema.nuevoMiembro(proyecto1, usuario3,sistema.getRoleSistema("DBA"));
 		
 		//Listado de miembros de un proyecto
 		sistema.listarMiembros(proyecto1);

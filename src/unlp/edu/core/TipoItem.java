@@ -5,18 +5,35 @@ import java.util.*;
 
 public class TipoItem {
 
-	public String descripcion;
-	public Estado estadoInicial;
-	public Collection<Estado> estadosPosibles;
+	private int id;
+	private static int id_estado = 0;
+	private String descripcion;
+	private Estado estadoInicial;
+	private Collection<Estado> estadosPosibles;
 	
-	public TipoItem(String descripcion, Estado estadoInicial, Collection<Estado> estadosPosibles) {
+	public TipoItem(int id, String descripcion, Estado estadoInicial, Collection<Estado> estadosPosibles) {
+		this.id = id;
 		this.descripcion = descripcion;
 		this.estadoInicial = estadoInicial;
 		this.estadosPosibles = estadosPosibles;
 	}
 
+	private static int getIdEstado()
+	{
+		return id_estado;
+	}
+	
+	private static void setIdEstado()
+	{
+		id_estado++;
+	}
+	
 	public String getDescripcion() {
 		return descripcion;
+	}
+	
+	public int getId() {
+		return id;
 	}
 
 	public void setDescripcion(String descripcion) {
@@ -45,7 +62,8 @@ public class TipoItem {
 	
 	public Estado agregarEstado(String descripcion) // crea un estado y lo agrega a la lista de estados del tipo
 	{
-		Estado estado = new Estado(descripcion);
+		setIdEstado();	
+		Estado estado = new Estado(getIdEstado(),descripcion);
 		this.estadosPosibles.add(estado);
 		return estado;
 	}

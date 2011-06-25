@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Item {
 
+	private int id;
 	private String nombre;
 	private String descripcion;
 	private TipoItem tipoItem;
@@ -19,8 +20,9 @@ public class Item {
 	 * @param prioridad
 	 * @param responsable
 	 */
-	public Item(String nombre, String desc, TipoItem tipo, int prioridad, Miembro responsable)
+	public Item(int id, String nombre, String desc, TipoItem tipo, int prioridad, Miembro responsable)
 	{
+		this.id = id;
 		Date date= new Date();
 		this.nombre = nombre;
 		Estado estadoIni = null;
@@ -31,6 +33,11 @@ public class Item {
 		this.historialEstados = new HashSet<EstadoItem>();
 	}
 
+	public int getId()
+	{
+		return this.id;
+	}
+	
 	public String getDescripcion()
 	{
 		return this.descripcion;
