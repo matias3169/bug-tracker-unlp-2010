@@ -12,23 +12,55 @@ import java.util.*;
  */
 public class Proyecto {
 
+	private int id;
 	private String nombre;
+	private static int id_item = 0;
+	private static int id_tipo_item = 0;
 	private Collection<Item> items;
 	private Collection<TipoItem> tiposItems;
 	private Collection<Miembro> miembros;
 	
-	public Proyecto(String nombre) {
+	public Proyecto(int id, String nombre) {
+		this.id = id;
 		this.setNombre(nombre);
 		this.setItems(new HashSet<Item>());
 		this.setTiposItems(new HashSet<TipoItem>());
 		this.setMiembros(new HashSet<Miembro>());
 	}
 
+	
+	private static int getIdItem()
+	{
+		return id_item;
+	}
+	
+	private static void setIdItem()
+	{
+		id_item++;
+	}
+	
+	private static int getIdTipoItem()
+	{
+		return id_tipo_item;
+	}
+	
+	private static void setIdTipoItem()
+	{
+		id_tipo_item++;
+	}
+	
 	/**
 	 * @return the nombre
 	 */
 	public String getNombre() {
 		return nombre;
+	}
+	
+	/**
+	 * @return the nombre
+	 */
+	public int getId() {
+		return id;
 	}
 
 	/**
@@ -85,7 +117,8 @@ public class Proyecto {
 	}
 	
 	public Item nuevoItem(String nombre, String desc, TipoItem tipo, int prioridad1, Miembro responsable){
-		Item item = new Item(nombre, desc, tipo, prioridad1, responsable);
+		setIdItem();
+		Item item = new Item(getIdItem(),nombre, desc, tipo, prioridad1, responsable);
 		this.items.add(item);
 		return item;
 	}
@@ -95,7 +128,8 @@ public class Proyecto {
 	}
 	
 	public TipoItem nuevoTipoItem(String descripcion){ //creo el tipo de item sin estados
-		TipoItem tipoItem = new TipoItem(descripcion, null, new HashSet<Estado>());
+		setIdTipoItem();
+		TipoItem tipoItem = new TipoItem(getIdTipoItem(), descripcion, null, new HashSet<Estado>());
 		this.tiposItems.add(tipoItem);
 		return tipoItem;
 	}

@@ -13,6 +13,9 @@ import java.util.*;
 public class Sistema {
 	
 	private static Sistema sistema;
+	private static int id_proyecto = 0;
+	private static int id_usuario = 0;
+	private static int id_role = 0;
     private static boolean yaCreado = false;
 
 	private Collection<Proyecto> proyectos;
@@ -34,6 +37,36 @@ public class Sistema {
             yaCreado = true;
       }
       return sistema;
+	}
+	
+	private static int getIdProyecto()
+	{
+		return id_proyecto;
+	}
+	
+	private static void setIdProyecto()
+	{
+		id_proyecto++;
+	}
+
+	private static int getIdUsuario()
+	{
+		return id_usuario;
+	}
+	
+	private static void setIdUsuario()
+	{
+		id_usuario++;
+	}
+	
+	private static int getIdRole()
+	{
+		return id_role;
+	}
+	
+	private static void setIdRole()
+	{
+		id_role++;
 	}
 	
 	/**
@@ -84,10 +117,12 @@ public class Sistema {
 	 */
     private void setRolesSistema(){
     	rolesSistema = new HashSet<Role>();
-    	
-    	rolesSistema.add(new Role("Admin",this.getPermisosSistema("Super")));
-    	rolesSistema.add(new Role("Developer",this.getPermisosSistema("Normal")));
-    	rolesSistema.add(new Role("Guest",this.getPermisosSistema("")));
+    	setIdRole();
+    	rolesSistema.add(new Role(getIdRole(),"Sistema","Admin",this.getPermisosSistema("Super")));
+    	setIdRole();
+    	rolesSistema.add(new Role(getIdRole(),"Sistema","Developer",this.getPermisosSistema("Normal")));
+    	setIdRole();
+    	rolesSistema.add(new Role(getIdRole(),"Sistema","Guest",this.getPermisosSistema("")));
     }
 
 	/**
@@ -96,11 +131,14 @@ public class Sistema {
 	 */
     private void setRolesProyecto(){
     	rolesProyecto = new HashSet<Role>();
-    	
-    	rolesProyecto.add(new Role("Lider",this.getPermisosProyecto("Super")));
-    	rolesProyecto.add(new Role("Desarrollador",this.getPermisosProyecto("Normal")));
-    	rolesProyecto.add(new Role("DBA",this.getPermisosProyecto("Normal")));
-    	rolesProyecto.add(new Role("Tester",this.getPermisosProyecto("Normal")));
+    	setIdRole();
+    	rolesProyecto.add(new Role(getIdRole(),"Proyecto","Lider",this.getPermisosProyecto("Super")));
+    	setIdRole();
+    	rolesProyecto.add(new Role(getIdRole(),"Proyecto","Desarrollador",this.getPermisosProyecto("Normal")));
+    	setIdRole();
+    	rolesProyecto.add(new Role(getIdRole(),"Proyecto","DBA",this.getPermisosProyecto("Normal")));
+    	setIdRole();
+    	rolesProyecto.add(new Role(getIdRole(),"Proyecto","Tester",this.getPermisosProyecto("Normal")));
     }
     
     private HashSet<String> getPermisosSistema(String tipoUsuario){
@@ -152,9 +190,9 @@ public class Sistema {
     }
     
     public void nuevoProyecto(String nombre, Usuario usuario){
-    	Proyecto proyecto = new Proyecto(nombre);
-    	Role rol = new Role("Lider",this.getPermisosProyecto("Lider"));
-    	Miembro miembro = new Miembro(proyecto,usuario,rol);
+    	setIdProyecto();
+    	Proyecto proyecto = new Proyecto(getIdProyecto(), nombre);
+    	Miembro miembro = new Miembro(proyecto,usuario,this.getRoleProyecto("Lider"));
     	proyecto.agregarMiembro(miembro);
     	this.proyectos.add(proyecto);
     }
@@ -163,13 +201,14 @@ public class Sistema {
     	return proyecto.nuevoTipoItem(descripcion);
     }
     
-    public Usuario nuevoUsuario(String nombre, Role rolSistema){
-    	Usuario usuario = new Usuario(nombre, rolSistema);
+    public Usuario nuevoUsuario(String nombre, String clave, Role rolSistema){
+    	setIdUsuario();
+    	Usuario usuario = new Usuario(getIdUsuario(),nombre, clave, rolSistema);
     	this.usuarios.add(usuario);
     	return usuario;
     }
     
-    public Role nuevoRolSistema(String descripcion){
+    /*public Role nuevoRolSistema(String descripcion){
     	Collection<String> permisos = getPermisosSistema(descripcion); 
     	Role rol = new Role(descripcion, permisos);
     	this.rolesSistema.add(rol);
@@ -181,7 +220,7 @@ public class Sistema {
     	Role rol = new Role(descripcion, permisos);
     	this.rolesProyecto.add(rol);
     	return rol;
-    }
+    }*/
     
     public Item nuevoItem(String nombre, String descripcion, TipoItem tipo, int prioridad, Proyecto proyecto, Miembro responsable){
     	return proyecto.nuevoItem(nombre, descripcion, tipo, prioridad, responsable);
@@ -377,5 +416,29 @@ public class Sistema {
 			}
 		}
 		System.out.println("\n");
+	}
+
+	public boolean validarCredenciales(String usuario, String pass) {
+		if (validarUsuario(usuario,pass))
+		{
+			return true;
+		} else
+		{
+			return false;
+		}
+		
+	}
+
+	private boolean validarUsuario(String usuario, String pass) {
+		Usuario user = this.getUsuario(usuario);
+		if ( user == null)
+		{
+			return false;
+		} else
+		{
+			//aca hay que agregar validacion de password
+			return true;
+		}
+		
 	}
 }

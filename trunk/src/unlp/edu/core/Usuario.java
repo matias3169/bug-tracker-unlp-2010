@@ -7,14 +7,31 @@ package unlp.edu.core;
  */
 public class Usuario {
 
+	private int id;
+	private String clave;
 	private String nombre;
 	private Role role;
+
+	public String getClave() {
+		return clave;
+	}
+
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
+	
+	public int getId()
+	{
+		return this.id;
+	}
 	
 	/**
 	 * @param nombre
 	 * @param role
 	 */
-	public Usuario(String nombre, Role role) {
+	public Usuario(int id, String nombre, String clave, Role role) {
+		this.id = id;
+		this.clave = clave;
 		this.nombre = nombre;
 		this.role = role;
 	}

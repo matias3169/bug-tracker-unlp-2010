@@ -5,16 +5,21 @@ import java.util.*;
 
 public class Estado {
 	
+	private int id;
 	private String descripcion;
 	private Collection<Estado> estadosSiguientes;
 	
-	public Estado(String descripcion){
+	public Estado(int id, String descripcion){
 		this.descripcion= descripcion;
 		this.estadosSiguientes = new HashSet<Estado>();
 	}
 
 	public String getDescripcion() {
 		return descripcion;
+	}
+	
+	public int getId() {
+		return id;
 	}
 
 	public void setDescripcion(String descripcion) {
