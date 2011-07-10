@@ -60,4 +60,13 @@ public class Usuario {
 		this.role = role;
 	}
 	
+	public boolean validarClave(String clave)
+	{
+		if (this.clave.equals(clave))
+		{
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

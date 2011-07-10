@@ -25,15 +25,16 @@ public class Sistema {
 	
 	private Sistema(){
 		this.setProyectos(new HashSet<Proyecto>());
-		this.setUsuarios(new HashSet<Usuario>());
 		this.setRolesSistema();
 		this.setRolesProyecto();
+		this.setUsuarios(new HashSet<Usuario>());
 	}
 
 	public static Sistema getInstance() 
 	{
         if(yaCreado == false) {
             sistema = new Sistema();
+    		sistema.nuevoUsuario("admin", "admin", sistema.getRoleSistema("Administrador"));
             yaCreado = true;
       }
       return sistema;
@@ -118,11 +119,9 @@ public class Sistema {
     private void setRolesSistema(){
     	rolesSistema = new HashSet<Role>();
     	setIdRole();
-    	rolesSistema.add(new Role(getIdRole(),"Sistema","Admin",this.getPermisosSistema("Super")));
+    	rolesSistema.add(new Role(getIdRole(),"Sistema","Administrador",this.getPermisosSistema("Administrador")));
     	setIdRole();
-    	rolesSistema.add(new Role(getIdRole(),"Sistema","Developer",this.getPermisosSistema("Normal")));
-    	setIdRole();
-    	rolesSistema.add(new Role(getIdRole(),"Sistema","Guest",this.getPermisosSistema("")));
+    	rolesSistema.add(new Role(getIdRole(),"Sistema","Desarrollador",this.getPermisosSistema("Desarrollador")));
     }
 
 	/**
@@ -132,50 +131,43 @@ public class Sistema {
     private void setRolesProyecto(){
     	rolesProyecto = new HashSet<Role>();
     	setIdRole();
-    	rolesProyecto.add(new Role(getIdRole(),"Proyecto","Lider",this.getPermisosProyecto("Super")));
+    	rolesProyecto.add(new Role(getIdRole(),"Proyecto","Lider",this.getPermisosProyecto("Lider")));
     	setIdRole();
-    	rolesProyecto.add(new Role(getIdRole(),"Proyecto","Desarrollador",this.getPermisosProyecto("Normal")));
+    	rolesProyecto.add(new Role(getIdRole(),"Proyecto","Desarrollador",this.getPermisosProyecto("Desarrollador")));
     	setIdRole();
-    	rolesProyecto.add(new Role(getIdRole(),"Proyecto","DBA",this.getPermisosProyecto("Normal")));
+    	rolesProyecto.add(new Role(getIdRole(),"Proyecto","DBA",this.getPermisosProyecto("DBA")));
     	setIdRole();
-    	rolesProyecto.add(new Role(getIdRole(),"Proyecto","Tester",this.getPermisosProyecto("Normal")));
+    	rolesProyecto.add(new Role(getIdRole(),"Proyecto","Tester",this.getPermisosProyecto("Tester")));
     }
     
-    private HashSet<String> getPermisosSistema(String tipoUsuario){
+    private HashSet<String> getPermisosSistema(String role){
       	Collection<String> permisos = new HashSet<String>();
     	
-    	if (tipoUsuario.equals("Super")){
-    		permisos.add("Creacion");
-    		permisos.add("Lectura");
-    		permisos.add("Escritura");
+    	if (role.equals("Administrador")){
+    		permisos.add("usuarios");
+    		permisos.add("proyectos");
     	}else {
-    		if (tipoUsuario.equals("Normal")){
-    			permisos.add("Escritura");
-    			permisos.add("Lectura");
-    		} else {
-    			permisos.add("Lectura");
-    		}
+    		if (role.equals("Desarrollador")){
+    			permisos.add("proyectos");
+    		} 
     	}
     
     	return (HashSet<String>)permisos;
     }
     
-    private HashSet<String> getPermisosProyecto(String tipoUsuario){
+    private HashSet<String> getPermisosProyecto(String role){
       	Collection<String> permisos = new HashSet<String>();
     	
-    	if (tipoUsuario.equals("Lider")){
+    	if (role.equals("Lider")){
     		permisos.add("Creacion");
     		permisos.add("Lectura");
     		permisos.add("Escritura");
     	}else {
-    		if (tipoUsuario.equals("Normal")){
+    		if (role.equals("Desarrollador") || role.equals("DBA") || role.equals("Tester")){
     			permisos.add("Escritura");
-    			permisos.add("Lectura");
-    		} else {
     			permisos.add("Lectura");
     		}
     	}
-    
     	return (HashSet<String>)permisos;
     }
     
@@ -419,26 +411,35 @@ public class Sistema {
 	}
 
 	public boolean validarCredenciales(String usuario, String pass) {
-		if (validarUsuario(usuario,pass))
+		Usuario usuarioValidado = validarUsuario(usuario);
+		if (usuarioValidado != null)
 		{
-			return true;
+			if (usuarioValidado.validarClave(pass))
+			{
+				return true;
+			} else
+			{
+				//clave invalida
+				return false;
+			}
 		} else
 		{
+			//usuario invalido
 			return false;
 		}
 		
 	}
 
-	private boolean validarUsuario(String usuario, String pass) {
+	private Usuario validarUsuario(String usuario) {
 		Usuario user = this.getUsuario(usuario);
 		if ( user == null)
 		{
-			return false;
+			//usuario invalido
+			return null;
 		} else
-		{
-			//aca hay que agregar validacion de password
-			return true;
+		{	
+			return user;
 		}
-		
 	}
+
 }
