@@ -16,17 +16,18 @@ public class LoginAction extends Action{
 	
 		public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 			DynaActionForm loginForm = (DynaActionForm) form;
-			 ActionErrors errors = new ActionErrors();
-			
+			ActionErrors errors = new ActionErrors();
 			// Extraemos los datos del formulario 
 			String  nombre = (String) loginForm.get("nombre_usuario");
 			String  clave = (String) loginForm.get("clave_usuario");
 			
-			if(nombre.equals("admin") && clave.equals("admin"))
-			{
-			   // Configurariamos los objetos Request, Session, etc. que necesita la siguiente vista a mostrar
-			   Sistema sistema = Sistema.getInstance();
-			   request.setAttribute("user", sistema.nuevoUsuario(nombre, clave, sistema.getRoleSistema("Admin")));
+			Sistema sistema = Sistema.getInstance();
+						
+			if(sistema.validarCredenciales(nombre,clave))
+			{  
+			   request.setAttribute("user", sistema.getUsuario(nombre));
+			   request.setAttribute("permisosSistema", sistema.getUsuario(nombre).getRole().getPermisos());
+			  
 				// Mostramos la siguiente vista
 				return mapping.findForward("ok"); 
 
