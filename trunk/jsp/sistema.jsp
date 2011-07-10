@@ -1,12 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-	<%@ include file="html_head.jsp" %>
-<body>
+<html:html>
+
+<%@ include file="html_head.jsp" %>
+
+<script type="text/javascript">	
+function mostrarOcultarMenu(ver,ele) {
+	dis= ver ? '' : 'none';
+	tab=document.getElementById(ele)style.display=dis;
+}
+</script>
+
+<c:forEach var="permiso" items="${requestScope.permisosSistema}">
+	<body onload="mostrarOcultarMenu(true,<c:out value="${permiso}"/>);">
+</c:forEach>
+
 	<h1><%= BTUNLP_Titulo %></h1>
     <h2>Acciones del sistema</h2>
+    <h3>Usuario:<bean:write name="user" property="nombre"/> </h3>
     <table>
-    	<tr>
+    	<tr id= "proyectos" >
     		<td>
     			Proyectos
     		</td>
@@ -21,7 +38,7 @@
     			</a>
     		</td>
     	</tr>
-    	<tr>
+    	<tr id= "usuarios">
     		<td>
     			Usuarios
     		</td>
@@ -39,4 +56,4 @@
 	</table>
 	<%@ include file="footer.jsp" %>
 </body>
-</html>
+</html:html>
