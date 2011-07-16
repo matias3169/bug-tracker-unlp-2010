@@ -14,7 +14,8 @@ public class Main {
 		
 		//Creacion del sistema
 		Sistema sistema = Sistema.getInstance();
-		
+		System.out.println(sistema.getProyecto(1).getNombre());
+		System.out.println(sistema.getProyecto(1).getItems());
 		//Creacion de roles sistema y de proyecto
 		//Role rolsistema = sistema.nuevoRolSistema("Super");
 		//Role rolSistema2 = sistema.nuevoRolSistema("Normal");

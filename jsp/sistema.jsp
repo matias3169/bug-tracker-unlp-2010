@@ -14,7 +14,7 @@
     <h2>Acciones del sistema</h2>
     <h3>Usuario:<bean:write name="user" property="nombre"/> </h3>
     <table>
-    	<c:if test="${requestScope.permisosSistema.contains('proyectos')}">
+    	<c:if test="${sessionScope.sistema.getUsuario(sessionScope.user.getNombre()).getRole().getPermisos().contains('proyectos')}">
 	    	<tr id= "proyectos" >
 	    		<td>
 	    			Proyectos
@@ -31,7 +31,7 @@
 	    		</td>
 	    	</tr>
     	</c:if>
-    	<c:if test="${requestScope.permisosSistema.contains('usuarios')}">
+    	<c:if test="${sessionScope.sistema.getUsuario(sessionScope.user.getNombre()).getRole().getPermisos().contains('usuarios')}">
 	    	<tr id= "usuarios">
 	    		<td>
 	    			Usuarios

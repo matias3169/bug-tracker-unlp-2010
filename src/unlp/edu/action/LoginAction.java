@@ -4,6 +4,8 @@ import java.util.HashSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.apache.struts.action.*;
 
 import unlp.edu.core.Role;
@@ -21,12 +23,14 @@ public class LoginAction extends Action{
 			String  nombre = (String) loginForm.get("nombre_usuario");
 			String  clave = (String) loginForm.get("clave_usuario");
 			
+			HttpSession actualSession = request.getSession(true);
+			
 			Sistema sistema = Sistema.getInstance();
-						
+
 			if(sistema.validarCredenciales(nombre,clave))
 			{  
-			   request.setAttribute("user", sistema.getUsuario(nombre));
-			   request.setAttribute("permisosSistema", sistema.getUsuario(nombre).getRole().getPermisos());
+			   actualSession.setAttribute("user", sistema.getUsuario(nombre));
+			   actualSession.setAttribute("sistema", sistema);
 			  
 				// Mostramos la siguiente vista
 				return mapping.findForward("ok"); 

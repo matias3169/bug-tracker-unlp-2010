@@ -27,47 +27,38 @@
    			<hr>
    		</td>
    	</tr>
-   	<%
-   	/* ----- codigo de prueba */
    	
-   	String[] tiposTest={"Bug","Ampliación","Mejora","Nuevo requerimiento","I18n"};
-   	String[] estadosTest={"Creado","Desarrollo","Validación","Terminado"};
-   	String[] responsablesTest={"Hugo","Paco","Luis"};
-   	java.util.Random azar = new java.util.Random();
-   	
-   	for(int i=1;i<=10;i++)
-   	{
-   		%><tr <%= i%2==0?"style=\"background-color:#eeeeee;\"":""%>>
+   	<c:forEach var="itemProyecto" items="${itemsProyecto}">
+   	<% i = i + 1; %>
+   	<tr <%= i%2==0?"style=\"background-color:#eeeeee;\"":""%>>
     		<td class="tabla_centrado">
-    			<%= tiposTest[azar.nextInt(5)] %>
+    			<c:out value="${itemProyecto.getTipoItem().getDescripcion()}"/>
     		</td>
     		<td>
-    			Alguna descripcion <%= i %>
+    			<c:out value="${itemProyecto.getDescripcion()}"/>
     		</td>
     		<td class="tabla_centrado">
-    			<%= estadosTest[azar.nextInt(4)] %>
+				<c:out value="${itemProyecto.verEstadoActual()}"/>
     		</td>
     		<td class="tabla_centrado">
-    			<%= azar.nextInt(10)+1 %>
+				<c:out value="${itemProyecto.getPrioridad()}"/>
     		</td>
     		<td class="tabla_centrado">
-    			<%= responsablesTest[azar.nextInt(3)] %>
+				<c:out value="${itemProyecto.responsableActual().getNombre()}"/>
     		</td>
     		<td class="tabla_centrado">
-    			<a href="item_cambiarEstado.jsp?id=<%= i %>"> 
+    			<a href="item_cambiarEstado.jsp?id=<c:out value="${itemProyecto.getId()}"/>"> 
     				<img class="icono_chico" src="iconos/cambiar_estado.png" 
-    					title="Trabajar en _proyectoNombre<%= i %>_">
+    					title="Cambiar estado de <c:out value="${itemProyecto.getDescripcion()}"/>">
     			</a>
     		</td>
     		<td class="tabla_centrado">
-    			<a href="item_historial.jsp?id=<%= i %>"> 
+    			<a href="item_historial.jsp?id=<c:out value="${itemProyecto.getId()}"/>"> 
     				<img class="icono_chico" src="iconos/historial.png" 
-    					title="Trabajar en _proyectoNombre<%= i %>_">
+    					title="Historial de <c:out value="${itemProyecto.getDescripcion()}"/>">
     			</a>
     		</td>
-   		</tr><% 
-   	}
-   		
-   	%>
+   		</tr>
+   	</c:forEach>
    	
 </table>
