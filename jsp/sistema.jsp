@@ -8,55 +8,46 @@
 
 <%@ include file="html_head.jsp" %>
 
-<script type="text/javascript">	
-function mostrarOcultarMenu(ver,ele) {
-	dis= ver ? 'block' : 'none';
-	tab=document.getElementById(ele).style.display=dis;
-}
-function todos(){
-<c:forEach var="permiso" items="${requestScope.permisosSistema}">
-	mostrarOcultarMenu(true,'${permiso}');
-</c:forEach>
-}
-</script>
-
-
-<body onload="todos();">
+<body>
 
 	<h1><%= BTUNLP_Titulo %></h1>
     <h2>Acciones del sistema</h2>
     <h3>Usuario:<bean:write name="user" property="nombre"/> </h3>
     <table>
-    	<tr id= "proyectos" >
-    		<td>
-    			Proyectos
-    		</td>
-    		<td>
-    			<a href="listar_proyectos.jsp">
-    				<img class="icono" src="iconos/listar_proyectos.png" title="Listar proyectos">
-    			</a>
-    		</td>
-    		<td>
-    			<a href="agregar_proyecto.jsp">
-    				<img class="icono" src="iconos/agregar_proyecto.png" title="Nuevo proyecto">
-    			</a>
-    		</td>
-    	</tr>
-    	<tr id= "usuarios">
-    		<td>
-    			Usuarios
-    		</td>
-    		<td>
-    			<a href="listar_usuarios.jsp">
-    				<img class="icono" src="iconos/listar_usuarios.png" title="Listar usuarios">
-    			</a>
-    		</td>
-    		<td>
-    			<a href="agregar_usuarios.jsp">
-    				<img class="icono" src="iconos/agregar_usuario.png" title="Nuevo usuario">
-    			</a>
-    		</td>
-    	</tr>
+    	<c:if test="${requestScope.permisosSistema.contains('proyectos')}">
+	    	<tr id= "proyectos" >
+	    		<td>
+	    			Proyectos
+	    		</td>
+	    		<td>
+	    			<a href="listar_proyectos.jsp">
+	    				<img class="icono" src="iconos/listar_proyectos.png" title="Listar proyectos">
+	    			</a>
+	    		</td>
+	    		<td>
+	    			<a href="agregar_proyecto.jsp">
+	    				<img class="icono" src="iconos/agregar_proyecto.png" title="Nuevo proyecto">
+	    			</a>
+	    		</td>
+	    	</tr>
+    	</c:if>
+    	<c:if test="${requestScope.permisosSistema.contains('usuarios')}">
+	    	<tr id= "usuarios">
+	    		<td>
+	    			Usuarios
+	    		</td>
+	    		<td>
+	    			<a href="listar_usuarios.jsp">
+	    				<img class="icono" src="iconos/listar_usuarios.png" title="Listar usuarios">
+	    			</a>
+	    		</td>
+	    		<td>
+	    			<a href="agregar_usuarios.jsp">
+	    				<img class="icono" src="iconos/agregar_usuario.png" title="Nuevo usuario">
+	    			</a>
+	    		</td>
+	    	</tr>
+	    </c:if>
 	</table>
 	<%@ include file="footer.jsp" %>
 </body>
