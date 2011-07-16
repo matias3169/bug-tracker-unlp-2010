@@ -441,5 +441,28 @@ public class Sistema {
 			return user;
 		}
 	}
+	
+	public Collection<Proyecto> listarProyectosUsuario(Usuario usuario){
+		Iterator<Proyecto> pr = proyectos.iterator();
+		Iterator<Miembro> mi;
+		Proyecto proy;
+		Collection<Miembro> miembros;
+		Miembro miem;
+		Collection<Proyecto> proyectosUsuario = new HashSet<Proyecto>();
+		while(pr.hasNext())
+		{
+			proy = pr.next();
+			miembros = proy.getMiembros();
+			mi = miembros.iterator();
+			while(mi.hasNext())
+			{
+				miem = mi.next();
+				if(miem.getUsuario()== usuario){
+					proyectosUsuario.add(proy);
+				}
+			}
+		}
+		return proyectosUsuario;
+	}		
 
 }
