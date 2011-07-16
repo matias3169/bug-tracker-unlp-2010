@@ -10,14 +10,18 @@
 
 <script type="text/javascript">	
 function mostrarOcultarMenu(ver,ele) {
-	dis= ver ? '' : 'none';
-	tab=document.getElementById(ele)style.display=dis;
+	dis= ver ? 'block' : 'none';
+	tab=document.getElementById(ele).style.display=dis;
+}
+function todos(){
+<c:forEach var="permiso" items="${requestScope.permisosSistema}">
+	mostrarOcultarMenu(true,'${permiso}');
+</c:forEach>
 }
 </script>
 
-<c:forEach var="permiso" items="${requestScope.permisosSistema}">
-	<body onload="mostrarOcultarMenu(true,<c:out value="${permiso}"/>);">
-</c:forEach>
+
+<body onload="todos();">
 
 	<h1><%= BTUNLP_Titulo %></h1>
     <h2>Acciones del sistema</h2>
