@@ -34,7 +34,32 @@ public class Sistema {
 	{
         if(yaCreado == false) {
             sistema = new Sistema();
-    		sistema.nuevoUsuario("admin", "admin", sistema.getRoleSistema("Administrador"));
+    		Usuario usuario1 = sistema.nuevoUsuario("admin", "admin", sistema.getRoleSistema("Administrador"));
+    		
+    		Proyecto proyecto1 = sistema.nuevoProyecto("PROYECTO1", usuario1);
+    		Proyecto proyecto2 = sistema.nuevoProyecto("PROYECTO2", usuario1);
+    		
+    		Miembro miembro1=sistema.nuevoMiembro(proyecto1, usuario1, sistema.getRoleSistema("Administrador"));
+    		Miembro miembro2=sistema.nuevoMiembro(proyecto2, usuario1, sistema.getRoleSistema("Administrador"));
+    		
+    		TipoItem tipo1 = sistema.nuevoTipoItem("Reporte de Bug", proyecto1);
+    		
+    		Estado estado1 = sistema.nuevoEstado(proyecto1, tipo1, "Creado");
+    		Estado estado2 = sistema.nuevoEstado(proyecto1, tipo1, "Desarrollo");
+    		Estado estado3 = sistema.nuevoEstado(proyecto1, tipo1, "Validacion");
+    		Estado estado4 = sistema.nuevoEstado(proyecto1, tipo1, "Terminado");
+    		
+    		sistema.agregarEstadoSiguiente(proyecto1, tipo1, "Creado", "Desarrollo");
+    		sistema.agregarEstadoSiguiente(proyecto1, tipo1, "Desarrollo", "Validacion");
+    		sistema.agregarEstadoSiguiente(proyecto1, tipo1, "Validacion", "Terminado");
+    		sistema.agregarEstadoSiguiente(proyecto1, tipo1, "Validacion", "Desarrollo");
+    		
+    		sistema.nuevoItem("ITEM1", "DESCRIPCION1", tipo1, 1,proyecto1,miembro1);
+    		sistema.nuevoItem("ITEM2", "DESCRIPCION2", tipo1, 1,proyecto1,miembro1);
+
+    		sistema.nuevoItem("ITEM3", "DESCRIPCION3", tipo1, 1,proyecto2,miembro1);
+    		sistema.nuevoItem("ITEM4", "DESCRIPCION4", tipo1, 1,proyecto2,miembro1);
+
             yaCreado = true;
       }
       return sistema;
@@ -181,12 +206,13 @@ public class Sistema {
     	return proyecto.nuevoEstado(tipoItem, descripcion);
     }
     
-    public void nuevoProyecto(String nombre, Usuario usuario){
+    public Proyecto nuevoProyecto(String nombre, Usuario usuario){
     	setIdProyecto();
     	Proyecto proyecto = new Proyecto(getIdProyecto(), nombre);
     	Miembro miembro = new Miembro(proyecto,usuario,this.getRoleProyecto("Lider"));
     	proyecto.agregarMiembro(miembro);
     	this.proyectos.add(proyecto);
+    	return proyecto;
     }
     
     public TipoItem nuevoTipoItem(String descripcion, Proyecto proyecto){
@@ -263,6 +289,22 @@ public class Sistema {
 	    		
 			pit = (Proyecto) it.next();
 			if (pit.getNombre().equals(descripcion)){
+				notFound = false;
+				proyecto = pit;
+			}
+		}
+	   	return proyecto;
+	}
+	
+	public Proyecto getProyecto(int id){
+	   	Iterator<Proyecto> it = this.getProyectos().iterator();
+	   	boolean notFound = true;
+	   	Proyecto pit, proyecto = null; 
+	    		
+	  	while (it.hasNext() && notFound) {
+	    		
+			pit = (Proyecto) it.next();
+			if (pit.getId() == id){
 				notFound = false;
 				proyecto = pit;
 			}
@@ -442,7 +484,7 @@ public class Sistema {
 		}
 	}
 	
-	public Collection<Proyecto> listarProyectosUsuario(Usuario usuario){
+	public HashSet<Proyecto> listarProyectosUsuario(Usuario usuario){
 		Iterator<Proyecto> pr = proyectos.iterator();
 		Iterator<Miembro> mi;
 		Proyecto proy;
@@ -462,7 +504,8 @@ public class Sistema {
 				}
 			}
 		}
-		return proyectosUsuario;
-	}		
+		return (HashSet<Proyecto>)proyectosUsuario;
+	}
+	
 
 }

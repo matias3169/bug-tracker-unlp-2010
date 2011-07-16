@@ -25,7 +25,7 @@ public class Item {
 		this.id = id;
 		Date date= new Date();
 		this.nombre = nombre;
-		Estado estadoIni = null;
+		Estado estadoIni = tipo.getEstado("Creado");
 		this.descripcion = desc;
 		this.tipoItem = tipo;
 		this.prioridad = prioridad;
