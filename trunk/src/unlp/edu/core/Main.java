@@ -37,7 +37,8 @@ public class Main {
 		sistema.nuevoProyecto("PROYECTO1", usuario1);
 		sistema.nuevoProyecto("PROYECTO1", usuario1);
 		
-		Proyecto proyecto1 = sistema.getProyecto("PROYECTO1");
+		//Proyecto proyecto1 = sistema.getProyecto("PROYECTO1");
+		Proyecto proyecto1 = sistema.getProyecto(1);
 		
 		//Creacion de nuevos tipos de items para el proyecto
 		TipoItem tipo1 = sistema.nuevoTipoItem("Reporte de Bug", proyecto1);

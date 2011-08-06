@@ -280,7 +280,7 @@ public class Sistema {
 	   	return role;
 	}
 	    
-	public Proyecto getProyecto(String descripcion){
+	/*public Proyecto getProyecto(String descripcion){
 	   	Iterator<Proyecto> it = this.getProyectos().iterator();
 	   	boolean notFound = true;
 	   	Proyecto pit, proyecto = null; 
@@ -294,7 +294,7 @@ public class Sistema {
 			}
 		}
 	   	return proyecto;
-	}
+	}*/
 	
 	public Proyecto getProyecto(int id){
 	   	Iterator<Proyecto> it = this.getProyectos().iterator();
