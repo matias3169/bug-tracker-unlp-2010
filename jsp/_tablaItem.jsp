@@ -27,9 +27,9 @@
    			<hr>
    		</td>
    	</tr>
-   	
+   	<% int i = 0; %>
    	<c:forEach var="itemProyecto" items="${itemsProyecto}">
-   	<% i = i + 1; %>
+   	<%	i = i + 1; %>
    	<tr <%= i%2==0?"style=\"background-color:#eeeeee;\"":""%>>
     		<td class="tabla_centrado">
     			<c:out value="${itemProyecto.getTipoItem().getDescripcion()}"/>
