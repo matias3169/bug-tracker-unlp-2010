@@ -234,5 +234,22 @@ public class Proyecto {
 		return this.getItem(item.getNombre()).getEstadosHistoricos(fec_inicio,fec_fin);
 		
 	}
+	
+	public Miembro getLiderProyecto()
+	{
+		Iterator<Miembro> it = this.getMiembros().iterator();
+    	boolean notFound = true;
+    	Miembro lider, miembro = null; 
+    		
+    	while (it.hasNext() && notFound) {
+    		
+			lider = (Miembro) it.next();
+			if (lider.getRole().getNombre().equals("Lider")){
+				notFound = false;
+				miembro = lider;
+			}
+		}
+    	return miembro;
+	}
 }
 

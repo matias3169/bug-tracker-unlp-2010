@@ -508,4 +508,25 @@ public class Sistema {
 	}
 	
 
+	public Usuario getUsuarioPorID(int id){
+	   	Iterator<Usuario> it = this.getUsuarios().iterator();
+	   	boolean notFound = true;
+	   	Usuario uit, usuario = null; 
+	    		
+    	while (it.hasNext() && notFound) {
+    		
+			uit = (Usuario) it.next();
+			if (uit.getId() == id){
+				notFound = false;
+				usuario = uit;
+			}
+		}
+    	return usuario;
+    }
+	
+	public Miembro getLiderProyecto(Proyecto proyecto)
+	{
+		return proyecto.getLiderProyecto();
+	}
+	
 }
