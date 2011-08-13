@@ -3,7 +3,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<%@ include file="html_head.jsp" %>
-	<% int i = 0; %>
+	<c:set var="proyecto" value="${sessionScope.sistema.getProyecto(param.id)}"/>
+	<c:set var="miembrosProyecto" value="${sessionScope.sistema.getMiembrosProyecto(proyecto)}"/>
+	<c:set var="liderProyecto" value="${sessionScope.sistema.getLiderProyecto(proyecto)}"/>
+
 <body>
 	<h1><%= BTUNLP_Titulo %></h1>
 	<h2>Editar datos del proyecto</h2>
@@ -25,21 +28,30 @@
     
   		<tr style='background-color:#eeeeee;'>
     		<td class="tabla_centrado">
-    		    <input name="nombre" maxlength="15" type="text" value="${sessionScope.sistema.getProyecto(param.id).getNombre()}" />
+    		    <input name="nombre" maxlength="15" type="text" value="${proyecto.getNombre()}" />
     		</td>
     		<td>
-    		    <input name="lider" maxlength="15" type="text" value="${sessionScope.sistema.getLiderProyecto(sessionScope.sistema.getProyecto(param.id)).getUsuario().getNombre()}"/>
+    		<select name="lider">
+	    			<c:forEach var="miembro" items="${miembrosProyecto}">
+	    				<c:choose>
+							<c:when test="${miembro.getUsuario().getNombre() == liderProyecto.getRole().getNombre()}">
+		    		   			<option selected="selected"><c:out value="${miembro.getUsuario().getNombre()}"/></option>
+							</c:when>
+							<c:otherwise>
+								<option><c:out value="${miembro.getUsuario().getNombre()}"/></option>
+							</c:otherwise>
+						</c:choose>
+	         		</c:forEach>
+	    		</select>
     		</td>
     	</tr> 
+    	<tr height="4"></tr>
     	<tr> 
-    		<td></td>
-    		<td>   		
-    			<a href="editar_propiedades_proyecto.jsp?id=<c:out value='${param.id}'/>"> 
-    				<img class="icono_chico" src="iconos/cambiar_estado.png" 
-    					title="Editar propiedades de <c:out value='${sessionScope.sistema.getProyecto(param.id).getNombre()}'/>">
-    			</a>
-    		</td>
-   		</tr>
-   	</table>     				 
+    		<td class="tabla_centrado" colspan="2">
+				<input type="submit" name="editar_proyecto" value="Guardar cambios">
+			</td>
+		</tr>
+   	</table>     			
+   	<%@ include file="footer.jsp" %>	 
 </body>
 </html>

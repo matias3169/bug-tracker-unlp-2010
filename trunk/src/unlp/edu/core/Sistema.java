@@ -35,30 +35,32 @@ public class Sistema {
         if(yaCreado == false) {
             sistema = new Sistema();
     		Usuario usuario1 = sistema.nuevoUsuario("admin", "admin", sistema.getRoleSistema("Administrador"));
+    		Usuario usuario2 = sistema.nuevoUsuario("guest", "guest", sistema.getRoleSistema("Desarrollador"));
     		
     		Proyecto proyecto1 = sistema.nuevoProyecto("PROYECTO1", usuario1);
-    		Proyecto proyecto2 = sistema.nuevoProyecto("PROYECTO2", usuario1);
+    		Proyecto proyecto2 = sistema.nuevoProyecto("PROYECTO2", usuario2);
     		
-    		Miembro miembro1=sistema.nuevoMiembro(proyecto1, usuario1, sistema.getRoleSistema("Administrador"));
-    		Miembro miembro2=sistema.nuevoMiembro(proyecto2, usuario1, sistema.getRoleSistema("Administrador"));
+    		//Miembro miembro1=sistema.nuevoMiembro(proyecto1, usuario1, sistema.getRoleSistema("Administrador"));
+    		//Miembro miembro2=sistema.nuevoMiembro(proyecto2, usuario1, sistema.getRoleSistema("Administrador"));
     		
     		TipoItem tipo1 = sistema.nuevoTipoItem("Reporte de Bug", proyecto1);
     		
-    		Estado estado1 = sistema.nuevoEstado(proyecto1, tipo1, "Creado");
-    		Estado estado2 = sistema.nuevoEstado(proyecto1, tipo1, "Desarrollo");
-    		Estado estado3 = sistema.nuevoEstado(proyecto1, tipo1, "Validacion");
-    		Estado estado4 = sistema.nuevoEstado(proyecto1, tipo1, "Terminado");
+    		sistema.nuevoEstado(proyecto1, tipo1, "Creado");
+    		sistema.nuevoEstado(proyecto1, tipo1, "Desarrollo");
+    		sistema.nuevoEstado(proyecto1, tipo1, "Validacion");
+    		sistema.nuevoEstado(proyecto1, tipo1, "Terminado");
     		
     		sistema.agregarEstadoSiguiente(proyecto1, tipo1, "Creado", "Desarrollo");
     		sistema.agregarEstadoSiguiente(proyecto1, tipo1, "Desarrollo", "Validacion");
     		sistema.agregarEstadoSiguiente(proyecto1, tipo1, "Validacion", "Terminado");
     		sistema.agregarEstadoSiguiente(proyecto1, tipo1, "Validacion", "Desarrollo");
     		
-    		sistema.nuevoItem("ITEM1", "DESCRIPCION1", tipo1, 1,proyecto1,miembro1);
-    		sistema.nuevoItem("ITEM2", "DESCRIPCION2", tipo1, 1,proyecto1,miembro1);
+    		
+    		sistema.nuevoItem("ITEM1", "DESCRIPCION1", tipo1, 1,proyecto1,sistema.getMiembro(proyecto1, "admin"));
+    		sistema.nuevoItem("ITEM2", "DESCRIPCION2", tipo1, 1,proyecto1,sistema.getMiembro(proyecto1, "admin"));
 
-    		sistema.nuevoItem("ITEM3", "DESCRIPCION3", tipo1, 1,proyecto2,miembro1);
-    		sistema.nuevoItem("ITEM4", "DESCRIPCION4", tipo1, 1,proyecto2,miembro1);
+    		sistema.nuevoItem("ITEM3", "DESCRIPCION3", tipo1, 1,proyecto2,sistema.getMiembro(proyecto2, "guest"));
+    		sistema.nuevoItem("ITEM4", "DESCRIPCION4", tipo1, 1,proyecto2,sistema.getMiembro(proyecto2, "guest"));
 
             yaCreado = true;
       }
@@ -527,6 +529,10 @@ public class Sistema {
 	public Miembro getLiderProyecto(Proyecto proyecto)
 	{
 		return proyecto.getLiderProyecto();
+	}
+	
+	public Collection<Miembro> getMiembrosProyecto(Proyecto proyecto1) {
+		return proyecto1.getMiembros();	
 	}
 	
 }
