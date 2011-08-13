@@ -3,7 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<%@ include file="html_head.jsp" %>
-	<% int i = 0; %>
+	<c:set var="rolesUsuario" value="${sessionScope.sistema.getRolesSistema()}"/>
+	<c:set var="Usuario" value="${sessionScope.sistema.getUsuarioPorID(param.id)}"/>
 <body>
 	<h1><%= BTUNLP_Titulo %></h1>
 	<h2>Editar datos del usuario</h2>
@@ -28,25 +29,33 @@
     
   		<tr style='background-color:#eeeeee;'>
     		<td class="tabla_centrado">
-    		    <input name="nombre" maxlength="15" type="text" value="${sessionScope.sistema.getUsuarioPorID(param.id).getNombre()}" />
+    		    <input name="nombre" maxlength="15" type="text" value="${Usuario.getNombre()}" />
     		</td>
     		<td>
-    		    <input name="rol" maxlength="15" type="text" value="${sessionScope.sistema.getUsuarioPorID(param.id).getRole().getNombre()}"/>
-    		</td>
+	    		<select name="rol">
+	    			<c:forEach var="rol" items="${rolesUsuario}">
+	    				<c:choose>
+							<c:when test="${rol.getNombre() == Usuario.getRole().getNombre()}">
+		    		   			<option selected="selected"><c:out value="${rol.getNombre()}"/></option>
+							</c:when>
+							<c:otherwise>
+								<option><c:out value="${rol.getNombre()}"/></option>
+							</c:otherwise>
+						</c:choose>
+	         		</c:forEach>
+	    		</select>
+	    	</td>
     		<td>
     		    <input name="password" maxlength="8" type="password" value="${sessionScope.sistema.getUsuarioPorID(param.id).getClave()}"/>
     		</td>
     	</tr> 
+    	<tr height="4"></tr>
     	<tr> 
-    		<td></td>
-    		<td></td>
-    		<td>   		
-    			<a href="editar_propiedades_usuario.jsp?id=<c:out value='${param.id}'/>"> 
-    				<img class="icono_chico" src="iconos/cambiar_estado.png" 
-    					title="Editar propiedades de <c:out value='${sessionScope.sistema.getUsuarioPorID(param.id).getNombre()}'/>">
-    			</a>
-    		</td>
+    		<td class="tabla_centrado" colspan="4">
+				<input type="submit" name="editar_usuario" value="Guardar cambios">
+			</td>
    		</tr>
-   	</table>     				 
+   	</table>
+   	<%@ include file="footer.jsp" %>     				 
 </body>
 </html>
