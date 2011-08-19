@@ -13,5 +13,7 @@
 				<arg key="form.clave"/>
 			</field>
 		</form>
+		<form name="editarProyectoForm"></form>
+		<form name="eliminarProyectoForm"></form>
 	</formset>
 </form-validation>
