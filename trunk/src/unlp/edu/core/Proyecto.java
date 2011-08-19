@@ -14,6 +14,7 @@ public class Proyecto {
 
 	private int id;
 	private String nombre;
+	private Miembro liderProyecto;
 	private static int id_item = 0;
 	private static int id_tipo_item = 0;
 	private Collection<Item> items;
@@ -250,6 +251,12 @@ public class Proyecto {
 			}
 		}
     	return miembro;
+	}
+	
+	public void setLiderProyecto(Miembro lider)
+	{
+		this.liderProyecto = lider;
+		this.miembros.add(lider);
 	}
 }
 
