@@ -39,6 +39,7 @@ public class Sistema {
     		
     		Proyecto proyecto1 = sistema.nuevoProyecto("PROYECTO1", usuario1);
     		Proyecto proyecto2 = sistema.nuevoProyecto("PROYECTO2", usuario2);
+    		Proyecto proyecto3 = sistema.nuevoProyecto("PROYECTO3", usuario1);
     		
     		//Miembro miembro1=sistema.nuevoMiembro(proyecto1, usuario1, sistema.getRoleSistema("Administrador"));
     		//Miembro miembro2=sistema.nuevoMiembro(proyecto2, usuario1, sistema.getRoleSistema("Administrador"));
@@ -212,7 +213,7 @@ public class Sistema {
     	setIdProyecto();
     	Proyecto proyecto = new Proyecto(getIdProyecto(), nombre);
     	Miembro miembro = new Miembro(proyecto,usuario,this.getRoleProyecto("Lider"));
-    	proyecto.agregarMiembro(miembro);
+    	proyecto.setLiderProyecto(miembro);
     	this.proyectos.add(proyecto);
     	return proyecto;
     }
@@ -282,7 +283,7 @@ public class Sistema {
 	   	return role;
 	}
 	    
-	/*public Proyecto getProyecto(String descripcion){
+	public Proyecto getProyectoPorNombre(String nombre){
 	   	Iterator<Proyecto> it = this.getProyectos().iterator();
 	   	boolean notFound = true;
 	   	Proyecto pit, proyecto = null; 
@@ -290,13 +291,13 @@ public class Sistema {
 	  	while (it.hasNext() && notFound) {
 	    		
 			pit = (Proyecto) it.next();
-			if (pit.getNombre().equals(descripcion)){
+			if (pit.getNombre().equals(nombre)){
 				notFound = false;
 				proyecto = pit;
 			}
 		}
 	   	return proyecto;
-	}*/
+	}
 	
 	public Proyecto getProyecto(int id){
 	   	Iterator<Proyecto> it = this.getProyectos().iterator();
@@ -534,5 +535,16 @@ public class Sistema {
 	public Collection<Miembro> getMiembrosProyecto(Proyecto proyecto1) {
 		return proyecto1.getMiembros();	
 	}
+	
+	public void setLiderProyecto(Proyecto proyecto, Miembro liderProyecto)
+	{
+		proyecto.setLiderProyecto(liderProyecto);
+	}
+	
+	public boolean eliminarProyecto(Proyecto proyecto)
+	{
+		return this.proyectos.remove(proyecto);
+	}
+	
 	
 }
