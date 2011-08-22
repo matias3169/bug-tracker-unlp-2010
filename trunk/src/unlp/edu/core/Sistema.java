@@ -36,12 +36,13 @@ public class Sistema {
             sistema = new Sistema();
     		Usuario usuario1 = sistema.nuevoUsuario("admin", "admin", sistema.getRoleSistema("Administrador"));
     		Usuario usuario2 = sistema.nuevoUsuario("guest", "guest", sistema.getRoleSistema("Desarrollador"));
+    		Usuario usuario3 = sistema.nuevoUsuario("developer", "developer", sistema.getRoleSistema("Desarrollador"));
     		
     		Proyecto proyecto1 = sistema.nuevoProyecto("PROYECTO1", usuario1);
     		Proyecto proyecto2 = sistema.nuevoProyecto("PROYECTO2", usuario2);
     		Proyecto proyecto3 = sistema.nuevoProyecto("PROYECTO3", usuario1);
     		
-    		//Miembro miembro1=sistema.nuevoMiembro(proyecto1, usuario1, sistema.getRoleSistema("Administrador"));
+    		sistema.nuevoMiembro(proyecto1, usuario3, sistema.getRoleSistema("Desarrollador"));
     		//Miembro miembro2=sistema.nuevoMiembro(proyecto2, usuario1, sistema.getRoleSistema("Administrador"));
     		
     		TipoItem tipo1 = sistema.nuevoTipoItem("Reporte de Bug", proyecto1);
@@ -546,5 +547,10 @@ public class Sistema {
 		return this.proyectos.remove(proyecto);
 	}
 	
+
+	public boolean eliminarUsuario(Usuario usuario)
+	{
+		return this.usuarios.remove(usuario);
+	}
 	
 }
