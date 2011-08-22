@@ -7,7 +7,8 @@
 <html:html>
 
 	<%@ include file="html_head.jsp" %>
-	
+	<c:set var="rolesUsuario" value="${sessionScope.sistema.getRolesSistema()}"/>
+		
 <body>
 
 	<html:javascript formName="agregarUsuarioForm" />
@@ -37,21 +38,12 @@
 					<div id="etiqueta_clave">Rol:</div>
 				</td>
 				<td class="tabla_input">
-					<%
-   					/* ----- codigo de prueba */
-   				   	String[] rolesTest={"Administrador", "Líder de proyecto", "Programador", "Tester", "Analista"};
-					%>
 					<select name="rol_usuario">
 						<option value="null">&nbsp;</option>
-						<%
-						 for (String s : rolesTest) 
-						 {
-							%><option value="<%= s %>">
-								<%= s %>
-							</option><%
-						 }
-						%>
-					</select>
+	    					<c:forEach var="rol" items="${rolesUsuario}">
+								<option><c:out value="${rol.getNombre()}"/></option>
+			         		</c:forEach>
+	    			</select>		
 				</td>
 			</tr>
 			<tr>
