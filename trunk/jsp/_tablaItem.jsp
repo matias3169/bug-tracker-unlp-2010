@@ -27,10 +27,18 @@
    			<hr>
    		</td>
    	</tr>
-   	<% int i = 0; %>
-   	<c:forEach var="itemProyecto" items="${itemsProyecto}">
-   	<%	i = i + 1; %>
-   	<tr <%= i%2==0?"style=\"background-color:#eeeeee;\"":""%>>
+   	<c:forEach var="itemProyecto" items="${itemsProyecto}"  varStatus="i">
+
+   		<c:choose>  
+			<c:when test="${(i.count) % 2 == 0}">  
+				<tr style="background-color:#eeeeee;">  
+			</c:when>  
+			<c:otherwise>  
+				<tr>  
+			</c:otherwise>  
+		</c:choose> 
+   		
+   		
     		<td class="tabla_centrado">
     			<c:out value="${itemProyecto.getTipoItem().getDescripcion()}"/>
     		</td>
@@ -60,5 +68,26 @@
     		</td>
    		</tr>
    	</c:forEach>
-   	
+   	<tr>
+   		<td colspan="7">
+   			<hr>
+   		</td>
+   	</tr>
+   	<tr>
+   		<td colspan="7">
+   			<table cellpadding="0" cellspacing="0" border="0">
+   				<tr>
+	   				<td class="tabla_centrado" colspan="5" style="font-style:italic;">
+	   					Agregar nuevo item&nbsp;&nbsp;
+	   				</td>
+	   				<td class="tabla_centrado" colspan="2" style="font-style:italic;">
+	   					<a href="item_agregar.jsp"> 
+	    					<img class="icono_chico" src="iconos/agregar_item.png" 
+	    						title="Agregar nuevo item al proyecto">
+	    				</a>
+	   				</td>
+	   			</tr>
+   			</table>
+   		</td>
+   	</tr>
 </table>
