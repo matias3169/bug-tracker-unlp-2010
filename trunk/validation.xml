@@ -13,8 +13,10 @@
 				<arg key="form.clave"/>
 			</field>
 		</form>
+		<form name="agregarProyectoForm"></form>
 		<form name="editarProyectoForm"></form>
 		<form name="eliminarProyectoForm"></form>
+		<form name="agregarUsuarioForm"></form>
 		<form name="eliminarUsuarioForm"></form>
 		<form name="editarUsuarioForm"></form>
 	</formset>
