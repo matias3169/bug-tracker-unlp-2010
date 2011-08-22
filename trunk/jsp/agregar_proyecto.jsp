@@ -1,20 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html:html>
 	<%@ include file="html_head.jsp" %>
+	
 	<c:set var="usuariosSistema" value="${sessionScope.sistema.getUsuarios()}"/>
+	
 <body>
+	<html:javascript formName="agregarProyectoForm" />
+	
 	<h1><%= BTUNLP_Titulo %></h1>
     <h2>Agregar nuevo proyecto</h2>
-	<form method="POST" action="proyecto_agregar.jsp">
+    
+	<html:form method="POST" action="/agregar_proyecto">
 		<table>
 			<tr>
 				<td class="tabla_etiqueta">
 					<div id="etiqueta_usuario">Nombre del proyecto:</div>
 				</td>
 				<td class="tabla_input">
-					<input type="text" name="nombre_usuario">
+					<input type="text" name="nombre_proyecto">
 				</td>
 			</tr>
 			
@@ -37,7 +44,7 @@
 				</td>
 			</tr>
 		</table>
-	</form>
+	</html:form>
 	<%@ include file="footer.jsp" %>
 </body>
-</html>
+</html:html>
