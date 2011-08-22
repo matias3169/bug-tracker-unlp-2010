@@ -8,6 +8,10 @@
               <form-property name="nombre_usuario" type="java.lang.String"></form-property>  
               <form-property name="clave_usuario"  type="java.lang.String"></form-property>    
         </form-bean>
+        <form-bean name="agregarProyectoForm" type="org.apache.struts.action.DynaActionForm">  
+              <form-property name="nombre_proyecto" type="java.lang.String"></form-property>  
+              <form-property name="lider_proyecto" type="java.lang.String"></form-property>    
+        </form-bean>
         <form-bean name="editarProyectoForm" type="org.apache.struts.action.DynaActionForm">  
               <form-property name="nombreProyecto" type="java.lang.String"></form-property>  
               <form-property name="liderProyecto" type="java.lang.String"></form-property>
@@ -16,6 +20,11 @@
         <form-bean name="eliminarProyectoForm" type="org.apache.struts.action.DynaActionForm">  
               <form-property name="nombreProyecto" type="java.lang.String"></form-property>  
         </form-bean>
+         <form-bean name="agregarUsuarioForm" type="org.apache.struts.action.DynaActionForm">  
+              <form-property name="nombre_usuario" type="java.lang.String"></form-property>  
+              <form-property name="clave_usuario" type="java.lang.String"></form-property>
+              <form-property name="rol_usuario" type="java.lang.String"></form-property>
+        </form-bean>   
         <form-bean name="eliminarUsuarioForm" type="org.apache.struts.action.DynaActionForm">  
               <form-property name="nombreUsuario" type="java.lang.String"></form-property>  
         </form-bean>   
@@ -35,7 +44,16 @@
             input="/index.jsp">  
              <forward name="ok" path="/sistema.jsp"/>  
              <forward name="error" path="/index.jsp"/>
-        </action>          
+        </action>       
+         <action path="/agregar_proyecto"   
+            type="unlp.edu.action.AgregarProyectoAction"   
+            name="agregarProyectoForm"  
+            scope="session"  
+            validate="true"  
+            input="/agregar_proyecto.jsp">  
+             <forward name="ok" path="/listar_proyectos.jsp"/>  
+             <forward name="error" path="/agregar_proyecto.jsp"/>
+        </action>   
         <action path="/editar_proyecto"   
             type="unlp.edu.action.EditarProyectoAction"   
             name="editarProyectoForm"  
@@ -53,6 +71,15 @@
             input="/proyecto_borrar.jsp">  
              <forward name="ok" path="/listar_proyectos.jsp"/>  
              <forward name="error" path="/proyecto_borrar.jsp"/>
+        </action>
+        <action path="/agregar_usuario"   
+            type="unlp.edu.action.AgregarUsuarioAction"   
+            name="agregarUsuarioForm"  
+            scope="session"  
+            validate="true"  
+            input="/agregar_usuarios.jsp">  
+             <forward name="ok" path="/listar_usuarios.jsp"/>  
+             <forward name="error" path="/agregar_usuarios.jsp"/>
         </action>
         <action path="/editar_usuario"   
             type="unlp.edu.action.EditarUsuarioAction"   
