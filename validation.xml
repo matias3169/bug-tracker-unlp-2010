@@ -15,5 +15,7 @@
 		</form>
 		<form name="editarProyectoForm"></form>
 		<form name="eliminarProyectoForm"></form>
+		<form name="eliminarUsuarioForm"></form>
+		<form name="editarUsuarioForm"></form>
 	</formset>
 </form-validation>
