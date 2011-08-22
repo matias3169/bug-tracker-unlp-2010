@@ -55,6 +55,7 @@ td
 .tabla_centrado
 {
         text-align:center;
+        vertical-align:middle;
 }
 
 .footer

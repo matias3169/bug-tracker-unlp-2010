@@ -13,7 +13,11 @@
     <h3>Items</h3>
     <%@ include file="_tablaItem.jsp" %>
     
+    <c:set var="miembrosProyecto" value="${sessionScope.sistema.getProyecto(param.id).getMiembros()}" />
     <h3>Miembros</h3>
+    <%@ include file="_tablaMiembros.jsp" %>
+    
+    
     <h3>Tipos de &iacute;tems</h3>
     
 	<%@ include file="footer.jsp" %>
