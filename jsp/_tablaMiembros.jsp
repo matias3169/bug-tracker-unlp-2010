@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+
 <table cellpadding="0" cellspacing="0" border="0">
    	<tr class="encabezado_tabla">
    		<td class="tabla_centrado">
@@ -22,10 +24,10 @@
 			</c:otherwise>  
 		</c:choose> 
 		    		<td class="tabla_centrado">
-		    			<c:out value="${mimebroProyecto.getUsuario().getNombre()}"/>
+		    			<c:out value="${miembroProyecto.getUsuario().getNombre()}"/>
 		    		</td>
 		    		<td>
-		    			<c:out value="${mimebroProyecto.getUsuario().getRole().getNombre()}"/>
+		    			<c:out value="${miembroProyecto.getUsuario().getRole().getNombre()}"/>
 		    		</td>
    				</tr>
    	</c:forEach>
