@@ -32,6 +32,11 @@
               <form-property name="nombreUsuario" type="java.lang.String"></form-property>  
               <form-property name="nuevoRol" type="java.lang.String"></form-property>
               <form-property name="password" type="java.lang.String"></form-property>
+        </form-bean>
+        <form-bean name="agregarMiembroForm" type="org.apache.struts.action.DynaActionForm">  
+              <form-property name="usuario" type="java.lang.String"></form-property>  
+              <form-property name="rol_miembro" type="java.lang.String"></form-property>
+              <form-property name="nombreProyecto" type="java.lang.String"></form-property>
         </form-bean>       
     </form-beans>  
       
@@ -98,6 +103,15 @@
             input="/usuario_eliminar.jsp">  
              <forward name="ok" path="/listar_usuarios.jsp"/>  
              <forward name="error" path="/usuario_eliminar.jsp"/>
+        </action>
+         <action path="/agregar_miembro"   
+            type="unlp.edu.action.AgregarMiembroAction"   
+            name="agregarMiembroForm"  
+            scope="session"  
+            validate="true"  
+            input="/agregar_miembro.jsp">  
+             <forward name="ok" path="/proyecto_trabajar.jsp" />  
+             <forward name="error" path="/agregar_miembro.jsp"/>
         </action>
     </action-mappings>  
   
