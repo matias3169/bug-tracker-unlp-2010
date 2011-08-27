@@ -19,6 +19,7 @@
     
     <c:set var="tiposItem" value="${sessionScope.sistema.getProyecto(param.id).getTiposItems()}" />
     <h3>Tipos de &iacute;tems</h3>
+    <%@ include file="_tablaTiposItem.jsp" %>
     
 	<%@ include file="footer.jsp" %>
 </body>
