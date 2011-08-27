@@ -15,9 +15,9 @@
    		</td>
    	</tr>
    	
-   	<c:forEach var="miembroProyecto" items="${miembrosProyecto}" varStatus="i">
+   	<c:forEach var="miembroProyecto" items="${miembrosProyecto}" varStatus="j">
    	<c:choose>  
-		<c:when test="${(i.count) % 2 == 0}">  
+		<c:when test="${(j.count) % 2 == 0}">  
 			<tr style="background-color:#eeeeee;">  
 		</c:when>  
 		<c:otherwise>  
