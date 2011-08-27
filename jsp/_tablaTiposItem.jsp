@@ -30,15 +30,19 @@
     		<td class="tabla_centrado">
     			<c:out value="${tipoItem.getDescripcion()}"/>
     		</td>
-    		<td>
+    		<td class="tabla_centrado">
     			<c:out value="${tipoItem.getEstadoInicial().getDescripcion()}"/>
     		</td>
     		<td class="tabla_centrado">
-				
-				hola!
-				
+				<c:set var="estadosPosibles" value="${tipoItem.getEstadosPosibles()}" />
+				<select>
+					<c:forEach var="estadoPosible" items="${estadosPosibles}"  varStatus="m">
+						<option>
+							<c:out value="${estadoPosible.getDescripcion()}"/>
+						</option>
+					</c:forEach>
+				</select>
     		</td>
-    		
    		</tr>
    	</c:forEach>
    	<tr>
