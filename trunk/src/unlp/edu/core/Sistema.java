@@ -47,7 +47,7 @@ public class Sistema {
     		
     		TipoItem tipo1 = sistema.nuevoTipoItem("Reporte de Bug", proyecto1);
     		
-    		sistema.nuevoEstado(proyecto1, tipo1, "Creado");
+    		tipo1.setEstadoInicial(sistema.nuevoEstado(proyecto1, tipo1, "Creado"));
     		sistema.nuevoEstado(proyecto1, tipo1, "Desarrollo");
     		sistema.nuevoEstado(proyecto1, tipo1, "Validacion");
     		sistema.nuevoEstado(proyecto1, tipo1, "Terminado");
