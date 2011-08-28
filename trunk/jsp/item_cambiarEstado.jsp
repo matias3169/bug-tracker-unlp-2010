@@ -14,7 +14,6 @@
 	
 	<h1><%= BTUNLP_Titulo %></h1>
 	<h2>Cambiar estado <c:out value="${item.getNombre()}"/></h2>
-   <!-- <h2>Cambiar estado <c:out value="${sessionScope.sistema.getProyecto(param.idP).getItemPorId(param.idI).getNombre()}"/></h2> -->
     
     <html:form action="/cambiarEstado"  method="post">
     
