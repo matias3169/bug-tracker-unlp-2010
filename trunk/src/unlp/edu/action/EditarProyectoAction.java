@@ -23,7 +23,6 @@ public class EditarProyectoAction extends Action{
 		
 		// Extraemos los datos del formulario 
 		String  nombreActualProyecto = (String) editarProyectoForm.get("nombreActualProyecto");
-		//String  liderActualProyecto = (String) editarProyectoForm.get("liderActualProyecto");
 		
 		String  nuevoNombreProyecto = (String) editarProyectoForm.get("nombreProyecto");
 		String  nuevoLiderProyecto = (String) editarProyectoForm.get("liderProyecto");
