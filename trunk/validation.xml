@@ -20,5 +20,6 @@
 		<form name="eliminarUsuarioForm"></form>
 		<form name="editarUsuarioForm"></form>
 		<form name="agregarMiembroForm"></form>
+		<form name="cambiarEstadoForm"></form>
 	</formset>
 </form-validation>
