@@ -29,7 +29,7 @@ public class Item {
 		this.descripcion = desc;
 		this.tipoItem = tipo;
 		this.prioridad = prioridad;
-		this.estadoActual = new EstadoItem(estadoIni,null,date,null,null,responsable);
+		this.estadoActual = new EstadoItem(estadoIni,date,null,null,null,responsable);
 		this.historialEstados = new HashSet<EstadoItem>();
 	}
 
@@ -99,12 +99,13 @@ public class Item {
 	{
 		estadoActual.setFechaFin(fechaFin);
 		this.historialEstados.add(estadoActual);
-		this.setEstadoActual(new EstadoItem(estado,null,fechaFin,"",miembrosDisponibles,responsable));
+		Date fechaInicio = fechaFin; // la fecha de inicio del nuevo estadoItem es la de fin del estadoItem anterior
+		this.setEstadoActual(new EstadoItem(estado,fechaInicio,null,"",miembrosDisponibles,responsable));
 		
 		/* if (miembrosDisponibles.contains(responsable)) {
 			estadoActual.setFechaFin(fechaFin);
 			this.historialEstados.add(estadoActual);
-			this.setEstadoActual(new EstadoItem(estado,null,fechaFin,"",miembrosDisponibles,responsable));
+			this.setEstadoActual(new EstadoItem(estado,fechaInicio,null,"",miembrosDisponibles,responsable));
 		} else {
 			throw new Exception("El responsable no es un miembro disponible.");
 		}*/
@@ -116,7 +117,8 @@ public class Item {
 		if (miembrosDisponibles.contains(responsable)) {
 			estadoActual.setFechaFin(fechaFin);
 			this.historialEstados.add(estadoActual);
-			this.setEstadoActual(new EstadoItem(estadoActual.getEstado(),null, fechaFin, "", estadoActual.getMiembrosDisponibles(), responsable));
+			Date fechaInicio = fechaFin; // idem antes
+			this.setEstadoActual(new EstadoItem(estadoActual.getEstado(),fechaInicio, null, "", estadoActual.getMiembrosDisponibles(), responsable));
 		} else {
 			throw new Exception("El responsable no es un miembro disponible.");
 		}
