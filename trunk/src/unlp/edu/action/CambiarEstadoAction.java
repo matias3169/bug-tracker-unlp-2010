@@ -1,5 +1,6 @@
 package unlp.edu.action;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -36,9 +37,10 @@ public class CambiarEstadoAction extends Action{
 		Estado nuevoEstado = item.getTipoItem().getEstado(descNuevoEstado);
 		Miembro nuevoResponsable = proyecto.getMiembro(nomNuevoResponsable);
 		
-		Date date = new Date();
+		//Date date = new Date();
+		Calendar date = Calendar.getInstance();
 		//Hay que pasar la lista de miembros del estadoitem
-		item.cambiarEstadoItem(nuevoEstado, nuevoResponsable, new HashSet<Miembro>(), date);
+		item.cambiarEstadoItem(nuevoEstado, nuevoResponsable, new HashSet<Miembro>(), date.getTime());
 		
 		
 		// Mostramos la siguiente vista
