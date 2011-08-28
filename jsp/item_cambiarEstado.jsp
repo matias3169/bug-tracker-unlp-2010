@@ -34,6 +34,9 @@
    		   <td>
 			    Pasar a estado: 
    		   </td>
+   		   <td>
+			    Ficha de Trabajo: 
+   		   </td>
    		</tr>
    		<tr>
     		<td colspan="3">
@@ -71,6 +74,9 @@
 					</c:forEach>
 				</select>
 	    	</td>
+	    	<td class="tabla_input">
+    		    <input type="text" name="fichaTrabajo">
+    		</td>
     	</tr> 
     	<tr height="4"></tr>
     	<tr> 
