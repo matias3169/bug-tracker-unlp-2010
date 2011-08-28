@@ -17,7 +17,6 @@
 	<html:form action="/editar_proyecto"  method="post">
 	
 	<html:hidden property="nombreActualProyecto" value="${proyecto.getNombre()}" />
-	<html:hidden property="liderActualProyecto" value="${liderProyecto.getRole().getNombre()}" />
 		
     <table cellpadding="0" cellspacing="0" border="0">
     	<tr class="encabezado_tabla">
