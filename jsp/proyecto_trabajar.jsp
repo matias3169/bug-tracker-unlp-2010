@@ -6,10 +6,11 @@
 	
 <body>
 	<h1><%= BTUNLP_Titulo %></h1>
-	
-    <h2><c:out value="${sessionScope.sistema.getProyecto(param.id).getNombre()}"/> </h2>
-    
+	<h2><c:out value="${sessionScope.sistema.getProyecto(param.id).getNombre()}"/> </h2>
+   
+    <c:set var="proyecto" value="${sessionScope.sistema.getProyecto(param.id)}" />
     <c:set var="itemsProyecto" value="${sessionScope.sistema.getProyecto(param.id).getItems()}" />
+    
     <h3>Items</h3>
     <%@ include file="_tablaItem.jsp" %>
     
