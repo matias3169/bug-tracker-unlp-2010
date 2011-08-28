@@ -95,12 +95,12 @@ public class Item {
 		this.nombre = nombre;
 	}
 	
-	public void cambiarEstadoItem(Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fechaFin) throws Exception
+	public void cambiarEstadoItem(Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fechaFin, String fichaTrabajo) throws Exception
 	{
 		estadoActual.setFechaFin(fechaFin);
 		this.historialEstados.add(estadoActual);
 		Date fechaInicio = fechaFin; // la fecha de inicio del nuevo estadoItem es la de fin del estadoItem anterior
-		this.setEstadoActual(new EstadoItem(estado,fechaInicio,null,"",miembrosDisponibles,responsable));
+		this.setEstadoActual(new EstadoItem(estado,fechaInicio,null,fichaTrabajo,miembrosDisponibles,responsable));
 		
 		/* if (miembrosDisponibles.contains(responsable)) {
 			estadoActual.setFechaFin(fechaFin);
