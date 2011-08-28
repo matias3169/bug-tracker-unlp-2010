@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html:html>
@@ -51,10 +53,12 @@
     			<c:out value="${estadoItem.getEstado().getDescripcion()}"/>
     		</td>
     		<td class="tabla_centrado">
-    			<c:out value="${estadoItem.getFechaInicio().toString()}"/>
+    			<fmt:formatDate dateStyle="short" value="${estadoItem.getFechaInicio()}"/>
+    			<!-- <c:out value="${estadoItem.getFechaInicio().toString()}"/> -->
     		</td>
     		<td class="tabla_centrado">
-				<c:out value="${estadoItem.getFechaFin().toString()}"/>
+    			<fmt:formatDate dateStyle="short" value="${estadoItem.getFechaFin()}"/>
+				<!-- <c:out value="${estadoItem.getFechaFin().toString()}"/> -->
     		</td>
     		<td class="tabla_centrado">
 				<c:out value="${estadoItem.getResponsable().getUsuario().getNombre()}"/>
