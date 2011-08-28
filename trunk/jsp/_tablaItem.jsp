@@ -55,7 +55,7 @@
 				<c:out value="${itemProyecto.responsableActual().getNombre()}"/>
     		</td>
     		<td class="tabla_centrado">
-    			<a href="item_cambiarEstado.jsp?id=<c:out value="${itemProyecto.getId()}"/>"> 
+    			<a href="item_cambiarEstado.jsp?idI=<c:out value="${itemProyecto.getId()}"/>&idP=<c:out value="${proyecto.getId()}"/>"> 
     				<img class="icono_chico" src="iconos/cambiar_estado.png" 
     					title="Cambiar estado de <c:out value="${itemProyecto.getDescripcion()}"/>">
     			</a>
