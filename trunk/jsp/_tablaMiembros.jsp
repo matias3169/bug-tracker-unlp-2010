@@ -28,7 +28,7 @@
 	   				<c:out value="${miembroProyecto.getUsuario().getNombre()}"/>
 	   			</td>
 	   			<td>
-	   				<c:out value="${miembroProyecto.getUsuario().getRole().getNombre()}"/>
+	   				<c:out value="${miembroProyecto.getRole().getNombre()}"/>
 	   			</td>
    			</tr>
    	</c:forEach>
