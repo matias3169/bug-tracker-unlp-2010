@@ -136,7 +136,13 @@ public class Proyecto {
 	}
 	
 	public void cambiarEstadoItem( Item item, Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fecha) throws Exception{
-		item.cambiarEstadoItem(estado, responsable, miembrosDisponibles, fecha);
+		
+		if (this.getMiembros().contains(responsable)) {
+			item.cambiarEstadoItem(estado, responsable, miembrosDisponibles, fecha);
+		} else {
+			throw new Exception("El responsable no es un miembro del proyecto.");
+		}
+	//	item.cambiarEstadoItem(estado, responsable, miembrosDisponibles, fecha);
 	}
 
 	public Estado getEstado(TipoItem tipoItem, String descripcion) {
@@ -175,6 +181,21 @@ public class Proyecto {
     	return item;
     }
 
+    public Item getItemPorId(int id){
+	   	Iterator<Item> it = this.getItems().iterator();
+	   	boolean notFound = true;
+	   	Item iit, item = null; 
+	    		
+    	while (it.hasNext() && notFound) {
+    		
+			iit = (Item) it.next();
+			if (iit.getId() == id){
+				notFound = false;
+				item = iit;
+			}
+		}
+    	return item;
+    }
 	public Miembro getMiembro(String nombre) {
     	Iterator<Miembro> it = this.getMiembros().iterator();
     	boolean notFound = true;
