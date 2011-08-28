@@ -41,7 +41,7 @@ public class TipoItem {
 	}
 
 	public Estado getEstadoInicial() {
-		return estadoInicial;
+		return this.estadoInicial;
 	}
 
 	public void setEstadoInicial(Estado estadoInicial) {
