@@ -13,18 +13,18 @@ public class EstadoItem {
 	 * @param responsable
 	 */
 	private Estado estado;
-	private Date fechaFin, fechaInicio;
+	private Date fechaInicio, fechaFin;
 	private String fichaDeTrabajo;
 	private Collection<Miembro> miembrosDisponibles;
 	private Miembro responsable;
 	
 	// Constructor de la clase
-	public EstadoItem(Estado estado, Date fechaFin, Date fechaInicio,
+	public EstadoItem(Estado estado, Date fechaInicio, Date fechaFin,
 			String fichaDeTrabajo,Collection<Miembro> miembrosDisponibles,
 			Miembro responsable) {
 		this.estado = estado;
-		this.fechaFin = fechaFin;
 		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
 		this.fichaDeTrabajo = fichaDeTrabajo;
 		this.miembrosDisponibles = miembrosDisponibles;
 		this.responsable = responsable;
