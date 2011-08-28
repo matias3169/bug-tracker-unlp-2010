@@ -277,7 +277,6 @@ public class Proyecto {
 	public void setLiderProyecto(Miembro lider)
 	{
 		this.liderProyecto = lider;
-		this.miembros.add(lider);
 	}
 }
 
