@@ -135,10 +135,10 @@ public class Proyecto {
 		return tipoItem;
 	}
 	
-	public void cambiarEstadoItem( Item item, Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fecha) throws Exception{
+	public void cambiarEstadoItem( Item item, Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fecha, String fichaTrabajo) throws Exception{
 		
 		if (this.getMiembros().contains(responsable)) {
-			item.cambiarEstadoItem(estado, responsable, miembrosDisponibles, fecha);
+			item.cambiarEstadoItem(estado, responsable, miembrosDisponibles, fecha, fichaTrabajo);
 		} else {
 			throw new Exception("El responsable no es un miembro del proyecto.");
 		}
