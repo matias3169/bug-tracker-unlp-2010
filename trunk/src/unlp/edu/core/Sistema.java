@@ -214,6 +214,7 @@ public class Sistema {
     	setIdProyecto();
     	Proyecto proyecto = new Proyecto(getIdProyecto(), nombre);
     	Miembro miembro = new Miembro(proyecto,usuario,this.getRoleProyecto("Lider"));
+    	proyecto.agregarMiembro(miembro);
     	proyecto.setLiderProyecto(miembro);
     	this.proyectos.add(proyecto);
     	return proyecto;
