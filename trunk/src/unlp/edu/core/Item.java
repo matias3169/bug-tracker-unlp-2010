@@ -25,7 +25,7 @@ public class Item {
 		this.id = id;
 		Date date= new Date();
 		this.nombre = nombre;
-		Estado estadoIni = tipo.getEstado("Creado");
+		Estado estadoIni = tipo.getEstadoInicial(); //podría ser null
 		this.descripcion = desc;
 		this.tipoItem = tipo;
 		this.prioridad = prioridad;
@@ -97,13 +97,17 @@ public class Item {
 	
 	public void cambiarEstadoItem(Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fechaFin) throws Exception
 	{
-		if (miembrosDisponibles.contains(responsable)) {
+		estadoActual.setFechaFin(fechaFin);
+		this.historialEstados.add(estadoActual);
+		this.setEstadoActual(new EstadoItem(estado,null,fechaFin,"",miembrosDisponibles,responsable));
+		
+		/* if (miembrosDisponibles.contains(responsable)) {
 			estadoActual.setFechaFin(fechaFin);
 			this.historialEstados.add(estadoActual);
 			this.setEstadoActual(new EstadoItem(estado,null,fechaFin,"",miembrosDisponibles,responsable));
 		} else {
 			throw new Exception("El responsable no es un miembro disponible.");
-		}
+		}*/
 	}
 
 	public void cambiarResponsable(Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fechaFin) throws Exception//Guarda el estadoItem y crea un nuevo estadoItem con el responsable
