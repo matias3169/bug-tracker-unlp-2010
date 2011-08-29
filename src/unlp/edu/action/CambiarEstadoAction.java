@@ -29,7 +29,7 @@ public class CambiarEstadoAction extends Action{
 		String nombreItem = (String) cambiarEstadoForm.get("nombreItem");
 		String descNuevoEstado = (String) cambiarEstadoForm.get("descNuevoEstado");
 		String nomNuevoResponsable = (String) cambiarEstadoForm.get("nomNuevoResponsable");
-		String fichaTrabajo = (String) cambiarEstadoForm.get("fichaTrabajo");
+		String fichaTrabajo = (String) cambiarEstadoForm.get("fichaTrabajoItem");
 		
 		Sistema sistema = Sistema.getInstance();
 		
