@@ -89,7 +89,7 @@ public class Main {
 		
 		try
 		{
-			sistema.cambiarEstadoItem(proyecto1, item1, estado1, miembro1, miembrosDisponibles,cal.getTime());
+			sistema.cambiarEstadoItem(proyecto1, item1, estado1, miembro1, miembrosDisponibles,cal.getTime(),"");
 		} catch (Exception e)
 		{
 			System.out.println(e.getMessage());
@@ -102,7 +102,7 @@ public class Main {
 		
 		try
 		{
-			sistema.cambiarEstadoItem(proyecto1, item1, estado2, miembro2, miembrosDisponibles,cal.getTime());
+			sistema.cambiarEstadoItem(proyecto1, item1, estado2, miembro2, miembrosDisponibles,cal.getTime(),"");
 		}  catch (Exception e)
 		{
 			System.out.println(e.getMessage());
@@ -114,7 +114,7 @@ public class Main {
 		
 		try
 		{
-			sistema.cambiarEstadoItem(proyecto1, item1, estado3, miembro1, miembrosDisponibles,cal.getTime());
+			sistema.cambiarEstadoItem(proyecto1, item1, estado3, miembro1, miembrosDisponibles,cal.getTime(),"");
 		}  catch (Exception e)
 		{
 			System.out.println(e.getMessage());
@@ -130,7 +130,7 @@ public class Main {
 		cal.set(2011, 01, 01);
 		try
 		{
-			sistema.cambiarEstadoItem(proyecto1, item1, estado4, miembro3, miembrosDisponibles,cal.getTime());
+			sistema.cambiarEstadoItem(proyecto1, item1, estado4, miembro3, miembrosDisponibles,cal.getTime(),"");
 		}  catch (Exception e)
 		{
 			System.out.println(e.getMessage());
