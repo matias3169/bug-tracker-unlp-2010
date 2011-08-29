@@ -6,8 +6,7 @@
 <html:html>
 	<%@ include file="html_head.jsp" %>
 	<c:set var="proyecto" value="${sessionScope.sistema.getProyecto(param.idP)}"/>
-	<c:set var="item" value="${sessionScope.sistema.getProyecto(param.idP).getItemPorId(param.idI)}"/>
-	<!-- <c:set var="item" value="${proyecto.getItemPorId(param.idI)}"/> -->
+	<c:set var="item" value="${proyecto.getItemPorId(param.idI)}"/>
 
 <body>
 	<html:javascript formName="cambiarEstadoForm" />
@@ -75,7 +74,7 @@
 				</select>
 	    	</td>
 	    	<td class="tabla_input">
-    		    <input type="text" name="fichaTrabajo">
+    		    <input type="text" name="fichaTrabajoItem" >
     		</td>
     	</tr> 
     	<tr height="4"></tr>
