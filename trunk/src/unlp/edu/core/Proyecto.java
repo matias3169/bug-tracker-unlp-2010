@@ -259,19 +259,7 @@ public class Proyecto {
 	
 	public Miembro getLiderProyecto()
 	{
-		Iterator<Miembro> it = this.getMiembros().iterator();
-    	boolean notFound = true;
-    	Miembro lider, miembro = null; 
-    		
-    	while (it.hasNext() && notFound) {
-    		
-			lider = (Miembro) it.next();
-			if (lider.getRole().getNombre().equals("Lider")){
-				notFound = false;
-				miembro = lider;
-			}
-		}
-    	return miembro;
+		return this.liderProyecto;
 	}
 	
 	public void setLiderProyecto(Miembro lider)
