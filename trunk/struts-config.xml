@@ -43,7 +43,7 @@
               <form-property name="nombreItem" type="java.lang.String"></form-property>
               <form-property name="descNuevoEstado" type="java.lang.String"></form-property>
               <form-property name="nomNuevoResponsable" type="java.lang.String"></form-property>
-              <form-property name="fichaTrabajo" type="java.lang.String"></form-property>
+              <form-property name="fichaTrabajoItem" type="java.lang.String"></form-property>
         </form-bean>       
     </form-beans>  
       
