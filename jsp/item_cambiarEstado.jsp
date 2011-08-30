@@ -5,11 +5,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html:html>
 	<%@ include file="html_head.jsp" %>
+	<!-- <script language='javascript' src="popcalendar.js" ></script> -->
+	
 	<c:set var="proyecto" value="${sessionScope.sistema.getProyecto(param.idP)}"/>
 	<c:set var="item" value="${proyecto.getItemPorId(param.idI)}"/>
 
 <body>
-	<html:javascript formName="cambiarEstadoForm" />
+	<html:javascript formName="cambiarEstadoForm" src="popcalendar.js" />
 	
 	<h1><%= BTUNLP_Titulo %></h1>
 	<h2>Cambiar estado <c:out value="${item.getNombre()}"/></h2>
@@ -31,10 +33,13 @@
     			Estado Actual
 		   </td>
    		   <td>
-			    Pasar a estado: 
+			    Pasar a estado 
    		   </td>
    		   <td>
-			    Ficha de Trabajo: 
+			    Fecha 
+   		   </td>
+   		   <td>
+			    Ficha de Trabajo 
    		   </td>
    		</tr>
    		<tr>
@@ -73,6 +78,9 @@
 					</c:forEach>
 				</select>
 	    	</td>
+	    	<td class="tabla_input">
+    		    <input type="text" name="fechaEstado" id="fechaEstado" onclick="popUpCalendar(this,cambiarEstadoForm.fechaEstado, 'dd/mm/yyyy');" size="10">
+    		</td>
 	    	<td class="tabla_input">
     		    <input type="text" name="fichaTrabajoItem" >
     		</td>
