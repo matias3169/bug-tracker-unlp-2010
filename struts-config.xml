@@ -45,7 +45,15 @@
               <form-property name="nomNuevoResponsable" type="java.lang.String"></form-property>
               <form-property name="fichaTrabajoItem" type="java.lang.String"></form-property>
               <form-property name="fechaEstado" type="java.lang.String"></form-property>
-        </form-bean>       
+        </form-bean>  
+        <form-bean name="editarItemForm" type="org.apache.struts.action.DynaActionForm">  
+              <form-property name="nombreProyecto" type="java.lang.String"></form-property>  
+              <form-property name="nombreItem" type="java.lang.String"></form-property>
+              <form-property name="nomNuevoResponsable" type="java.lang.String"></form-property>
+              <form-property name="prioridad" type="java.lang.String"></form-property>
+              <form-property name="fichaTrabajoItem" type="java.lang.String"></form-property>
+              <form-property name="descripcion" type="java.lang.String"></form-property>           
+        </form-bean>     
     </form-beans>  
       
     <action-mappings>  
@@ -129,6 +137,15 @@
             input="/item_cambiarEstado.jsp">  
              <forward name="ok" path="/listar_proyectos.jsp"/>  
              <forward name="error" path="/item_cambiarEstado.jsp"/>
+        </action>
+        <action path="/editarItem"   
+            type="unlp.edu.action.EditarItemAction"   
+            name="editarItemForm"  
+            scope="session"  
+            validate="true"  
+            input="/item_editar.jsp">  
+             <forward name="ok" path="/listar_proyectos.jsp"/>  
+             <forward name="error" path="/item_editar.jsp"/>
         </action>
     </action-mappings>  
   

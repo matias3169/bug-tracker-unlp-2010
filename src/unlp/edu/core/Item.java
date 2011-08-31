@@ -111,14 +111,14 @@ public class Item {
 		}*/
 	}
 
-	public void cambiarResponsable(Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fechaFin) throws Exception//Guarda el estadoItem y crea un nuevo estadoItem con el responsable
+	public void cambiarResponsable(Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fechaFin, String fichaTrabajo) throws Exception//Guarda el estadoItem y crea un nuevo estadoItem con el responsable
 	{
 	
 		if (miembrosDisponibles.contains(responsable)) {
 			estadoActual.setFechaFin(fechaFin);
 			this.historialEstados.add(estadoActual);
 			Date fechaInicio = fechaFin; // idem antes
-			this.setEstadoActual(new EstadoItem(estadoActual.getEstado(),fechaInicio, null, "", estadoActual.getMiembrosDisponibles(), responsable));
+			this.setEstadoActual(new EstadoItem(estadoActual.getEstado(),fechaInicio, null, fichaTrabajo, miembrosDisponibles, responsable));
 		} else {
 			throw new Exception("El responsable no es un miembro disponible.");
 		}
