@@ -10,46 +10,43 @@
 	<c:set var="item" value="${proyecto.getItemPorId(param.idI)}"/>
 
 <body>
-	<html:javascript formName="cambiarEstadoForm" src="popcalendar.js" />
+	<html:javascript formName="editarItemForm" />
 	
 	<h1><%= BTUNLP_Titulo %></h1>
-	<h2>Cambiar estado <c:out value="${item.getNombre()}"/></h2>
+	<h2>Editar <c:out value="${item.getNombre()}"/></h2>
     
-    <html:form action="/cambiarEstado"  method="post">
+    <html:form action="/editarItem"  method="post">
     
     <html:hidden property="nombreProyecto" value="${proyecto.getNombre()}" />
     <html:hidden property="nombreItem" value="${item.getNombre()}" />
 
     <table cellpadding="0" cellspacing="0" border="0">
     	<tr class="encabezado_tabla">
-			<td>
+			<td class="tabla_centrado" style="width:90px;">
     			Descripcion
  		   </td>
- 		   <td>
+ 		   <td class="tabla_centrado" style="width:90px;">
     			Responsable
  		   </td>
-    	   <td>
+    	   <td class="tabla_centrado" style="width:90px;">
     			Estado Actual
 		   </td>
-   		   <td>
-			    Pasar a estado 
+   		   <td class="tabla_centrado" style="width:90px;">
+			    Prioridad 
    		   </td>
-   		   <td>
-			    Fecha 
-   		   </td>
-   		   <td>
+   		   <td class="tabla_centrado" style="width:90px;">
 			    Ficha de Trabajo 
    		   </td>
    		</tr>
    		<tr>
-    		<td colspan="3">
+    		<td colspan="5">
     			<hr>
     		</td>
     	</tr>      				 
     
   		<tr style='background-color:#eeeeee;'>
-    		<td class="tabla_centrado">
-    		    <c:out value="${item.getDescripcion()}"/>
+  			<td class="tabla_input">
+    		    <input type="text" name="descripcion" id="descripcion" value="${item.getDescripcion()}">
     		</td>
     		<td>
 	    		<select name="nomNuevoResponsable">
@@ -64,30 +61,21 @@
 						</c:choose>
 	         		</c:forEach>
 	    		</select>
-	    	</td>
-	    	
+	    	</td>    	
     		<td>
     		    <c:out value="${item.getEstadoActual().getEstado().getDescripcion()}"/>
     		</td>
-    		
-    		<td>
-	    		<select name="descNuevoEstado">
-					<c:forEach var="estado" items="${item.getEstadoActual().getEstado().getEstadosSiguientes()}">
-						<option><c:out value="${estado.getDescripcion()}"/></option>
-					</c:forEach>
-				</select>
-	    	</td>
 	    	<td class="tabla_input">
-    		    <input type="text" name="fechaEstado" id="fechaEstado" onclick="popUpCalendar(this,cambiarEstadoForm.fechaEstado, 'dd/mm/yyyy');" size="10">
+    		    <input type="text" name="prioridad" id="prioridad" value="${item.getPrioridad()}" size="5">
     		</td>
 	    	<td class="tabla_input">
-    		    <input type="text" name="fichaTrabajoItem" >
+    		    <input type="text" name="fichaTrabajoItem" value="${item.getEstadoActual().getFichaDeTrabajo()}"> 
     		</td>
     	</tr> 
     	<tr height="4"></tr>
     	<tr> 
     		<td class="tabla_centrado" colspan="4">
-				<input type="submit" name="cambiarEstado" value="Guardar cambios">
+				<input type="submit" name="editarItem" value="Guardar cambios">
 			</td>
    		</tr>
    	</table>

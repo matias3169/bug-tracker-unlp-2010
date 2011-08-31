@@ -21,5 +21,6 @@
 		<form name="editarUsuarioForm"></form>
 		<form name="agregarMiembroForm"></form>
 		<form name="cambiarEstadoForm"></form>
+		<form name="editarItemForm"></form>
 	</formset>
 </form-validation>
