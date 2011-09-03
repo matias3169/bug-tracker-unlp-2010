@@ -554,4 +554,8 @@ public class Sistema {
 		return this.usuarios.remove(usuario);
 	}
 	
+	public boolean eliminarItem(Proyecto proyecto, Item item)
+	{
+		return proyecto.eliminarItem(item);
+	}
 }
