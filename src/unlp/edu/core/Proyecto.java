@@ -266,5 +266,10 @@ public class Proyecto {
 	{
 		this.liderProyecto = lider;
 	}
+	
+	public boolean eliminarItem(Item item)
+	{
+		return this.items.remove(item);
+	}
 }
 
