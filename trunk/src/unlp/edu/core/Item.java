@@ -10,7 +10,7 @@ public class Item {
 	private TipoItem tipoItem;
 	private int prioridad;
 	private EstadoItem estadoActual;
-	private Collection<EstadoItem> historialEstados;
+	private EstadosHistoricos historialEstados;
 
 	/**
 	 * 
@@ -30,7 +30,8 @@ public class Item {
 		this.tipoItem = tipo;
 		this.prioridad = prioridad;
 		this.estadoActual = new EstadoItem(estadoIni,date,null,null,null,responsable);
-		this.historialEstados = new HashSet<EstadoItem>();
+		this.historialEstados = new EstadosHistoricos(); // creo una lista vacia linkedlist
+		this.historialEstados.setEstadoActual(estadoActual); // agrego el estado actual al historial
 	}
 
 	public int getId()
@@ -78,11 +79,11 @@ public class Item {
 		this.estadoActual = estado;
 	}
 	
-	public Collection<EstadoItem> getHistorialEstados()
+	public EstadosHistoricos getHistorialEstados()
 	{
 		return this.historialEstados;
 	}
-	public void setHistorialEstados(Collection<EstadoItem> histo)
+	public void setHistorialEstados(EstadosHistoricos histo)
 	{
 		this.historialEstados = histo;
 	}
@@ -97,10 +98,10 @@ public class Item {
 	
 	public void cambiarEstadoItem(Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fechaFin, String fichaTrabajo) throws Exception
 	{
-		estadoActual.setFechaFin(fechaFin);
-		this.historialEstados.add(estadoActual);
-		Date fechaInicio = fechaFin; // la fecha de inicio del nuevo estadoItem es la de fin del estadoItem anterior
-		this.setEstadoActual(new EstadoItem(estado,fechaInicio,null,fichaTrabajo,miembrosDisponibles,responsable));
+		Date fechaInicio = new Date();
+		EstadoItem nuevoEstado = new EstadoItem(estado,fechaInicio,null,null,miembrosDisponibles,responsable);
+		this.setEstadoActual(nuevoEstado);
+		this.historialEstados.cambiarEstado(nuevoEstado, fichaTrabajo);
 		
 		/* if (miembrosDisponibles.contains(responsable)) {
 			estadoActual.setFechaFin(fechaFin);
@@ -113,12 +114,11 @@ public class Item {
 
 	public void cambiarResponsable(Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fechaFin, String fichaTrabajo) throws Exception//Guarda el estadoItem y crea un nuevo estadoItem con el responsable
 	{
-	
 		if (miembrosDisponibles.contains(responsable)) {
-			estadoActual.setFechaFin(fechaFin);
-			this.historialEstados.add(estadoActual);
-			Date fechaInicio = fechaFin; // idem antes
-			this.setEstadoActual(new EstadoItem(estadoActual.getEstado(),fechaInicio, null, fichaTrabajo, miembrosDisponibles, responsable));
+			Date fechaInicio = new Date();
+			EstadoItem nuevoEstado = new EstadoItem(estadoActual.getEstado(),fechaInicio, null, "", estadoActual.getMiembrosDisponibles(), responsable);
+			this.setEstadoActual(nuevoEstado);
+			this.historialEstados.cambiarEstado(nuevoEstado, fichaTrabajo);
 		} else {
 			throw new Exception("El responsable no es un miembro disponible.");
 		}
@@ -147,7 +147,7 @@ public class Item {
 		HashSet<EstadoItem> todosHistoricos = new HashSet<EstadoItem>();
 
 		//Todos los estados historicos incluyendo el estado actual
-		todosHistoricos.addAll(this.getHistorialEstados());
+		todosHistoricos.addAll(this.getHistorialEstados().listar());
 		todosHistoricos.add(this.getEstadoActual());
 		Iterator<EstadoItem> it = todosHistoricos.iterator();
 		
