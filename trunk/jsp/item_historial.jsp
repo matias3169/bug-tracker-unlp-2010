@@ -39,7 +39,7 @@
    		</td>
    	</tr>
    	
-   	<c:forEach var="estadoItem" items="${item.getHistorialEstados()}" varStatus="i">
+   	<c:forEach var="estadoItem" items="${item.getHistorialEstados().listar()}" varStatus="i">
    		<c:choose>  
 			<c:when test="${(i.count) % 2 == 0}">  
 				<tr style="background-color:#eeeeee;">  
