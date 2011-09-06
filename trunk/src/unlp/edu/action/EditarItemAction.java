@@ -46,6 +46,7 @@ public class EditarItemAction extends Action{
 		
 		item.setPrioridad(Integer.parseInt(prioridad));
 		item.setDescripcion(descripcion);
+		item.getEstadoActual().setFichaDeTrabajo(fichaTrabajo);
 		
 		// Mostramos la siguiente vista
 		return mapping.findForward("ok"); 
