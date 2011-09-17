@@ -42,11 +42,15 @@ public class EditarItemAction extends Action{
 		if (!item.getEstadoActual().getResponsable().getUsuario().getNombre().equals(nomNuevoResponsable))
 		{
 			item.cambiarResponsable(nuevoResponsable,sistema.getMiembrosProyecto(proyecto), calendar.getTime(), fichaTrabajo);
+			item.setPrioridad(Integer.parseInt(prioridad));
+			item.setDescripcion(descripcion);
 		}
-		
-		item.setPrioridad(Integer.parseInt(prioridad));
-		item.setDescripcion(descripcion);
-		item.getEstadoActual().setFichaDeTrabajo(fichaTrabajo);
+		else
+		{		
+			item.setPrioridad(Integer.parseInt(prioridad));
+			item.setDescripcion(descripcion);
+			item.getEstadoActual().setFichaDeTrabajo(fichaTrabajo);
+		}
 		
 		// Mostramos la siguiente vista
 		return mapping.findForward("ok"); 
