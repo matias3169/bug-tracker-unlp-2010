@@ -99,7 +99,7 @@
 	   					Agregar nuevo item&nbsp;&nbsp;
 	   				</td>
 	   				<td class="tabla_centrado" colspan="2" style="font-style:italic;">
-	   					<a href="item_agregar.jsp"> 
+	   					<a href="item_agregar.jsp?id=<c:out value="${proyecto.getId()}"/>"> 
 	    					<img class="icono_chico" src="iconos/agregar_item.png" 
 	    						title="Agregar nuevo item al proyecto">
 	    				</a>
