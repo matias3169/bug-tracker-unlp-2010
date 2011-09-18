@@ -8,6 +8,7 @@
               <form-property name="nombre_usuario" type="java.lang.String"></form-property>  
               <form-property name="clave_usuario"  type="java.lang.String"></form-property>    
         </form-bean>
+        
         <form-bean name="agregarProyectoForm" type="org.apache.struts.action.DynaActionForm">  
               <form-property name="nombre_proyecto" type="java.lang.String"></form-property>  
               <form-property name="lider_proyecto" type="java.lang.String"></form-property>    
@@ -20,23 +21,34 @@
         <form-bean name="eliminarProyectoForm" type="org.apache.struts.action.DynaActionForm">  
               <form-property name="nombreProyecto" type="java.lang.String"></form-property>  
         </form-bean>
+        
          <form-bean name="agregarUsuarioForm" type="org.apache.struts.action.DynaActionForm">  
               <form-property name="nombre_usuario" type="java.lang.String"></form-property>  
               <form-property name="clave_usuario" type="java.lang.String"></form-property>
               <form-property name="rol_usuario" type="java.lang.String"></form-property>
-        </form-bean>   
-        <form-bean name="eliminarUsuarioForm" type="org.apache.struts.action.DynaActionForm">  
-              <form-property name="nombreUsuario" type="java.lang.String"></form-property>  
-        </form-bean>   
+        </form-bean>     
         <form-bean name="editarUsuarioForm" type="org.apache.struts.action.DynaActionForm">  
               <form-property name="nombreUsuario" type="java.lang.String"></form-property>  
               <form-property name="nuevoRol" type="java.lang.String"></form-property>
               <form-property name="password" type="java.lang.String"></form-property>
         </form-bean>
+        <form-bean name="eliminarUsuarioForm" type="org.apache.struts.action.DynaActionForm">  
+              <form-property name="nombreUsuario" type="java.lang.String"></form-property>  
+        </form-bean> 
+    
         <form-bean name="agregarMiembroForm" type="org.apache.struts.action.DynaActionForm">  
               <form-property name="usuario" type="java.lang.String"></form-property>  
               <form-property name="rol_miembro" type="java.lang.String"></form-property>
               <form-property name="nombreProyecto" type="java.lang.String"></form-property>
+        </form-bean>
+        
+        <form-bean name="agregarItemForm" type="org.apache.struts.action.DynaActionForm">  
+        	  <form-property name="nombreProyecto" type="java.lang.String"></form-property>
+              <form-property name="nombre_item" type="java.lang.String"></form-property>  
+              <form-property name="descripcion_item" type="java.lang.String"></form-property>
+              <form-property name="tipo_item" type="java.lang.String"></form-property>
+              <form-property name="prioridad_item" type="java.lang.String"></form-property>
+              <form-property name="responsable_item" type="java.lang.String"></form-property>
         </form-bean>
         <form-bean name="cambiarEstadoForm" type="org.apache.struts.action.DynaActionForm">  
               <form-property name="nombreProyecto" type="java.lang.String"></form-property>  
@@ -58,6 +70,7 @@
               <form-property name="nombreProyecto" type="java.lang.String"></form-property>  
               <form-property name="nombreItem" type="java.lang.String"></form-property>
         </form-bean> 
+        
     </form-beans>  
       
     <action-mappings>  
@@ -132,6 +145,16 @@
             input="/agregar_miembro.jsp">  
              <forward name="ok" path="/proyecto_trabajar.jsp" />  
              <forward name="error" path="/agregar_miembro.jsp"/>
+        </action>
+        
+        <action path="/agregar_item"   
+            type="unlp.edu.action.AgregarItemAction"   
+            name="agregarItemForm"  
+            scope="session"  
+            validate="true"  
+            input="/item_agregar.jsp">  
+             <forward name="ok" path="/listar_proyectos.jsp"/> 
+             <forward name="error" path="/item_agregar.jsp"/>
         </action>
         <action path="/cambiarEstado"   
             type="unlp.edu.action.CambiarEstadoAction"   
