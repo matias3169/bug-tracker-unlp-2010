@@ -22,6 +22,7 @@ public class EliminarItemAction extends Action{
 		Sistema sistema = Sistema.getInstance();
 	
 		Proyecto proyecto = sistema.getProyectoPorNombre(nombreProyecto);
+		int idProyecto = proyecto.getId();
 		Item item = proyecto.getItem(nombreItem);
 		
 		if (!sistema.eliminarItem(proyecto, item))
@@ -33,6 +34,8 @@ public class EliminarItemAction extends Action{
 		}
 				
 		// Mostramos la siguiente vista
+		response.sendRedirect("proyecto_trabajar.jsp?id=" + idProyecto);
+		
 		return mapping.findForward("ok"); 
 		
 	}
