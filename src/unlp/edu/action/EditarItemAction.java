@@ -35,6 +35,7 @@ public class EditarItemAction extends Action{
 		Calendar calendar = Calendar.getInstance();
 	
 		Proyecto proyecto = sistema.getProyectoPorNombre(nombreProyecto);
+		int idProyecto = proyecto.getId();
 		Item item = proyecto.getItem(nombreItem);
 		Miembro nuevoResponsable = sistema.getMiembro(proyecto, nomNuevoResponsable);
 		
@@ -53,6 +54,8 @@ public class EditarItemAction extends Action{
 		}
 		
 		// Mostramos la siguiente vista
+		response.sendRedirect("proyecto_trabajar.jsp?id=" + idProyecto);
+		
 		return mapping.findForward("ok"); 
 		
 	}
