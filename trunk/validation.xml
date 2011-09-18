@@ -23,5 +23,7 @@
 		<form name="cambiarEstadoForm"></form>
 		<form name="editarItemForm"></form>
 		<form name="eliminarItemForm"></form>
+		<form name="agregarItemForm"></form>
+		
 	</formset>
 </form-validation>
