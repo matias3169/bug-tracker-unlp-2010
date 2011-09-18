@@ -34,6 +34,7 @@ public class CambiarEstadoAction extends Action{
 		Sistema sistema = Sistema.getInstance();
 		
 		Proyecto proyecto = sistema.getProyectoPorNombre(nombreProyecto);
+		int idProyecto = proyecto.getId();
 		Item item = proyecto.getItem(nombreItem);
 		Estado nuevoEstado = item.getTipoItem().getEstado(descNuevoEstado);
 		Miembro nuevoResponsable = proyecto.getMiembro(nomNuevoResponsable);
@@ -50,8 +51,9 @@ public class CambiarEstadoAction extends Action{
 		//Hay que pasar la lista de miembros del estadoitem
 		item.cambiarEstadoItem(nuevoEstado, nuevoResponsable, new HashSet<Miembro>(), calendar.getTime(), fichaTrabajo);
 		
-		
 		// Mostramos la siguiente vista
+		response.sendRedirect("proyecto_trabajar.jsp?id=" + idProyecto);
+		
 		return mapping.findForward("ok"); 
 		
 	}
