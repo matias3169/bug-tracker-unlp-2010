@@ -1,17 +1,23 @@
 <table cellpadding="0" cellspacing="0" border="0">
    	<tr class="encabezado_tabla">
-   		<td class="tabla_centrado" style="width:350px;">
+   		<td class="tabla_centrado" style="width:150px;">
    			Descripci&oacute;n
    		</td>
-   		<td class="tabla_centrado" style="width:300px;">
+   		<td class="tabla_centrado" style="width:150px;">
    			Estado inicial
    		</td>
    		<td class="tabla_centrado">
    			Estados posibles
    		</td>
+   		<td class="tabla_centrado" style="width:70x;">
+   			Editar    
+   		</td>
+   		<td class="tabla_centrado" style="width:70x;">
+   			Agregar estado
+   		</td>
    	</tr>
    	<tr>
-   		<td colspan="3">
+   		<td colspan="9">
    			<hr>
    		</td>
    	</tr>
@@ -43,6 +49,18 @@
 					</c:forEach>
 				</select>
     		</td>
+    		<td class="tabla_centrado">
+    			<a href="tipoItem_editar.jsp?idTI=<c:out value="${tipoItem.getId()}"/>&idP=<c:out value="${proyecto.getId()}"/>"> 
+    				<img class="icono_chico" src="iconos/proyecto_editar.png" 
+    					title="Editar <c:out value="${tipoItem.getDescripcion()}"/>">
+    			</a>
+    		</td>
+    		<td class="tabla_centrado">
+    			<a href="tipoItem_agregarEstado.jsp?idTI=<c:out value="${tipoItem.getId()}"/>&idP=<c:out value="${proyecto.getId()}"/>"> 
+    				<img class="icono_chico" src="iconos/agregar_proyecto.png" 
+    					title="Agregar estado a <c:out value="${tipoItem.getDescripcion()}"/>">
+    			</a>
+    		</td>
    		</tr>
    	</c:forEach>
    	<tr>
@@ -58,7 +76,7 @@
 	   					Agregar nuevo tipo de item&nbsp;&nbsp;
 	   				</td>
 	   				<td class="tabla_centrado" colspan="2" style="font-style:italic;">
-	   					<a href="tipo_item_agregar.jsp"> 
+	   					<a href="tipoItem_agregar.jsp?id=<c:out value="${proyecto.getId()}"/>"> 
 	    					<img class="icono_chico" src="iconos/agregar_item.png" 
 	    						title="Agregar nuevo tipo de item al proyecto">
 	    				</a>
