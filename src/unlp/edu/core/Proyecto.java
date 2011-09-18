@@ -165,6 +165,22 @@ public class Proyecto {
     	return tipoItem;
     }
     
+    public TipoItem getTipoItemPorId(int id){
+	   	Iterator<TipoItem> it = this.getTiposItems().iterator();
+	   	boolean notFound = true;
+	   	TipoItem tit, tItem = null; 
+	    		
+    	while (it.hasNext() && notFound) {
+    		
+			tit = (TipoItem) it.next();
+			if (tit.getId() == id){
+				notFound = false;
+				tItem = tit;
+			}
+		}
+    	return tItem;
+    }
+    
     public Item getItem(String nombre){
     	Iterator<Item> it = this.getItems().iterator();
     	boolean notFound = true;
@@ -196,6 +212,7 @@ public class Proyecto {
 		}
     	return item;
     }
+    
 	public Miembro getMiembro(String nombre) {
     	Iterator<Miembro> it = this.getMiembros().iterator();
     	boolean notFound = true;
