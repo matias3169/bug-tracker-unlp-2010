@@ -24,6 +24,8 @@
 		<form name="editarItemForm"></form>
 		<form name="eliminarItemForm"></form>
 		<form name="agregarItemForm"></form>
+		<form name="agregarTipoItemForm"></form>
+		<form name="editarTipoItemForm"></form>
 		
 	</formset>
 </form-validation>
