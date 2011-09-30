@@ -145,7 +145,7 @@ public class Proyecto {
 	//	item.cambiarEstadoItem(estado, responsable, miembrosDisponibles, fecha);
 	}
 
-	public Estado getEstado(TipoItem tipoItem, String descripcion) {
+	public Estado getEstadoTipoItem(TipoItem tipoItem, String descripcion) {
 		return tipoItem.getEstado(descripcion);
 	}
 	
