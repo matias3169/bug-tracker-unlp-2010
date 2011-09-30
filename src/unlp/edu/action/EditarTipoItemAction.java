@@ -21,17 +21,18 @@ public class EditarTipoItemAction extends Action{
 		
 		// Extraemos los datos del formulario 
 		String  nombreProyecto = (String) editarTipoItemForm.get("nombreProyecto");
-		String descripcionTipoItem = (String) editarTipoItemForm.get("descripcion_tipoItem");
+		String  descripcionInicialTipoItem = (String) editarTipoItemForm.get("descripcion_inicial");
+		String descripcionNuevaTipoItem = (String) editarTipoItemForm.get("descripcion_nueva");
 		String  nuevoEstadoIni = (String) editarTipoItemForm.get("nuevoEstadoInicial");
 		
 		Sistema sistema = Sistema.getInstance();
 		
 		Proyecto proyecto = sistema.getProyectoPorNombre(nombreProyecto);
 		int idProyecto = proyecto.getId();
-		TipoItem tipoItem = proyecto.getTipoItem(descripcionTipoItem);
-		Estado estadoIni = proyecto.getEstado(tipoItem, nuevoEstadoIni);
+		TipoItem tipoItem = proyecto.getTipoItem(descripcionInicialTipoItem);
+		Estado estadoIni = proyecto.getEstadoTipoItem(tipoItem, nuevoEstadoIni);
 		
-		tipoItem.setDescripcion(descripcionTipoItem);
+		tipoItem.setDescripcion(descripcionNuevaTipoItem);
 		tipoItem.setEstadoInicial(estadoIni);
 		
 		// Mostramos la siguiente vista

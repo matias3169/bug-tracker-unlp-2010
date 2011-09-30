@@ -15,11 +15,11 @@
 	
 	<h1><%= BTUNLP_Titulo %></h1>
 	<h2>Editar <c:out value="${tipoItem.getDescripcion()}"/></h2>
-    
-    <html:form action="/editarTipoItem"  method="post">
+    <h3><font color="red"><html:errors/></font></h3>
+    <html:form action="/editarTipoItem"  method="post" onsubmit="return validate(this);">
     
     <html:hidden property="nombreProyecto" value="${proyecto.getNombre()}" />
-    <html:hidden property="descripcionTipoItem" value="${tipoItem.getDescripcion()}" />
+    <html:hidden property="descripcion_inicial" value="${tipoItem.getDescripcion()}" />
     
     <table cellpadding="0" cellspacing="0" border="0">
     	<tr class="encabezado_tabla">
@@ -38,13 +38,14 @@
     	
     	<tr style='background-color:#eeeeee;'>
   			<td class="tabla_input">
-    		    <input type="text" name="descripcion_tipoItem" id="descripcion_tipoItem" value="${tipoItem.getDescripcion()}">
+    		    <input type="text" name="descripcion_nueva" id="descripcion_nueva" value="${tipoItem.getDescripcion()}">
     		</td>
     		<td class="tabla_centrado">
 	    		<select name="nuevoEstadoInicial">
 	    			<c:forEach var="estado" items="${tipoItem.getEstadosPosibles()}">
 	    				<c:choose>
-							<c:when test="${estado.getDescripcion() == tipoItem.getEstadoInicial().getDescripcion()}"> //muestra por default el estado inicial actual
+							<c:when test="${estado.getDescripcion() == tipoItem.getEstadoInicial().getDescripcion()}"> 
+								<!-- muestra por default el estado inicial actual -->
 		    		   			<option selected="selected"><c:out value="${estado.getDescripcion()}"/></option>
 							</c:when> 
 							<c:otherwise>

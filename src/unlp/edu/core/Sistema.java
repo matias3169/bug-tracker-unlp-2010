@@ -261,8 +261,8 @@ public class Sistema {
     	return proyecto.getTiposItems();
     }
 
-	public Estado getEstado(Proyecto proyecto, TipoItem tipoItem, String descripcion) {
-		return proyecto.getEstado(tipoItem,descripcion);
+	public Estado getEstadoTipoItem(Proyecto proyecto, TipoItem tipoItem, String descripcion) {
+		return proyecto.getEstadoTipoItem(tipoItem,descripcion);
 	}
 	
 	public Miembro getMiembro(Proyecto proyecto, String nombre){

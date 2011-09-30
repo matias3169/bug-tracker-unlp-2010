@@ -14,7 +14,6 @@ public class AgregarTipoItemAction extends Action{
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		DynaActionForm agregarTipoItemForm = (DynaActionForm) form;
-		ActionErrors errors = new ActionErrors();
 		
 		// Extraemos los datos del formulario 
 		String  proyectoNombre = (String) agregarTipoItemForm.get("nombreProyecto");
@@ -25,19 +24,12 @@ public class AgregarTipoItemAction extends Action{
 		Proyecto proyecto = sistema.getProyectoPorNombre(proyectoNombre);
 		int idProyecto = proyecto.getId();
 		
-		if (proyecto == null)
-		{
-			return mapping.findForward("error");
-		} else {
+		proyecto.nuevoTipoItem(tipoItemDescripcion);
 			
-			proyecto.nuevoTipoItem(tipoItemDescripcion);
-			
-			// Mostramos la siguiente vista
-			response.sendRedirect("proyecto_trabajar.jsp?id=" + idProyecto);			
+		// Mostramos la siguiente vista
+		response.sendRedirect("proyecto_trabajar.jsp?id=" + idProyecto);			
 
-		}
 		
 		return mapping.findForward("ok");		
 	}
-
 }

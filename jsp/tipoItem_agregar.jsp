@@ -13,8 +13,8 @@
 	
 	<h1><%= BTUNLP_Titulo %></h1>
     <h2>Agregar tipo de item a <c:out value="${proyecto.getNombre()}"/></h2>
-    
-    <html:form method="POST" action="/agregar_tipoItem">
+    <h3><font color="red"><html:errors/></font></h3>
+    <html:form method="POST" action="/agregar_tipoItem"  onsubmit="return validate(this);">
     
     <html:hidden property="nombreProyecto" value="${proyecto.getNombre()}" />
     
