@@ -70,13 +70,14 @@
               <form-property name="nombreProyecto" type="java.lang.String"></form-property>  
               <form-property name="nombreItem" type="java.lang.String"></form-property>
         </form-bean> 
-        <form-bean name="agregarTipoItemForm" type="org.apache.struts.action.DynaActionForm">  
+        <form-bean name="agregarTipoItemForm" type="org.apache.struts.validator.DynaValidatorForm">
         	  <form-property name="nombreProyecto" type="java.lang.String"></form-property>
-              <form-property name="descripcion_tipoItem" type="java.lang.String"></form-property>
+              <form-property name="descripcion_tipoItem" type="java.lang.String"></form-property> 
         </form-bean>
-        <form-bean name="editarTipoItemForm" type="org.apache.struts.action.DynaActionForm">  
+        <form-bean name="editarTipoItemForm" type="org.apache.struts.validator.DynaValidatorForm">  
         	  <form-property name="nombreProyecto" type="java.lang.String"></form-property>
-              <form-property name="descripcion_tipoItem" type="java.lang.String"></form-property>
+              <form-property name="descripcion_inicial" type="java.lang.String"></form-property>
+              <form-property name="descripcion_nueva" type="java.lang.String"></form-property>
               <form-property name="nuevoEstadoInicial" type="java.lang.String"></form-property>              
         </form-bean>
     </form-beans>  
@@ -207,7 +208,7 @@
             validate="true"  
             input="/tipoItem_editar.jsp">  
              <forward name="ok" path="/listar_proyectos.jsp"/>  
-             <forward name="error" path="/tipoItem_editar.jsp"/>
+             <forward name="error" path="/tipoItem_editar.jsp" />
         </action>
     </action-mappings>  
   
