@@ -17,14 +17,14 @@ public class Proyecto {
 	private Miembro liderProyecto;
 	private static int id_item = 0;
 	private static int id_tipo_item = 0;
-	private Collection<Item> items;
+	private LinkedList<Item> items;		// implemento los items en una lista ordenada
 	private Collection<TipoItem> tiposItems;
 	private Collection<Miembro> miembros;
 	
 	public Proyecto(int id, String nombre) {
 		this.id = id;
 		this.setNombre(nombre);
-		this.setItems(new HashSet<Item>());
+		this.setItems(new LinkedList<Item>());
 		this.setTiposItems(new HashSet<TipoItem>());
 		this.setMiembros(new HashSet<Miembro>());
 	}
@@ -57,9 +57,6 @@ public class Proyecto {
 		return nombre;
 	}
 	
-	/**
-	 * @return the nombre
-	 */
 	public int getId() {
 		return id;
 	}
@@ -74,14 +71,14 @@ public class Proyecto {
 	/**
 	 * @return the items
 	 */
-	public Collection<Item> getItems() {
+	public LinkedList<Item> getItems() {
 		return items;
 	}
 
 	/**
 	 * @param items the items to set
 	 */
-	public void setItems(Collection<Item> items) {
+	public void setItems(LinkedList<Item> items) {
 		this.items = items;
 	}
 
@@ -117,10 +114,36 @@ public class Proyecto {
 		 return tipo.agregarEstado(descripcion);
 	}
 	
+	public void agregarItem(Item item){
+		
+		if (this.items.isEmpty()) {
+			
+			this.items.add(item);
+			
+		} else {
+			
+			Iterator<Item> it= this.items.iterator();
+			Item itm= this.items.getFirst();
+			while (it.hasNext() && item.getPrioridad()> itm.getPrioridad()) {
+				
+				itm= (Item) it.next();	
+			}
+			
+			if (item.getPrioridad()<= itm.getPrioridad()) { 
+				Integer n= this.items.indexOf(itm);
+				this.items.add(n, item);
+				
+			} else {
+				this.items.addLast(item);
+			}
+		}
+		
+	}
+	
 	public Item nuevoItem(String nombre, String desc, TipoItem tipo, int prioridad1, Miembro responsable){
 		setIdItem();
 		Item item = new Item(getIdItem(),nombre, desc, tipo, prioridad1, responsable);
-		this.items.add(item);
+		agregarItem(item);	//agrega el item ordenando por prioridad
 		return item;
 	}
 	
