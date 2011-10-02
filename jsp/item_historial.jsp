@@ -53,11 +53,11 @@
     			<c:out value="${estadoItem.getEstado().getDescripcion()}"/>
     		</td>
     		<td class="tabla_centrado">
-    			<fmt:formatDate dateStyle="short" value="${estadoItem.getFechaInicio()}"/>
+    			<fmt:formatDate type="both" dateStyle="short" timeStyle="long" value="${estadoItem.getFechaInicio()}"/>
     			<!-- <c:out value="${estadoItem.getFechaInicio().toString()}"/> -->
     		</td>
     		<td class="tabla_centrado">
-    			<fmt:formatDate dateStyle="short" value="${estadoItem.getFechaFin()}"/>
+    			<fmt:formatDate type="both" dateStyle="short" timeStyle="long" value="${estadoItem.getFechaFin()}"/>
 				<!-- <c:out value="${estadoItem.getFechaFin().toString()}"/> -->
     		</td>
     		<td class="tabla_centrado">
