@@ -6,13 +6,13 @@
    		<td class="tabla_centrado" style="width:150px;">
    			Estado inicial
    		</td>
-   		<td class="tabla_centrado">
+   		<td class="tabla_centrado" style="width:90px;">
    			Estados posibles
    		</td>
-   		<td class="tabla_centrado" style="width:70x;">
+   		<td class="tabla_centrado" style="width:90px;">
    			Editar    
    		</td>
-   		<td class="tabla_centrado" style="width:70x;">
+   		<td class="tabla_centrado" style="width:90px;">
    			Agregar estado
    		</td>
    	</tr>

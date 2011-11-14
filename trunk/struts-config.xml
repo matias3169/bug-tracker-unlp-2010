@@ -80,6 +80,11 @@
               <form-property name="descripcion_nueva" type="java.lang.String"></form-property>
               <form-property name="nuevoEstadoInicial" type="java.lang.String"></form-property>              
         </form-bean>
+        <form-bean name="agregarEstadoTipoItemForm" type="org.apache.struts.action.DynaActionForm">  
+        	  <form-property name="tipoItem" type="java.lang.String"></form-property>
+              <form-property name="idProyecto" type="java.lang.String"></form-property>
+              <form-property name="descripcionEstado" type="java.lang.String"></form-property>              
+        </form-bean>
     </form-beans>  
       
     <action-mappings>  
@@ -155,7 +160,6 @@
              <forward name="ok" path="/proyecto_trabajar.jsp" />  
              <forward name="error" path="/agregar_miembro.jsp"/>
         </action>
-        
         <action path="/agregar_item"   
             type="unlp.edu.action.AgregarItemAction"   
             name="agregarItemForm"  
@@ -210,6 +214,15 @@
              <forward name="ok" path="/listar_proyectos.jsp"/>  
              <forward name="error" path="/tipoItem_editar.jsp" />
         </action>
+        <action path="/agregarEstadoTipoItem"   
+            type="unlp.edu.action.AgregarEstadoTipoItemAction"   
+            name="agregarEstadoTipoItemForm"  
+            scope="session"  
+            validate="true"  
+            input="/tipoItem_agregarEstado.jsp">  
+             <forward name="ok" path="/listar_proyectos.jsp"/>  
+             <forward name="error" path="/tipoItem_agregarEstado.jsp" />
+        </action>  
     </action-mappings>  
   
     <message-resources parameter="ApplicationResources" null="false"/>  
