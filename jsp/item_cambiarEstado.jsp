@@ -22,27 +22,27 @@
 
     <table cellpadding="0" cellspacing="0" border="0">
     	<tr class="encabezado_tabla">
-			<td>
+			<td class="tabla_centrado" style="width:100px;">
     			Descripcion
  		   </td>
- 		   <td>
+ 		   <td class="tabla_centrado" style="width:90px;">
     			Responsable
  		   </td>
-    	   <td>
+    	   <td class="tabla_centrado" style="width:90px;">
     			Estado Actual
 		   </td>
-   		   <td>
+   		   <td class="tabla_centrado" style="width:90px;">
 			    Pasar a estado 
    		   </td>
-   		   <td>
+   		   <td class="tabla_centrado" style="width:90px;">
 			    Fecha 
    		   </td>
-   		   <td>
+   		   <td class="tabla_centrado" style="width:90px;">
 			    Ficha de Trabajo 
    		   </td>
    		</tr>
    		<tr>
-    		<td colspan="3">
+    		<td colspan="6">
     			<hr>
     		</td>
     	</tr>      				 
@@ -51,7 +51,7 @@
     		<td class="tabla_centrado">
     		    <c:out value="${item.getDescripcion()}"/>
     		</td>
-    		<td>
+    		<td class="tabla_centrado" style="width:90px;">
 	    		<select name="nomNuevoResponsable">
 	    			<c:forEach var="responsable" items="${proyecto.getMiembros()}">
 	    				<c:choose>
@@ -66,11 +66,11 @@
 	    		</select>
 	    	</td>
 	    	
-    		<td>
+    		<td class="tabla_centrado" style="width:90px;">
     		    <c:out value="${item.getEstadoActual().getEstado().getDescripcion()}"/>
     		</td>
     		
-    		<td>
+    		<td class="tabla_centrado" style="width:90px;">
 	    		<select name="descNuevoEstado">
 					<c:forEach var="estado" items="${item.getEstadoActual().getEstado().getEstadosSiguientes()}">
 						<option><c:out value="${estado.getDescripcion()}"/></option>
@@ -86,7 +86,7 @@
     	</tr> 
     	<tr height="4"></tr>
     	<tr> 
-    		<td class="tabla_centrado" colspan="4">
+    		<td class="tabla_centrado" colspan="6">
 				<input type="submit" name="cambiarEstado" value="Guardar cambios">
 			</td>
    		</tr>
