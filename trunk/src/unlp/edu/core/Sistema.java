@@ -558,4 +558,10 @@ public class Sistema {
 	{
 		return proyecto.eliminarItem(item);
 	}
+	
+	public void editarMiembroProyecto(Proyecto proyecto, String nombreMiembro, String role)
+	{
+		Role roleMiembro = this.getRoleProyecto(role);
+		proyecto.editarMiembro(nombreMiembro,roleMiembro);
+	}
 }

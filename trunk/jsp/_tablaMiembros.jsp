@@ -8,13 +8,18 @@
    		<td class="tabla_centrado">
    			Rol
    		</td>
+   		<td class="tabla_centrado">
+   			Editar
+   		</td>   		
    	</tr>
    	<tr>
-   		<td colspan="2">
-   			<hr>
-   		</td>
+   	
+   	<td colspan="3">
+   		<hr>
+   	</td>
    	</tr>
    	
+   	<tr>
    	<c:forEach var="miembroProyecto" items="${miembrosProyecto}" varStatus="j">
    	<c:choose>  
 		<c:when test="${(j.count) % 2 == 0}">  
@@ -24,16 +29,27 @@
 			<tr>  
 		</c:otherwise>  
 	</c:choose> 
-		   		<td class="tabla_centrado">
-	   				<c:out value="${miembroProyecto.getUsuario().getNombre()}"/>
-	   			</td>
-	   			<td>
-	   				<c:out value="${miembroProyecto.getRole().getNombre()}"/>
-	   			</td>
-   			</tr>
+		   		
+	<td class="tabla_centrado">
+		<c:out value="${miembroProyecto.getUsuario().getNombre()}"/>
+	 </td>
+	<td class="tabla_centrado">
+	 	<c:out value="${miembroProyecto.getRole().getNombre()}"/>
+	</td>
+	<td class="tabla_centrado">
+		<c:if test='${miembroProyecto.getRole().getNombre() != "Lider"}'>
+	    	<a href="miembro_editarMiembro.jsp?idP=<c:out value="${miembroProyecto.getProyecto().getNombre()}"/>&idN=<c:out value="${miembroProyecto.getUsuario().getNombre()}"/>&idR=<c:out value="${miembroProyecto.getRole().getNombre()}"/>"> 
+	    		<img class="icono_chico" src="iconos/proyecto_editar.png" 
+	    		title="Editar Miembro <c:out value="${miembroProyecto.getUsuario().getNombre()}"/>">
+	    	</a>
+	   	</c:if> 
+    </td>
+
    	</c:forEach>
+   	
+   	</tr>
    	<tr>
-   		<td colspan="2">
+   		<td colspan="3">
    			<hr>
    		</td>
    	</tr>

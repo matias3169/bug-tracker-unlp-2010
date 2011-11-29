@@ -85,6 +85,11 @@
               <form-property name="idProyecto" type="java.lang.String"></form-property>
               <form-property name="descripcionEstado" type="java.lang.String"></form-property>              
         </form-bean>
+        <form-bean name="editarMiembroForm" type="org.apache.struts.action.DynaActionForm">  
+        	  <form-property name="descRol" type="java.lang.String"></form-property>
+              <form-property name="nombreMiembro" type="java.lang.String"></form-property>
+              <form-property name="nombreProyecto" type="java.lang.String"></form-property>              
+        </form-bean>
     </form-beans>  
       
     <action-mappings>  
@@ -222,6 +227,15 @@
             input="/tipoItem_agregarEstado.jsp">  
              <forward name="ok" path="/listar_proyectos.jsp"/>  
              <forward name="error" path="/tipoItem_agregarEstado.jsp" />
+        </action>  
+        <action path="/editarMiembro"   
+            type="unlp.edu.action.EditarMiembroAction"   
+            name="editarMiembroForm"  
+            scope="session"  
+            validate="true"  
+            input="/miembro_editarMiembro.jsp">  
+             <forward name="ok" path="/listar_proyectos.jsp"/>  
+             <forward name="error" path="/miembro_editarMiembro.jsp" />
         </action>  
     </action-mappings>  
   

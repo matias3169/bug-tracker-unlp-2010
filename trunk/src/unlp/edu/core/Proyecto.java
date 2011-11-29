@@ -311,5 +311,11 @@ public class Proyecto {
 	{
 		return this.items.remove(item);
 	}
+	
+	public void editarMiembro(String nombre, Role rol)
+	{
+		
+		this.getMiembro(nombre).setRole(rol);
+	}
 }
 
