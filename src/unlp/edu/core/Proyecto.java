@@ -314,8 +314,12 @@ public class Proyecto {
 	
 	public void editarMiembro(String nombre, Role rol)
 	{
-		
 		this.getMiembro(nombre).setRole(rol);
+	}
+	
+	public void eliminarMiembro(Miembro miembro)
+	{
+		this.getMiembros().remove(miembro);
 	}
 }
 

@@ -7,7 +7,7 @@ import org.apache.struts.action.*;
 
 import unlp.edu.core.Proyecto;
 import unlp.edu.core.Sistema;
-import unlp.edu.core.Miembro;;
+import unlp.edu.core.Miembro;
 
 public class EditarProyectoAction extends Action{
 
@@ -28,10 +28,18 @@ public class EditarProyectoAction extends Action{
 		String  nuevoLiderProyecto = (String) editarProyectoForm.get("liderProyecto");
 		
 		Sistema sistema = Sistema.getInstance();
+		
 		Proyecto proyecto = sistema.getProyectoPorNombre(nombreActualProyecto);
+				
 		proyecto.setNombre(nuevoNombreProyecto);
-		Miembro liderProyecto = sistema.getMiembro(proyecto, nuevoLiderProyecto);
-		proyecto.setLiderProyecto(liderProyecto);
+		
+		Miembro actualLider = sistema.getLiderProyecto(proyecto);
+		Miembro nuevoLider = sistema.getMiembro(proyecto, nuevoLiderProyecto);
+		
+		nuevoLider.setRole(sistema.getRoleProyecto("Lider"));
+		proyecto.setLiderProyecto(nuevoLider);
+		
+		proyecto.eliminarMiembro(actualLider);
 		
 		// Mostramos la siguiente vista
 		return mapping.findForward("ok"); 
