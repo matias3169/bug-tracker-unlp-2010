@@ -32,5 +32,6 @@
 			<field property="descripcion_nueva" depends="required"><arg key="form.field"/></field>
 			<field property="nuevoEstadoInicial" depends="required"><arg key="form.field"/></field>
 		</form>
+		<form name="editarMiembroForm"></form>
 	</formset>
 </form-validation>

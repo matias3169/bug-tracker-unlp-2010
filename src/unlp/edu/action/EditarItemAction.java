@@ -1,7 +1,6 @@
 package unlp.edu.action;
 
 import java.util.Calendar;
-import java.util.HashSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +9,6 @@ import org.apache.struts.action.*;
 import unlp.edu.core.Sistema;
 import unlp.edu.core.Proyecto;
 import unlp.edu.core.Item;
-import unlp.edu.core.Estado;
 import unlp.edu.core.Miembro;
 
 public class EditarItemAction extends Action{

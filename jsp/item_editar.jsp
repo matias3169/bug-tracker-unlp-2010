@@ -74,7 +74,7 @@
     	</tr> 
     	<tr height="4"></tr>
     	<tr> 
-    		<td class="tabla_centrado" colspan="4">
+    		<td class="tabla_centrado" colspan="5">
 				<input type="submit" name="editarItem" value="Guardar cambios">
 			</td>
    		</tr>

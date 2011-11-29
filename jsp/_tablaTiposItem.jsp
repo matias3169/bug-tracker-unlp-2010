@@ -17,10 +17,11 @@
    		</td>
    	</tr>
    	<tr>
-   		<td colspan="9">
+   		<td colspan="5">
    			<hr>
    		</td>
    	</tr>
+   	<tr>
    	<c:forEach var="tipoItem" items="${tiposItem}"  varStatus="k">
 
    		<c:choose>  
@@ -61,10 +62,10 @@
     					title="Agregar estado a <c:out value="${tipoItem.getDescripcion()}"/>">
     			</a>
     		</td>
-   		</tr>
    	</c:forEach>
+   	</tr>
    	<tr>
-   		<td colspan="3">
+   		<td colspan="5">
    			<hr>
    		</td>
    	</tr>
