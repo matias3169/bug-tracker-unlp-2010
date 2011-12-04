@@ -45,7 +45,11 @@
 					<select name="tipo_item">
 						<option value="null">&nbsp;</option>
 	    					<c:forEach var="tipo" items="${tiposItem}">
-								<option><c:out value="${tipo.getDescripcion()}"/></option>
+	    						<c:choose>
+									<c:when test="${tipo.getEstadoInicial() != null}">
+		    		   					<option><c:out value="${tipo.getDescripcion()}"/></option>
+									</c:when> 
+								</c:choose>
 			         		</c:forEach>
 	    			</select>		
 				</td>
