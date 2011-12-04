@@ -1,3 +1,4 @@
+<%@ include file="volver_links.jsp" %>
 <table>
 	<tr>
 		<td class="footer">
