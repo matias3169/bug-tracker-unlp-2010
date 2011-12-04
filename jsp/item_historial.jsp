@@ -29,12 +29,15 @@
    			Responsable
    		</td>
    		<td class="tabla_centrado" style="width:200px;">
+   			Rol
+   		</td>
+   		<td class="tabla_centrado" style="width:200px;">
    			Notas
    		</td>
    		
    	</tr>
    	<tr>
-   		<td colspan="7">
+   		<td colspan="8">
    			<hr>
    		</td>
    	</tr>
@@ -62,6 +65,9 @@
     		</td>
     		<td class="tabla_centrado">
 				<c:out value="${estadoItem.getResponsable().getUsuario().getNombre()}"/>
+    		</td>
+    		<td class="tabla_centrado">
+				<c:out value="${estadoItem.getResponsable().getRole().getNombre()}"/>
     		</td>
     		<td class="tabla_centrado">
 				<c:out value="${estadoItem.getFichaDeTrabajo()}"/>
