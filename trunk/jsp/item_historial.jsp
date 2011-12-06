@@ -51,7 +51,7 @@
 				<tr>  
 			</c:otherwise>  
 		</c:choose> 
-		
+		<tr>
    			<td class="tabla_centrado">
     			<c:out value="${estadoItem.getEstado().getDescripcion()}"/>
     		</td>
