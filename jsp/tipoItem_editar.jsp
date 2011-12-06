@@ -106,30 +106,20 @@
 				<td class="tabla_centrado">
 		    		<select name="estadoSiguiente1">
 		    			<c:forEach var="estadoSiguiente" items="${estadoPosible.getEstadosSiguientes()}">
-		    				<c:choose>
-								<c:when test="${estadoSiguiente.getDescripcion() == tipoItem.getEstadoInicial().getDescripcion()}"> 
-									<!-- muestra por default el estado inicial actual -->
-			    		   			<option selected="selected"><c:out value="${estadoSiguiente.getDescripcion()}"/></option>
-								</c:when> 
-								<c:otherwise>
-									<option><c:out value="${estadoSiguiente.getDescripcion()}"/></option>
-								</c:otherwise>
-							</c:choose>
+		    				<option><c:out value="${estadoSiguiente.getDescripcion()}"/></option>
 		         		</c:forEach>
 		    		</select>
 		    	</td>
-				<!-- icono para agregar un estado posible nuevo -->
+				<!-- icono para agregar un estado siguiente nuevo -->
 				<td class="tabla_centrado">
-	    			<a href="estado_agregarEstadoSiguiente.jsp?idE=<c:out value="${estadoPosible.getId()}"/>&idTI=<c:out value="${tipoItem.getId()}"/>&
-	    			idP=<c:out value="${proyecto.getId()}"/>"> 
+	    			<a href="estado_agregarEstadoSiguiente.jsp?idE=<c:out value="${estadoPosible.getId()}"/>&idTI=<c:out value="${tipoItem.getId()}"/>&idP=<c:out value="${proyecto.getId()}"/>"> 
 	    				<img class="icono_chico" src="iconos/agregar_proyecto.png" 
 	    					title="Agregar estado siguiente a <c:out value="${estadoPosible.getDescripcion()}"/>">
 	    			</a>
 	    		</td>
 				<!-- icono para borrar un estado siguiente -->
 	    		<td class="tabla_centrado">
-	    			<a href="estado_eliminarEstadoSiguiente.jsp?idE=<c:out value="${estadoPosible.getId()}"/>&idTI=<c:out value="${tipoItem.getId()}"/>&
-	    			idP=<c:out value="${proyecto.getId()}"/>"> 
+	    			<a href="estado_eliminarEstadoSiguiente.jsp?idE=<c:out value="${estadoPosible.getId()}"/>&idTI=<c:out value="${tipoItem.getId()}"/>&idP=<c:out value="${proyecto.getId()}"/>"> 
 	    				<img class="icono_chico" src="iconos/borrar.png" 
 	    					title="Eliminar estado siguiente de <c:out value="${estadoPosible.getDescripcion()}"/>">
 	    			</a>
