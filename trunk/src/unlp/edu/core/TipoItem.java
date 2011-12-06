@@ -39,6 +39,22 @@ public class TipoItem {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+	
+	public Estado getEstadoPorId(int id){
+	   	Iterator<Estado> it = this.getEstadosPosibles().iterator();
+	   	boolean notFound = true;
+	   	Estado eit, est = null; 
+	    		
+    	while (it.hasNext() && notFound) {
+    		
+			eit = (Estado) it.next();
+			if (eit.getId() == id){
+				notFound = false;
+				est = eit;
+			}
+		}
+    	return est;
+    }
 
 	public Estado getEstadoInicial() {
 		return this.estadoInicial;
