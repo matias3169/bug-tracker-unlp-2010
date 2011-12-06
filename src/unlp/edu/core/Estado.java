@@ -10,6 +10,7 @@ public class Estado {
 	private Collection<Estado> estadosSiguientes;
 	
 	public Estado(int id, String descripcion){
+		this.id = id;
 		this.descripcion= descripcion;
 		this.estadosSiguientes = new HashSet<Estado>();
 	}
