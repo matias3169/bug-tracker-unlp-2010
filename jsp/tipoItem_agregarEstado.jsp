@@ -16,6 +16,7 @@
     <html:form method="POST" action="/agregarEstadoTipoItem">
     
     <html:hidden property="idProyecto" value="${param.idP}" />
+    <html:hidden property="idTipoItem" value="${param.idTI}" />
     <html:hidden property="tipoItem" value="${sessionScope.sistema.getProyecto(param.idP).getTipoItemPorId(param.idTI).getDescripcion()}" />
     
     <table>
