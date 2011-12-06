@@ -83,7 +83,15 @@
         <form-bean name="agregarEstadoTipoItemForm" type="org.apache.struts.action.DynaActionForm">  
         	  <form-property name="tipoItem" type="java.lang.String"></form-property>
               <form-property name="idProyecto" type="java.lang.String"></form-property>
+              <form-property name="idTipoItem" type="java.lang.String"></form-property>
               <form-property name="descripcionEstado" type="java.lang.String"></form-property>              
+        </form-bean>
+        <form-bean name="agregarEstadoSiguienteForm" type="org.apache.struts.action.DynaActionForm">  
+              <form-property name="idProyecto" type="java.lang.String"></form-property>
+              <form-property name="idTipoItem" type="java.lang.String"></form-property>
+              <form-property name="tipoItemDesc" type="java.lang.String"></form-property>
+              <form-property name="estadoDesc" type="java.lang.String"></form-property>
+              <form-property name="estadoSiguienteDesc" type="java.lang.String"></form-property>               
         </form-bean>
         <form-bean name="editarMiembroForm" type="org.apache.struts.action.DynaActionForm">  
         	  <form-property name="descRol" type="java.lang.String"></form-property>
@@ -227,6 +235,15 @@
             input="/tipoItem_agregarEstado.jsp">  
              <forward name="ok" path="/listar_proyectos.jsp"/>  
              <forward name="error" path="/tipoItem_agregarEstado.jsp" />
+        </action>
+        <action path="/agregarEstadoSiguiente"   
+            type="unlp.edu.action.AgregarEstadoSiguienteAction"   
+            name="agregarEstadoSiguienteForm"  
+            scope="session"  
+            validate="true"  
+            input="/estado_agregarEstadoSiguiente.jsp">  
+             <forward name="ok" path="/listar_proyectos.jsp"/>  
+             <forward name="error" path="/estado_agregarEstadoSiguiente.jsp" />
         </action>  
         <action path="/editarMiembro"   
             type="unlp.edu.action.EditarMiembroAction"   
