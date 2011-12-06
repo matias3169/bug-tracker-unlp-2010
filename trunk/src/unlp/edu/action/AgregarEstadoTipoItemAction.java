@@ -18,6 +18,7 @@ public class AgregarEstadoTipoItemAction  extends Action{
 		
 		// Extraemos los datos del formulario 
 		String  idProyecto = (String) agregarEstadoTipoItemForm.get("idProyecto");
+		String  idTipoItem = (String) agregarEstadoTipoItemForm.get("idTipoItem");
 		String  tipoItemDescripcion = (String) agregarEstadoTipoItemForm.get("tipoItem");
 		String descripcionEstado =  (String) agregarEstadoTipoItemForm.get("descripcionEstado");
 		
@@ -28,8 +29,8 @@ public class AgregarEstadoTipoItemAction  extends Action{
 		tipoItem.agregarEstado(descripcionEstado);
 			
 		// Mostramos la siguiente vista
-		response.sendRedirect("proyecto_trabajar.jsp?id=" + idProyecto);			
-
+		//response.sendRedirect("proyecto_trabajar.jsp?id=" + idProyecto);
+		response.sendRedirect("tipoItem_editar.jsp?idTI=" + idTipoItem + "&idP=" + idProyecto);	
 		
 		return mapping.findForward("ok");		
 	}
