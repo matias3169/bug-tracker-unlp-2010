@@ -12,12 +12,9 @@
    		<td class="tabla_centrado" style="width:90px;">
    			Editar    
    		</td>
-   		<td class="tabla_centrado" style="width:90px;">
-   			Agregar estado
-   		</td>
    	</tr>
    	<tr>
-   		<td colspan="5">
+   		<td colspan="4">
    			<hr>
    		</td>
    	</tr>
@@ -54,12 +51,6 @@
     			<a href="tipoItem_editar.jsp?idTI=<c:out value="${tipoItem.getId()}"/>&idP=<c:out value="${proyecto.getId()}"/>"> 
     				<img class="icono_chico" src="iconos/proyecto_editar.png" 
     					title="Editar <c:out value="${tipoItem.getDescripcion()}"/>">
-    			</a>
-    		</td>
-    		<td class="tabla_centrado">
-    			<a href="tipoItem_agregarEstado.jsp?idTI=<c:out value="${tipoItem.getId()}"/>&idP=<c:out value="${proyecto.getId()}"/>"> 
-    				<img class="icono_chico" src="iconos/agregar_proyecto.png" 
-    					title="Agregar estado a <c:out value="${tipoItem.getDescripcion()}"/>">
     			</a>
     		</td>
    	</c:forEach>

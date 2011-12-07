@@ -37,7 +37,7 @@
     	</tr>
     	
     	<tr style='background-color:#eeeeee;'>
-  			<td class="tabla_input">
+  			<td class="tabla_centrado">
     		    <input type="text" name="descripcion_nueva" id="descripcion_nueva" value="${tipoItem.getDescripcion()}">
     		</td>
     		<td class="tabla_centrado">
@@ -57,11 +57,11 @@
 	    	</td>
 	   	<tr height="4"></tr>
 	    
-	    <tr><td> <br> </td></tr>	    	
+	    <tr><td> <br><br><br> </td></tr>	    	
 	    
-	    <tr>
+	    <tr class="encabezado_tabla">
 			<td class="tabla_centrado" style="width:180px;">
-    			Estados posibles:
+    			Estados posibles
  			</td>
  			<!-- icono para agregar un estado posible nuevo -->
  			<td class="tabla_centrado">
@@ -126,7 +126,12 @@
 	    		</td>
 			</c:forEach>		    		
 		</tr>
-
+		<tr>
+    		<td colspan="5">
+    			<hr>
+    		</td>
+    	</tr>
+    	<tr><td> <br><br> </td></tr>
     	<tr> 
     		<td class="tabla_centrado" colspan="4">
 				<input type="submit" name="editarTipoItem" value="Guardar cambios">
