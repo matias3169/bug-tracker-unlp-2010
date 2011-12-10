@@ -9,24 +9,20 @@ public class EstadoItem {
 	 * @param fechaFin
 	 * @param fechaInicio
 	 * @param fichaDeTrabajo
-	 * @param miembrosDisponibles
 	 * @param responsable
 	 */
 	private Estado estado;
 	private Date fechaInicio, fechaFin;
 	private String fichaDeTrabajo;
-	private Collection<Miembro> miembrosDisponibles;
 	private Miembro responsable;
 	
 	// Constructor de la clase
 	public EstadoItem(Estado estado, Date fechaInicio, Date fechaFin,
-			String fichaDeTrabajo,Collection<Miembro> miembrosDisponibles,
-			Miembro responsable) {
+			String fichaDeTrabajo, Miembro responsable) {
 		this.estado = estado;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.fichaDeTrabajo = fichaDeTrabajo;
-		this.miembrosDisponibles = miembrosDisponibles;
 		this.responsable = responsable;
 	}
 	
@@ -46,16 +42,6 @@ public class EstadoItem {
 
 	public void setFichaDeTrabajo(String fichaDeTrabajo) {
 		this.fichaDeTrabajo = fichaDeTrabajo;
-	}
-
-
-	public Collection<Miembro> getMiembrosDisponibles() {
-		return miembrosDisponibles;
-	}
-
-
-	public void setMiembrosDisponibles(Collection<Miembro> miembrosDisponibles) {
-		this.miembrosDisponibles = miembrosDisponibles;
 	}
 
 
