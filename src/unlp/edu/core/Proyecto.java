@@ -153,19 +153,14 @@ public class Proyecto {
 	
 	public TipoItem nuevoTipoItem(String descripcion){ //creo el tipo de item sin estados
 		setIdTipoItem();
-		TipoItem tipoItem = new TipoItem(getIdTipoItem(), descripcion, null, new HashSet<Estado>());
+		TipoItem tipoItem = new TipoItem(getIdTipoItem(), descripcion, null, new HashSet<Estado>(), new HashSet<Miembro>());
 		this.tiposItems.add(tipoItem);
 		return tipoItem;
 	}
 	
-	public void cambiarEstadoItem( Item item, Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fecha, String fichaTrabajo) throws Exception{
+	public void cambiarEstadoItem( Item item, Estado estado, Miembro responsable, Date fecha, String fichaTrabajo) throws Exception{
 		
-		if (this.getMiembros().contains(responsable)) {
-			item.cambiarEstadoItem(estado, responsable, miembrosDisponibles, fecha, fichaTrabajo);
-		} else {
-			throw new Exception("El responsable no es un miembro del proyecto.");
-		}
-	//	item.cambiarEstadoItem(estado, responsable, miembrosDisponibles, fecha);
+			item.cambiarEstadoItem(estado, responsable, fecha, fichaTrabajo);
 	}
 
 	public Estado getEstadoTipoItem(TipoItem tipoItem, String descripcion) {
