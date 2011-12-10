@@ -49,7 +49,7 @@ public class CambiarEstadoAction extends Action{
 		calendar.set(year,month,day);
 		
 		//Hay que pasar la lista de miembros del estadoitem
-		item.cambiarEstadoItem(nuevoEstado, nuevoResponsable, new HashSet<Miembro>(), calendar.getTime(), fichaTrabajo);
+		item.cambiarEstadoItem(nuevoEstado, nuevoResponsable, calendar.getTime(), fichaTrabajo);
 		
 		// Mostramos la siguiente vista
 		response.sendRedirect("proyecto_trabajar.jsp?id=" + idProyecto);
