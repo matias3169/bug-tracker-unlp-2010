@@ -93,6 +93,13 @@
               <form-property name="estadoDesc" type="java.lang.String"></form-property>
               <form-property name="estadoSiguienteDesc" type="java.lang.String"></form-property>               
         </form-bean>
+        <form-bean name="agregarMiembroDisponibleForm" type="org.apache.struts.action.DynaActionForm">  
+              <form-property name="idProyecto" type="java.lang.String"></form-property>
+              <form-property name="idTipoItem" type="java.lang.String"></form-property>
+              <form-property name="proyecto" type="java.lang.String"></form-property>
+              <form-property name="tipoItemDesc" type="java.lang.String"></form-property>
+              <form-property name="nuevoMiembroDispNombre" type="java.lang.String"></form-property>     
+        </form-bean>
         <form-bean name="editarMiembroForm" type="org.apache.struts.action.DynaActionForm">  
         	  <form-property name="descRol" type="java.lang.String"></form-property>
               <form-property name="nombreMiembro" type="java.lang.String"></form-property>
@@ -244,6 +251,15 @@
             input="/estado_agregarEstadoSiguiente.jsp">  
              <forward name="ok" path="/listar_proyectos.jsp"/>  
              <forward name="error" path="/estado_agregarEstadoSiguiente.jsp" />
+        </action> 
+        <action path="/agregarMiembroDisponible"   
+            type="unlp.edu.action.AgregarMiembroDisponibleAction"   
+            name="agregarMiembroDisponibleForm"  
+            scope="session"  
+            validate="true"  
+            input="/tipoItem_agregarMiembroDisponible.jsp">  
+             <forward name="ok" path="/listar_proyectos.jsp"/>  
+             <forward name="error" path="/tipoItem_agregarMiembroDisponible.jsp" />
         </action>  
         <action path="/editarMiembro"   
             type="unlp.edu.action.EditarMiembroAction"   
