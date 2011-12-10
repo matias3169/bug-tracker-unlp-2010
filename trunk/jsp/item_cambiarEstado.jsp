@@ -53,7 +53,7 @@
     		</td>
     		<td class="tabla_centrado" style="width:90px;">
 	    		<select name="nomNuevoResponsable">
-	    			<c:forEach var="responsable" items="${proyecto.getMiembros()}">
+	    			<c:forEach var="responsable" items="${item.getTipoItem().getMiembrosDisponibles()}">
 	    				<c:choose>
 							<c:when test="${responsable.getUsuario().getNombre() == item.getEstadoActual().getResponsable().getUsuario().getNombre()}">
 		    		   			<option selected="selected"><c:out value="${responsable.getUsuario().getNombre()}"/></option>
