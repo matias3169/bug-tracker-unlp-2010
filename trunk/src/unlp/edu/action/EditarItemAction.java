@@ -40,7 +40,7 @@ public class EditarItemAction extends Action{
 		//No se trata del mismo responsable - Crear nuevo estado item
 		if (!item.getEstadoActual().getResponsable().getUsuario().getNombre().equals(nomNuevoResponsable))
 		{
-			item.cambiarResponsable(nuevoResponsable,sistema.getMiembrosProyecto(proyecto), calendar.getTime(), fichaTrabajo);
+			item.cambiarResponsable(nuevoResponsable, calendar.getTime(), fichaTrabajo);
 			item.setPrioridad(Integer.parseInt(prioridad));
 			item.setDescripcion(descripcion);
 		}
