@@ -29,7 +29,7 @@ public class Item {
 		this.descripcion = desc;
 		this.tipoItem = tipo;
 		this.prioridad = prioridad;
-		this.estadoActual = new EstadoItem(estadoIni,date,null,null,null,responsable);
+		this.estadoActual = new EstadoItem(estadoIni,date,null,null,responsable);
 		this.historialEstados = new EstadosHistoricos(); // creo una lista vacia linkedlist
 		this.historialEstados.setEstadoActual(estadoActual); // agrego el estado actual al historial
 	}
@@ -96,27 +96,24 @@ public class Item {
 		this.nombre = nombre;
 	}
 	
-	public void cambiarEstadoItem(Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fechaFin, String fichaTrabajo) throws Exception
+	public void cambiarEstadoItem(Estado estado, Miembro responsable, Date fechaFin, String fichaTrabajo) throws Exception
 	{
-		Date fechaInicio = new Date();
-		EstadoItem nuevoEstado = new EstadoItem(estado,fechaInicio,null,null,miembrosDisponibles,responsable);
-		this.setEstadoActual(nuevoEstado);
-		this.historialEstados.cambiarEstado(nuevoEstado, fichaTrabajo);
-		
-		/* if (miembrosDisponibles.contains(responsable)) {
-			estadoActual.setFechaFin(fechaFin);
-			this.historialEstados.add(estadoActual);
-			this.setEstadoActual(new EstadoItem(estado,fechaInicio,null,"",miembrosDisponibles,responsable));
+		if (this.getTipoItem().getMiembrosDisponibles().contains(responsable)) {
+			Date fechaInicio = new Date();
+			EstadoItem nuevoEstado = new EstadoItem(estado,fechaInicio,null,null,responsable);
+			this.setEstadoActual(nuevoEstado);
+			this.historialEstados.cambiarEstado(nuevoEstado, fichaTrabajo);
 		} else {
 			throw new Exception("El responsable no es un miembro disponible.");
-		}*/
+		}
+		
 	}
 
-	public void cambiarResponsable(Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fechaFin, String fichaTrabajo) throws Exception//Guarda el estadoItem y crea un nuevo estadoItem con el responsable
+	public void cambiarResponsable(Miembro responsable, Date fechaFin, String fichaTrabajo) throws Exception//Guarda el estadoItem y crea un nuevo estadoItem con el responsable
 	{
-		if (miembrosDisponibles.contains(responsable)) {
+		if (this.getTipoItem().getMiembrosDisponibles().contains(responsable)) {
 			Date fechaInicio = new Date();
-			EstadoItem nuevoEstado = new EstadoItem(estadoActual.getEstado(),fechaInicio, null, "", estadoActual.getMiembrosDisponibles(), responsable);
+			EstadoItem nuevoEstado = new EstadoItem(estadoActual.getEstado(),fechaInicio,null,"",responsable);
 			this.setEstadoActual(nuevoEstado);
 			this.historialEstados.cambiarEstado(nuevoEstado, fichaTrabajo);
 		} else {
