@@ -24,8 +24,6 @@
 		<form name="editarItemForm"></form>
 		<form name="eliminarItemForm"></form>
 		<form name="agregarItemForm"></form>
-		<form name="agregarEstadoTipoItemForm"></form>
-		<form name="agregarEstadoSiguienteForm"></form>
 	 	<form name="agregarTipoItemForm">
 		 	<field property="descripcion_tipoItem" depends="required"><arg key="form.field"/></field>
 		</form>  
@@ -33,6 +31,9 @@
 			<field property="descripcion_nueva" depends="required"><arg key="form.field"/></field>
 			<field property="nuevoEstadoInicial" depends="required"><arg key="form.field"/></field>
 		</form>
+		<form name="agregarEstadoTipoItemForm"></form>
+		<form name="agregarEstadoSiguienteForm"></form>
+		<form name="agregarMiembroDisponibleForm"></form>
 		<form name="editarMiembroForm"></form>
 	</formset>
 </form-validation>
