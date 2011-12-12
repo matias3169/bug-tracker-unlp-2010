@@ -31,7 +31,11 @@ public class LoginAction extends Action{
 			{  
 			   actualSession.setAttribute("user", sistema.getUsuario(nombre));
 			   actualSession.setAttribute("sistema", sistema);
-			  
+
+			   // Agrega links para volver al nivel anterior según la página
+			   LinksVolver lv = new LinksVolver();
+			   actualSession.setAttribute("linkVolver", lv);
+			   
 				// Mostramos la siguiente vista
 				return mapping.findForward("ok"); 
 
