@@ -1,42 +1,64 @@
 package unlp.edu.action;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+
+import antlr.collections.Stack;
 
 public class LinksVolver {
 	
-	Map<String, String> mapaLink = new HashMap<String, String>();
+	List<String> historial; 
+	String paginaActual;
 	
-	// Mapa de links para volver al nivel anterior
 	public LinksVolver() {
-		// Agregando links
-		this.mapaLink.put("/sistema.jsp", "/sistema.jsp");
-		this.mapaLink.put("/listar_proyectos.jsp", "/sistema.jsp");
-		this.mapaLink.put("/agregar_proyecto.jsp", "/sistema.jsp");
-		this.mapaLink.put("/proyecto_trabajar.jsp", "/listar_proyectos.jsp");
-		this.mapaLink.put("/proyecto_editar.jsp", "/listar_proyectos.jsp");
-		this.mapaLink.put("/proyecto_borrar.jsp", "/listar_proyectos.jsp");
-		this.mapaLink.put("/listar_usuarios.jsp", "/sistema.jsp");
-		this.mapaLink.put("/agregar_usuarios.jsp", "/sistema.jsp");
-		this.mapaLink.put("/item_agregar.jsp", "/proyecto_trabajar.jsp");
-		this.mapaLink.put("/agregar_miembro.jsp", "/proyecto_trabajar.jsp");
-		this.mapaLink.put("/tipoItem_agregar.jsp", "/proyecto_trabajar.jsp");
-		this.mapaLink.put("/item_editar.jsp", "/proyecto_trabajar.jsp");
-		this.mapaLink.put("/item_cambiarEstado.jsp", "/proyecto_trabajar.jsp");
-		this.mapaLink.put("/item_historial.jsp", "/proyecto_trabajar.jsp");
-		this.mapaLink.put("/item_eliminar.jsp", "/proyecto_trabajar.jsp");
-		this.mapaLink.put("/miembro_editarMiembro.jsp", "/proyecto_trabajar.jsp");
-		this.mapaLink.put("/tipoItem_editar.jsp", "/proyecto_trabajar.jsp");
-		this.mapaLink.put("/tipoItem_agregarEstado.jsp", "/proyecto_trabajar.jsp");
-		this.mapaLink.put("/tipoItem_agregarEstado.jsp", "/tipoItem_editar.jsp");
-		this.mapaLink.put("/tipoItem_eliminarEstado.jsp", "/tipoItem_editar.jsp");
-		this.mapaLink.put("/estado_agregarEstadoSiguiente.jsp", "/tipoItem_editar.jsp");
-		this.mapaLink.put("/estado_eliminarEstadoSiguiente.jsp", "/tipoItem_editar.jsp");
+		this.historial =  new ArrayList<String>();
+		this.paginaActual ="";
 	}
-
-	public String getPaginaAnterior(String actual)
+ 
+	public boolean visita(String p)
 	{
-		return this.mapaLink.get(actual);
+		
+		if(!p.equals(this.paginaActual))
+		{
+			if(!this.paginaActual.equals(""))
+				if(this.historial.size()>0)
+				{
+					if(this.historial.get(this.historial.size()-1).toString().equals(p))
+						this.historial.remove(this.historial.size()-1);
+					else
+						this.historial.add(this.paginaActual);
+				}
+				else
+				{
+					this.historial.add(this.paginaActual);
+				}
+			this.paginaActual = p;
+		}
+//	
+//		System.out.println("Pagina actual: "+this.paginaActual+"\n");
+//		System.out.println(this.historial.size());
+//		for (Iterator it=this.historial.iterator(); it.hasNext( ); ) {
+//		    Object anObject = it.next( );
+//		    System.out.println( anObject.toString() );
+//		}
+//		System.out.println("--------------------\n");
+//		
+		return true;
 	}
-   
+	
+	public String paginaAnterior()
+	{
+		if(this.historial.size()>0)
+			return this.historial.get(this.historial.size()-1).toString();
+		return "";
+	}
+	
+	public void vaciar()
+	{
+		this.historial.clear();
+		this.paginaActual ="sistema.jsp";
+	}
 }
