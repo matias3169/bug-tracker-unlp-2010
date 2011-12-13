@@ -250,7 +250,7 @@ public class Sistema {
     }
     
     public void cambiarEstadoItem(Proyecto proyecto, Item item, Estado estado, Miembro responsable, Collection<Miembro> miembrosDisponibles, Date fecha, String fichaTrabajo) throws Exception{
-    	proyecto.cambiarEstadoItem(item, estado, responsable, miembrosDisponibles, fecha, fichaTrabajo);
+    	proyecto.cambiarEstadoItem(item, estado, responsable, fecha, fichaTrabajo);
     }
     
 	public void agregarEstadoSiguiente(Proyecto proyecto, TipoItem tipo, String estadoI, String estadoF){
