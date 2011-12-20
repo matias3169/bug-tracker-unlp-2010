@@ -31,10 +31,10 @@
 					</td>
 					<td>
 						
-						<!-- <a href="logout.jsp">  -->
+						<a href="logout.jsp">
 							<img src="iconos/logout.png"  class="icono_chico" alt="Salir" 
 								title="Salir del sistema">
-						<!--  </a> -->
+						</a>
 					</td>
 				</tr>
 			</table>
