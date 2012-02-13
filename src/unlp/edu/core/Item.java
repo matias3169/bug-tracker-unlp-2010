@@ -98,7 +98,7 @@ public class Item {
 	
 	public void cambiarEstadoItem(Estado estado, Miembro responsable, Date fechaFin, String fichaTrabajo) throws Exception
 	{
-		if (this.getTipoItem().getMiembrosDisponibles().contains(responsable)) {
+		if (this.getEstadoActual().getEstado().getMiembrosDisponibles().contains(responsable)) {
 			Date fechaInicio = new Date();
 			EstadoItem nuevoEstado = new EstadoItem(estado,fechaInicio,null,null,responsable);
 			this.setEstadoActual(nuevoEstado);
@@ -111,7 +111,7 @@ public class Item {
 
 	public void cambiarResponsable(Miembro responsable, Date fechaFin, String fichaTrabajo) throws Exception//Guarda el estadoItem y crea un nuevo estadoItem con el responsable
 	{
-		if (this.getTipoItem().getMiembrosDisponibles().contains(responsable)) {
+		if (this.getEstadoActual().getEstado().getMiembrosDisponibles().contains(responsable)) {
 			Date fechaInicio = new Date();
 			EstadoItem nuevoEstado = new EstadoItem(estadoActual.getEstado(),fechaInicio,null,"",responsable);
 			this.setEstadoActual(nuevoEstado);
