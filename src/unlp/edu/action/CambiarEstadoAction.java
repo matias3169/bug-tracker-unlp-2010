@@ -29,7 +29,7 @@ public class CambiarEstadoAction extends Action{
 		String descNuevoEstado = (String) cambiarEstadoForm.get("descNuevoEstado");
 		String nomNuevoResponsable = (String) cambiarEstadoForm.get("nomNuevoResponsable");
 		String fichaTrabajo = (String) cambiarEstadoForm.get("fichaTrabajoItem");
-		String fechaEstado = (String) cambiarEstadoForm.get("fechaEstado");
+
 		
 		Sistema sistema = Sistema.getInstance();
 		
@@ -40,13 +40,13 @@ public class CambiarEstadoAction extends Action{
 		Miembro nuevoResponsable = proyecto.getMiembro(nomNuevoResponsable);
 		
 		Calendar calendar = Calendar.getInstance();
-		fecha = fechaEstado.split("/");
+/*		fecha = fechaEstado.split("/");
 		
 		int year= Integer.parseInt(fecha[2]);
 		int month= Integer.parseInt(fecha[1]) - 1;
 		int day= Integer.parseInt(fecha[0]);
 		
-		calendar.set(year,month,day);
+		calendar.set(year,month,day); */
 		
 		//Hay que pasar la lista de miembros del estadoitem
 		item.cambiarEstadoItem(nuevoEstado, nuevoResponsable, calendar.getTime(), fichaTrabajo);
