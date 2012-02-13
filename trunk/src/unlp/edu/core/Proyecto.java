@@ -153,7 +153,7 @@ public class Proyecto {
 	
 	public TipoItem nuevoTipoItem(String descripcion){ //creo el tipo de item sin estados
 		setIdTipoItem();
-		TipoItem tipoItem = new TipoItem(getIdTipoItem(), descripcion, null, new HashSet<Estado>(), new HashSet<Miembro>());
+		TipoItem tipoItem = new TipoItem(getIdTipoItem(), descripcion, null, new HashSet<Estado>());
 		this.tiposItems.add(tipoItem);
 		return tipoItem;
 	}
