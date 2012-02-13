@@ -10,7 +10,7 @@
 	<c:set var="item" value="${proyecto.getItemPorId(param.idI)}"/>
 
 <body>
-	<html:javascript formName="cambiarEstadoForm" src="popcalendar.js" />
+	<html:javascript formName="cambiarEstadoForm" />
 	
 	<h1><%= BTUNLP_Titulo %></h1>
 	<h2>Cambiar estado <c:out value="${item.getNombre()}"/></h2>
@@ -19,6 +19,7 @@
     
     <html:hidden property="nombreProyecto" value="${proyecto.getNombre()}" />
     <html:hidden property="nombreItem" value="${item.getNombre()}" />
+    <html:hidden property="tipoItem" value="${item.getTipoItem()}"/>
 
     <table cellpadding="0" cellspacing="0" border="0">
     	<tr class="encabezado_tabla">
@@ -26,17 +27,15 @@
     			Descripcion
  		   </td>
  		   <td class="tabla_centrado" style="width:90px;">
-    			Responsable
- 		   </td>
-    	   <td class="tabla_centrado" style="width:90px;">
     			Estado Actual
 		   </td>
    		   <td class="tabla_centrado" style="width:90px;">
 			    Pasar a estado 
    		   </td>
    		   <td class="tabla_centrado" style="width:90px;">
-			    Fecha 
-   		   </td>
+    			Responsable
+ 		   </td>
+ 		   
    		   <td class="tabla_centrado" style="width:90px;">
 			    Ficha de Trabajo 
    		   </td>
@@ -51,21 +50,7 @@
     		<td class="tabla_centrado">
     		    <c:out value="${item.getDescripcion()}"/>
     		</td>
-    		<td class="tabla_centrado" style="width:90px;">
-	    		<select name="nomNuevoResponsable">
-	    			<c:forEach var="responsable" items="${item.getTipoItem().getMiembrosDisponibles()}">
-	    				<c:choose>
-							<c:when test="${responsable.getUsuario().getNombre() == item.getEstadoActual().getResponsable().getUsuario().getNombre()}">
-		    		   			<option selected="selected"><c:out value="${responsable.getUsuario().getNombre()}"/></option>
-							</c:when> 
-							<c:otherwise>
-								<option><c:out value="${responsable.getUsuario().getNombre()}"/></option>
-							</c:otherwise>
-						</c:choose>
-	         		</c:forEach>
-	    		</select>
-	    	</td>
-	    	
+    		
     		<td class="tabla_centrado" style="width:90px;">
     		    <c:out value="${item.getEstadoActual().getEstado().getDescripcion()}"/>
     		</td>
@@ -77,9 +62,22 @@
 					</c:forEach>
 				</select>
 	    	</td>
-	    	<td class="tabla_input">
-    		    <input type="text" name="fechaEstado" id="fechaEstado" onclick="popUpCalendar(this,cambiarEstadoForm.fechaEstado, 'dd/mm/yyyy');" size="10">
-    		</td>
+	    	
+	    	<td class="tabla_centrado" style="width:90px;">
+				<select name="nomNuevoResponsable">
+	    			<c:forEach var="responsable" items="${item.getEstadoActual().getEstado().getMiembrosDisponibles()}">
+	    				<c:choose>
+							<c:when test="${responsable.getUsuario().getNombre() == item.getEstadoActual().getResponsable().getUsuario().getNombre()}">
+		    		   			<option selected="selected"><c:out value="${responsable.getUsuario().getNombre()}"/></option>
+							</c:when> 
+							<c:otherwise>
+								<option><c:out value="${responsable.getUsuario().getNombre()}"/></option>
+							</c:otherwise>
+						</c:choose>
+	         		</c:forEach>
+	    		</select>
+	    	</td>	
+
 	    	<td class="tabla_input">
     		    <input type="text" name="fichaTrabajoItem" >
     		</td>
@@ -91,6 +89,7 @@
 			</td>
    		</tr>
    	</table>
+
 	</html:form>
    	<%@ include file="footer.jsp" %> 
     
