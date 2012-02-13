@@ -77,7 +77,7 @@
     				<img class="icono_chico" src="iconos/borrar.png" 
     					title="Eliminar estado de <c:out value="${tipoItem.getDescripcion()}"/>">
     			</a>
-    		</td>
+    		</td>		
    		</tr>
    		<tr>
     		<td colspan="5">
@@ -100,6 +100,7 @@
 					<c:out value="${estadoPosible.getDescripcion()}"/>
 				</td>
 				
+				<!-- Estados siguientes -->
 				<td class="tabla_centrado">
 					Estados siguientes:
 				</td>
@@ -125,6 +126,35 @@
 	    					title="Eliminar estado siguiente de <c:out value="${estadoPosible.getDescripcion()}"/>">
 	    			</a>
 	    		</td>
+	    		
+	    		<!-- Miembros dispobibles -->
+				<td class="tabla_centrado">
+					Miembros Disponibles:
+				</td>
+	    		
+	    		<td class="tabla_centrado">
+		    		<select name="miembroDisponible1">
+		    			<c:forEach var="miembroDisponible" items="${estadoPosible.getMiembrosDisponibles()}">
+		    				<option><c:out value="${miembroDisponible.getUsuario().getNombre()}"/></option>
+		         		</c:forEach>
+		    		</select>
+		    	</td>
+	    		
+	    		<!-- icono para agregar un miembro disponible nuevo -->
+				<td class="tabla_centrado">
+	    			<a href="estado_agregarMiembroDisponible.jsp?idE=<c:out value="${estadoPosible.getId()}"/>&idTI=<c:out value="${tipoItem.getId()}"/>&idP=<c:out value="${proyecto.getId()}"/>"> 
+	    				<img class="icono_chico" src="iconos/agregar_proyecto.png" 
+	    					title="Agregar miembro disponible a <c:out value="${estadoPosible.getDescripcion()}"/>">
+	    			</a>
+	    		</td>
+				<!-- icono para borrar un miembro disponible -->
+	    		<td class="tabla_centrado">
+	    			<a href="estado_eliminarMiembroDisponible.jsp?idE=<c:out value="${estadoPosible.getId()}"/>&idTI=<c:out value="${tipoItem.getId()}"/>&idP=<c:out value="${proyecto.getId()}"/>"> 
+	    				<img class="icono_chico" src="iconos/borrar.png" 
+	    					title="Eliminar miembro disponible de <c:out value="${estadoPosible.getDescripcion()}"/>">
+	    			</a>
+	    		</td>
+	    		
 			</c:forEach>		    		
 		</tr>
 		<tr>
@@ -133,65 +163,6 @@
     		</td>
     	</tr>
     	<!-- Fin sección Estadis posibles -->
-    	
-    	<!-- Sección Miembros dispobibles -->
-    	  <tr><td> <br><br><br> </td></tr>	    	
-	    
-	    <tr class="encabezado_tabla">
-			<td class="tabla_centrado" style="width:180px;">
-    			Miembros disponibles
- 			</td>
- 			<!-- icono para agregar un miembro disponible nuevo -->
- 			<td class="tabla_centrado">
-    			<a href="tipoItem_agregarMiembroDisponible.jsp?idTI=<c:out value="${tipoItem.getId()}"/>&idP=<c:out value="${proyecto.getId()}"/>"> 
-    				<img class="icono_chico" src="iconos/agregar_proyecto.png" 
-    					title="Agregar miembro disponible a <c:out value="${tipoItem.getDescripcion()}"/>">
-    			</a>
-    		</td>
- 			<!-- icono para borrar un miembro disponible -->
-    		<td class="tabla_centrado">
-    			<a href="tipoItem_eliminarMiembroDisponible.jsp?idTI=<c:out value="${tipoItem.getId()}"/>&idP=<c:out value="${proyecto.getId()}"/>"> 
-    				<img class="icono_chico" src="iconos/borrar.png" 
-    					title="Eliminar miembro disponible de <c:out value="${tipoItem.getDescripcion()}"/>">
-    			</a>
-    		</td>
-   		</tr>
-   		<tr>
-    		<td colspan="5">
-    			<hr>
-    		</td>
-    	</tr>
-	     <tr class="encabezado_tabla">
-	     <td>Usuario:</td>
-	     <td>Rol:</td>
-	     </tr>
-	    <tr>
-			<c:forEach var="miembroDisponible" items="${tipoItem.getMiembrosDisponibles()}" varStatus="j">
-				<c:choose>  
-					<c:when test="${(j.count) % 2 == 0}">  
-						<tr style="background-color:#eeeeee;">  
-					</c:when>  
-					<c:otherwise>  
-						<tr>  
-					</c:otherwise>  
-				</c:choose> 
-					
-				<td class="tabla_centrado">
-					<c:out value="${miembroDisponible.getUsuario().getNombre()}"/>
-				</td>
-				
-				<td class="tabla_centrado">
-	 				<c:out value="${miembroDisponible.getRole().getNombre()}"/>
-				</td>
-				
-			</c:forEach>		    		
-		</tr>
-		<tr>
-    		<td colspan="5">
-    			<hr>
-    		</td>
-    	</tr>    	
-    	<!-- Fin sección miembros disponibles -->
     	
     	<tr><td> <br><br> </td></tr>
     	<tr> 
