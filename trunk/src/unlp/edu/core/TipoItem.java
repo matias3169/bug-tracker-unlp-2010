@@ -10,14 +10,12 @@ public class TipoItem {
 	private String descripcion;
 	private Estado estadoInicial;
 	private Collection<Estado> estadosPosibles;
-	private Collection<Miembro> miembrosDisponibles;
 	
-	public TipoItem(int id, String descripcion, Estado estadoInicial, Collection<Estado> estadosPosibles, Collection<Miembro> miembrosDisponibles){
+	public TipoItem(int id, String descripcion, Estado estadoInicial, Collection<Estado> estadosPosibles){
 		this.id = id;
 		this.descripcion = descripcion;
 		this.estadoInicial = estadoInicial;
 		this.estadosPosibles = estadosPosibles;
-		this.miembrosDisponibles = miembrosDisponibles;
 	}
 
 	private static int getIdEstado()
@@ -42,15 +40,6 @@ public class TipoItem {
 		this.descripcion = descripcion;
 	}
 	
-	public Collection<Miembro> getMiembrosDisponibles() {
-		return this.miembrosDisponibles;
-	}
-
-
-	public void setMiembrosDisponibles(Collection<Miembro> miembrosDisponibles) {
-		this.miembrosDisponibles = miembrosDisponibles;
-	}
-	
 	public Estado getEstadoPorId(int id){
 	   	Iterator<Estado> it = this.getEstadosPosibles().iterator();
 	   	boolean notFound = true;
@@ -66,6 +55,22 @@ public class TipoItem {
 		}
     	return est;
     }
+	
+	public Estado getEstadoPorDesc(String desc){
+	   	Iterator<Estado> it = this.getEstadosPosibles().iterator();
+	   	boolean notFound = true;
+	   	Estado eit, estado = null; 
+	    		
+	  	while (it.hasNext() && notFound) {
+	    		
+			eit = (Estado) it.next();
+			if (eit.getDescripcion().equals(desc)){
+				notFound = false;
+				estado = eit;
+			}
+		}
+	   	return estado;
+	}
 
 	public Estado getEstadoInicial() {
 		return this.estadoInicial;
@@ -125,10 +130,7 @@ public class TipoItem {
 		}
 	}
 	
-	public void agregarMiembroDisponible(Miembro miembro){
-		this.miembrosDisponibles.add(miembro);
-	}
-
+	
 	public void listarEstadosPosibles(){
 		System.out.print("Estados Posibles del tipo de item ");
 		System.out.print(this.getDescripcion());
