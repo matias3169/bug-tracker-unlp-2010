@@ -8,11 +8,13 @@ public class Estado {
 	private int id;
 	private String descripcion;
 	private Collection<Estado> estadosSiguientes;
+	private Collection<Miembro> miembrosDisponibles;
 	
 	public Estado(int id, String descripcion){
 		this.id = id;
 		this.descripcion= descripcion;
 		this.estadosSiguientes = new HashSet<Estado>();
+		this.miembrosDisponibles = new HashSet<Miembro>();
 	}
 
 	public String getDescripcion() {
@@ -33,6 +35,14 @@ public class Estado {
 
 	public void setEstadosSiguientes(Collection<Estado> estadosSiguientes) {
 		this.estadosSiguientes = estadosSiguientes;
+	}
+	
+	public Collection<Miembro> getMiembrosDisponibles() {
+		return this.miembrosDisponibles;
+	}
+
+	public void setMiembrosDisponibles(Collection<Miembro> miembrosDisponibles) {
+		this.miembrosDisponibles = miembrosDisponibles;
 	}
 	
 	/**
@@ -56,4 +66,9 @@ public class Estado {
     	}
     	System.out.println("\n");
 	}
+	
+	public void agregarMiembroDisponible(Miembro miembro){
+		this.miembrosDisponibles.add(miembro);
+	}
+
 }
