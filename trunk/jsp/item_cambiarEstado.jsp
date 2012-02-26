@@ -9,6 +9,38 @@
 	<c:set var="proyecto" value="${sessionScope.sistema.getProyecto(param.idP)}"/>
 	<c:set var="item" value="${proyecto.getItemPorId(param.idI)}"/>
 
+	<script type="text/javascript">
+		function cargarCombo()
+		{
+			var xmlhttp;
+			var valorTipoItem = document.getElementById("tipoI").value;
+			var valorProyecto = document.getElementById("proy").value;
+			var valorEstado = document.getElementById("comboindependiente").value;
+			
+		    var fragment_url = 'combodependiente.jsp?TipoItemId='+valorTipoItem+'&Proyecto='+valorProyecto+'&Estado='+valorEstado;
+		    
+			if (window.XMLHttpRequest)
+			{// code for IE7+, Firefox, Chrome, Opera, Safari
+			  xmlhttp=new XMLHttpRequest();
+			}
+			else
+			{// code for IE6, IE5
+			  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			
+			xmlhttp.open("GET",fragment_url);
+			xmlhttp.onreadystatechange=function()
+			{
+			  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			    {
+			    document.getElementById("div_combodependiente").innerHTML=xmlhttp.responseText;
+			    }
+			};
+			
+			xmlhttp.send(null);
+		}
+	</script>
+	
 <body>
 	<html:javascript formName="cambiarEstadoForm" />
 	
@@ -20,6 +52,9 @@
     <html:hidden property="nombreProyecto" value="${proyecto.getNombre()}" />
     <html:hidden property="nombreItem" value="${item.getNombre()}" />
     <html:hidden property="tipoItem" value="${item.getTipoItem()}"/>
+    
+	<input type=hidden id="proy" name="proy" value="${proyecto.getNombre()}"/>
+	<input type=hidden id="tipoI" name="tipoI" value="${item.getTipoItem().getDescripcion()}"/>
 
     <table cellpadding="0" cellspacing="0" border="0">
     	<tr class="encabezado_tabla">
@@ -56,26 +91,18 @@
     		</td>
     		
     		<td class="tabla_centrado" style="width:90px;">
-	    		<select name="descNuevoEstado">
-					<c:forEach var="estado" items="${item.getEstadoActual().getEstado().getEstadosSiguientes()}">
-						<option><c:out value="${estado.getDescripcion()}"/></option>
-					</c:forEach>
+	    		<select id="comboindependiente" name="descNuevoEstado" onchange="javascript:cargarCombo()">
+	    			<option value="null">&nbsp;</option>
+						<c:forEach var="estado" items="${item.getEstadoActual().getEstado().getEstadosSiguientes()}">
+							<option><c:out value="${estado.getDescripcion()}"/></option>
+						</c:forEach>
 				</select>
 	    	</td>
 	    	
 	    	<td class="tabla_centrado" style="width:90px;">
-				<select name="nomNuevoResponsable">
-	    			<c:forEach var="responsable" items="${item.getEstadoActual().getEstado().getMiembrosDisponibles()}">
-	    				<c:choose>
-							<c:when test="${responsable.getUsuario().getNombre() == item.getEstadoActual().getResponsable().getUsuario().getNombre()}">
-		    		   			<option selected="selected"><c:out value="${responsable.getUsuario().getNombre()}"/></option>
-							</c:when> 
-							<c:otherwise>
-								<option><c:out value="${responsable.getUsuario().getNombre()}"/></option>
-							</c:otherwise>
-						</c:choose>
-	         		</c:forEach>
-	    		</select>
+	    		<div id="div_combodependiente">
+					<select name="responsable_item" id="responsable_item"></select>
+				</div>
 	    	</td>	
 
 	    	<td class="tabla_input">

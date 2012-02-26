@@ -31,7 +31,7 @@
 		   </td>
    		</tr>
    		<tr>
-    		<td colspan="5">
+    		<td colspan="2">
     			<hr>
     		</td>
     	</tr>
@@ -55,17 +55,23 @@
 	         		</c:forEach>
 	    		</select>
 	    	</td>
-	   	<tr height="4"></tr>
-	    
-	    <!-- Sección Estados posibles -->
-	    <tr><td> <br><br><br> </td></tr>	    	
-	    
-	    <tr class="encabezado_tabla">
-			<td class="tabla_centrado" style="width:180px;">
+	    </tr>
+   		<tr>
+    		<td colspan="2">
+    			<hr>
+    		</td>
+    	</tr>
+	</table>
+	
+	<br><br><br>
+	   	
+	<table cellpadding="0" cellspacing="0" border="0">	    
+	   <tr class="encabezado_tabla">
+			<td class="tabla_centrado"  style="width:180px;">
     			Estados posibles
  			</td>
  			<!-- icono para agregar un estado posible nuevo -->
- 			<td class="tabla_centrado">
+ 			<td class="tabla_centrado" >
     			<a href="tipoItem_agregarEstado.jsp?idTI=<c:out value="${tipoItem.getId()}"/>&idP=<c:out value="${proyecto.getId()}"/>"> 
     				<img class="icono_chico" src="iconos/agregar_proyecto.png" 
     					title="Agregar estado a <c:out value="${tipoItem.getDescripcion()}"/>">
@@ -79,12 +85,14 @@
     			</a>
     		</td>		
    		</tr>
-   		<tr>
-    		<td colspan="5">
+	 </table>
+	 
+	 <table cellpadding="0" cellspacing="0" border="0">
+	 	<tr>
+    		<td colspan="9">
     			<hr>
     		</td>
     	</tr>
-	    
 	    <tr>
 			<c:forEach var="estadoPosible" items="${tipoItem.getEstadosPosibles()}" varStatus="j">
 				<c:choose>  
@@ -96,16 +104,16 @@
 					</c:otherwise>  
 				</c:choose> 
 					
-				<td class="tabla_centrado">
-					<c:out value="${estadoPosible.getDescripcion()}"/>
+				<td class="tabla_centrado" style="width:120px;">
+					<b><c:out value="${estadoPosible.getDescripcion()}"/></b>
 				</td>
 				
 				<!-- Estados siguientes -->
-				<td class="tabla_centrado">
-					Estados siguientes:
+				<td class="tabla_centrado" style="width:50px;">
+					Estados siguientes
 				</td>
 				
-				<td class="tabla_centrado">
+				<td class="tabla_centrado" style="width:150px;">
 		    		<select name="estadoSiguiente1">
 		    			<c:forEach var="estadoSiguiente" items="${estadoPosible.getEstadosSiguientes()}">
 		    				<option><c:out value="${estadoSiguiente.getDescripcion()}"/></option>
@@ -128,8 +136,8 @@
 	    		</td>
 	    		
 	    		<!-- Miembros dispobibles -->
-				<td class="tabla_centrado">
-					Miembros Disponibles:
+				<td class="tabla_centrado" style="width:120px;">
+					Miembros
 				</td>
 	    		
 	    		<td class="tabla_centrado">
@@ -158,13 +166,14 @@
 			</c:forEach>		    		
 		</tr>
 		<tr>
-    		<td colspan="5">
+    		<td colspan="9">
     			<hr>
     		</td>
     	</tr>
-    	<!-- Fin sección Estadis posibles -->
     	
-    	<tr><td> <br><br> </td></tr>
+	</table>    	
+    	<br><br>
+    <table>
     	<tr> 
     		<td class="tabla_centrado" colspan="4">
 				<input type="submit" name="editarTipoItem" value="Guardar cambios">

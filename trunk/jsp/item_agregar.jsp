@@ -10,6 +10,36 @@
 	<c:set var="tiposItem" value="${proyecto.getTiposItems()}"/>
 	<c:set var="miembrosProyecto" value="${proyecto.getMiembros()}"/>
 	
+	<script type="text/javascript">
+		function cargarCombo()
+		{
+			var xmlhttp;
+			var valorTipoItem = document.getElementById("comboindependiente").value;
+			var valorProyecto = document.getElementById("proy").value;
+		    var fragment_url = 'combodependiente.jsp?TipoItemId='+valorTipoItem+'&Proyecto='+valorProyecto;
+		    
+			if (window.XMLHttpRequest)
+			{// code for IE7+, Firefox, Chrome, Opera, Safari
+			  xmlhttp=new XMLHttpRequest();
+			}
+			else
+			{// code for IE6, IE5
+			  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			
+			xmlhttp.open("GET",fragment_url);
+			xmlhttp.onreadystatechange=function()
+			{
+			  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			    {
+			    document.getElementById("div_combodependiente").innerHTML=xmlhttp.responseText;
+			    }
+			};
+			
+			xmlhttp.send(null);
+		}
+	</script>
+
 <body>
 	<html:javascript formName="agregarItemForm" />
 	
@@ -19,6 +49,7 @@
     <html:form method="POST" action="/agregar_item">
     
     <html:hidden property="nombreProyecto" value="${proyecto.getNombre()}" />
+    <input type=hidden id="proy" name="proy" value="${proyecto.getNombre()}"/>
     
     <table>
 			<tr>
@@ -42,7 +73,7 @@
 					<div id="etiqueta_tipo">Tipo de item</div>
 				</td>
 				<td class="tabla_input">
-					<select name="tipo_item">
+					<select id="comboindependiente" name="tipo_item" onchange="javascript:cargarCombo()">
 						<option value="null">&nbsp;</option>
 	    					<c:forEach var="tipo" items="${tiposItem}">
 	    						<c:choose>
@@ -68,12 +99,9 @@
 				</td>
 				
 				<td class="tabla_input">
-					<select name="responsable_item">
-						<option value="null">&nbsp;</option>
-	    					<c:forEach var="miembro" items="${miembrosProyecto}">
-								<option><c:out value="${miembro.getUsuario().getNombre()}"/></option>
-			         		</c:forEach>
-	    			</select>		
+					<div id="div_combodependiente">
+						<select name="responsable_item" id="responsable_item"></select>	
+	    			</div>	
 				</td>
 			</tr>
 			
