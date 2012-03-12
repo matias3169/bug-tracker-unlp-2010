@@ -1,0 +1,25 @@
+CREATE DATABASE bugtrackerdb;
+USE bugtrackerdb;
+
+DROP TABLE IF EXISTS `bugtrackerdb`.`role`;
+CREATE TABLE  `bugtrackerdb`.`role` (
+  `RoleID` int(11) NOT NULL auto_increment,
+  `tipo` varchar(45) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  `permisos` varchar(45) NOT NULL,
+  PRIMARY KEY  (`RoleID`),
+  KEY `FK267876359EF0D` (`RoleID`),
+  CONSTRAINT `FK267876359EF0D` FOREIGN KEY (`RoleID`) REFERENCES `role` (`RoleID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+DROP TABLE IF EXISTS `bugtrackerdb`.`usuario`;
+CREATE TABLE  `bugtrackerdb`.`usuario` (
+  `UsuarioID` int(10) unsigned NOT NULL auto_increment,
+  `Nombre` varchar(45) NOT NULL,
+  `clave` varchar(255) default NULL,
+  `role` int(11) NOT NULL,
+  PRIMARY KEY  (`UsuarioID`),
+  KEY `FK22E07F0E3AB82772` (`role`),
+  CONSTRAINT `FK22E07F0E3AB82772` FOREIGN KEY (`role`) REFERENCES `role` (`RoleID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
