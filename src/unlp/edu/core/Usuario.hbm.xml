@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 16-feb-2012 19:34:02 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="unlp.edu.core.Usuario" table="USUARIO">
+        <id name="id" type="java.lang.Long" access="field">
+            <column name="UsuarioID" />
+            <generator class="increment" />
+        </id>
+        <property name="clave" type="java.lang.String">
+            <column name="CLAVE" />
+        </property>
+        <property name="nombre" type="java.lang.String">
+            <column name="NOMBRE" />
+        </property>
+        <many-to-one name="role" class="unlp.edu.core.Role" fetch="join">
+            <column name="ROLE" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

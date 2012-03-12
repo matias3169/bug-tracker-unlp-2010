@@ -73,6 +73,10 @@
 				</fileset>
 			</classpath>
 		</javac>
+		<copy todir="${webapp.build.dir}/WEB-INF/classes/unlp/edu/core">
+					<fileset dir="src/unlp/edu/core" 
+					includes="*hbm.xml"/>
+		</copy>
 	</target>
 		
 	<!-- TARGET COPY STATIC WEB FILES -->

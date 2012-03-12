@@ -5,9 +5,13 @@ package unlp.edu.core;
  * @version 1.0.0
  *
  */
-public class Usuario {
 
-	private int id;
+public class Usuario{
+
+	/**
+	 * 
+	 */
+	private Long id;
 	private String clave;
 	private String nombre;
 	private Role role;
@@ -20,21 +24,33 @@ public class Usuario {
 		this.clave = clave;
 	}
 	
-	public int getId()
+
+	public Long getId()
 	{
 		return this.id;
 	}
 	
+	public void setId(Long id)
+	{
+		this.id = id;
+	}
 	/**
 	 * @param nombre
 	 * @param role
 	 */
-	public Usuario(int id, String nombre, String clave, Role role) {
+	public Usuario(String nombre, String clave, Role role) {
+		this.clave = clave;
+		this.nombre = nombre;
+		this.role = role;
+	}
+	
+	public Usuario(Long id, String nombre, String clave, Role role) {
 		this.id = id;
 		this.clave = clave;
 		this.nombre = nombre;
 		this.role = role;
 	}
+	
 	/**
 	 * @return the nombre
 	 */
