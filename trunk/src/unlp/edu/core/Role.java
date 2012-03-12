@@ -12,13 +12,13 @@ import java.util.*;
  */
 public class Role {
 
-	private int id;
+	private Long id;
 	private String tipo;
 	private String nombre;
 	private Collection<String> permisos;
 	
 	//Constructor de la clase
-	public Role(int id, String tipo, String nombre, Collection<String> permisos) {
+	public Role(Long id, String tipo, String nombre, Collection<String> permisos) {
 		this.tipo = tipo;
 		this.id = id;
 		this.nombre = nombre;
@@ -32,7 +32,7 @@ public class Role {
 		return nombre;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 	

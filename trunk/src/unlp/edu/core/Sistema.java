@@ -14,8 +14,8 @@ public class Sistema {
 	
 	private static Sistema sistema;
 	private static int id_proyecto = 0;
-	private static int id_usuario = 0;
-	private static int id_role = 0;
+	private static Long id_usuario = 0L;
+	private static Long id_role = 0L;
     private static boolean yaCreado = false;
 
 	private Collection<Proyecto> proyectos;
@@ -34,35 +34,9 @@ public class Sistema {
 	{
         if(yaCreado == false) {
             sistema = new Sistema();
-    		Usuario usuario1 = sistema.nuevoUsuario("admin", "admin", sistema.getRoleSistema("Administrador"));
-    		Usuario usuario2 = sistema.nuevoUsuario("guest", "guest", sistema.getRoleSistema("Desarrollador"));
-    		Usuario usuario3 = sistema.nuevoUsuario("developer", "developer", sistema.getRoleSistema("Desarrollador"));
-    		
-    	//	Proyecto proyecto1 = sistema.nuevoProyecto("PROYECTO1", usuario1);
-    	//	Proyecto proyecto2 = sistema.nuevoProyecto("PROYECTO2", usuario2);
-    	//	Proyecto proyecto3 = sistema.nuevoProyecto("PROYECTO3", usuario1);
-    		
-    	//	sistema.nuevoMiembro(proyecto1, usuario3, sistema.getRoleSistema("Desarrollador"));
-    		//Miembro miembro2=sistema.nuevoMiembro(proyecto2, usuario1, sistema.getRoleSistema("Administrador"));
-    		
-    	//	TipoItem tipo1 = sistema.nuevoTipoItem("Reporte de Bug", proyecto1);
-    		
-    	//	tipo1.setEstadoInicial(sistema.nuevoEstado(proyecto1, tipo1, "Creado"));
-    	//	sistema.nuevoEstado(proyecto1, tipo1, "Desarrollo");
-    	//	sistema.nuevoEstado(proyecto1, tipo1, "Validacion");
-    	//	sistema.nuevoEstado(proyecto1, tipo1, "Terminado");
-    		
-    	//	sistema.agregarEstadoSiguiente(proyecto1, tipo1, "Creado", "Desarrollo");
-    	//	sistema.agregarEstadoSiguiente(proyecto1, tipo1, "Desarrollo", "Validacion");
-    	//	sistema.agregarEstadoSiguiente(proyecto1, tipo1, "Validacion", "Terminado");
-    	//	sistema.agregarEstadoSiguiente(proyecto1, tipo1, "Validacion", "Desarrollo");
-    		
-    		
-    //		sistema.nuevoItem("ITEM1", "DESCRIPCION1", tipo1, 1,proyecto1,sistema.getMiembro(proyecto1, "admin"));
-    //		sistema.nuevoItem("ITEM2", "DESCRIPCION2", tipo1, 1,proyecto1,sistema.getMiembro(proyecto1, "admin"));
-
-    //		sistema.nuevoItem("ITEM3", "DESCRIPCION3", tipo1, 1,proyecto2,sistema.getMiembro(proyecto2, "guest"));
-    //		sistema.nuevoItem("ITEM4", "DESCRIPCION4", tipo1, 1,proyecto2,sistema.getMiembro(proyecto2, "guest"));
+    		sistema.nuevoUsuario("admin", "admin", sistema.getRoleSistema("Administrador"));
+    		sistema.nuevoUsuario("guest", "guest", sistema.getRoleSistema("Desarrollador"));
+    		sistema.nuevoUsuario("developer", "developer", sistema.getRoleSistema("Desarrollador"));
 
             yaCreado = true;
       }
@@ -79,7 +53,7 @@ public class Sistema {
 		id_proyecto++;
 	}
 
-	private static int getIdUsuario()
+	private static Long getIdUsuario()
 	{
 		return id_usuario;
 	}
@@ -89,7 +63,7 @@ public class Sistema {
 		id_usuario++;
 	}
 	
-	private static int getIdRole()
+	private static Long getIdRole()
 	{
 		return id_role;
 	}
