@@ -1,17 +1,12 @@
 package unlp.edu.action;
 
-import java.util.HashSet;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.*;
 
-import unlp.edu.core.Role;
 import unlp.edu.core.Sistema;
-import unlp.edu.core.Usuario;
-
 
 public class LoginAction extends Action{
 
