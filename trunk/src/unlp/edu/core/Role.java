@@ -18,6 +18,10 @@ public class Role {
 	private Collection<String> permisos;
 	
 	//Constructor de la clase
+	public Role() {
+	}
+	
+	//Constructor de la clase
 	public Role(Long id, String tipo, String nombre, Collection<String> permisos) {
 		this.tipo = tipo;
 		this.id = id;
@@ -44,7 +48,9 @@ public class Role {
 		this.tipo = tipo;
 	}
 
-	
+	public void setId(Long id) {
+		this.id = id;
+	}
 	/**
 	 * @param nombre the nombre to set
 	 */
