@@ -51,6 +51,9 @@ public class Usuario{
 		this.role = role;
 	}
 	
+	public Usuario() {
+	}
+	
 	/**
 	 * @return the nombre
 	 */
@@ -74,15 +77,5 @@ public class Usuario{
 	 */
 	public void setRole(Role role) {
 		this.role = role;
-	}
-	
-	public boolean validarClave(String clave)
-	{
-		if (this.clave.equals(clave))
-		{
-			return true;
-		} else {
-			return false;
-		}
-	}
+	}	
 }
