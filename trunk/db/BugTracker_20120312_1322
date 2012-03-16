@@ -7,9 +7,7 @@ CREATE TABLE  `bugtrackerdb`.`role` (
   `tipo` varchar(45) NOT NULL,
   `nombre` varchar(45) NOT NULL,
   `permisos` varchar(45) NOT NULL,
-  PRIMARY KEY  (`RoleID`),
-  KEY `FK267876359EF0D` (`RoleID`),
-  CONSTRAINT `FK267876359EF0D` FOREIGN KEY (`RoleID`) REFERENCES `role` (`RoleID`)
+  PRIMARY KEY  (`RoleID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
