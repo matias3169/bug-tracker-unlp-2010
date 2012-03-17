@@ -5,6 +5,12 @@ package unlp.edu.core;
 
 import java.util.*;
 
+import org.hibernate.Criteria;
+import org.hibernate.classic.Session;
+import org.hibernate.criterion.Restrictions;
+
+import unlp.edu.util.HibernateUtil;
+
 /**
  * @author G2_UNLP
  * @version 1.0.0
@@ -104,7 +110,19 @@ public class Sistema {
 	/**
 	 * @return the usuarios
 	 */
+	@SuppressWarnings("unchecked")
 	public Collection<Usuario> getUsuarios() {
+		
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		
+		Criteria criteria = session.createCriteria(Usuario.class)
+		.add(Restrictions.in("role", new Long[]{(long) 1,(long) 2}));
+				
+		usuarios = (Collection<Usuario>) criteria.list();
+		
+		session.close();
+		
 		return usuarios;
 	}
 
@@ -205,19 +223,6 @@ public class Sistema {
     	return usuario;
     }
     
-    /*public Role nuevoRolSistema(String descripcion){
-    	Collection<String> permisos = getPermisosSistema(descripcion); 
-    	Role rol = new Role(descripcion, permisos);
-    	this.rolesSistema.add(rol);
-    	return rol;
-    }
-    
-    public Role nuevoRolProyecto(String descripcion){
-    	Collection<String> permisos = getPermisosSistema(descripcion); 
-    	Role rol = new Role(descripcion, permisos);
-    	this.rolesProyecto.add(rol);
-    	return rol;
-    }*/
     
     public Item nuevoItem(String nombre, String descripcion, TipoItem tipo, int prioridad, Proyecto proyecto, Miembro responsable){
     	return proyecto.nuevoItem(nombre, descripcion, tipo, prioridad, responsable);
@@ -292,19 +297,21 @@ public class Sistema {
 	}
 	    
 	public Usuario getUsuario(String nombre){
-	   	Iterator<Usuario> it = this.getUsuarios().iterator();
-	   	boolean notFound = true;
-	   	Usuario uit, usuario = null; 
-	    		
-    	while (it.hasNext() && notFound) {
-    		
-			uit = (Usuario) it.next();
-			if (uit.getNombre().equals(nombre)){
-				notFound = false;
-				usuario = uit;
-			}
-		}
-    	return usuario;
+
+		Usuario user = null;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		
+		Criteria criteria = session.createCriteria(Usuario.class)
+		.add(Restrictions.eq("nombre", nombre));
+		
+		user = (Usuario) criteria.uniqueResult();
+		
+		session.close();
+		
+		return user;
+		
+		
     }
 	    
     public TipoItem getTipoItem(String descripcion, Proyecto proyecto){
@@ -432,36 +439,21 @@ public class Sistema {
 	}
 
 	public boolean validarCredenciales(String usuario, String pass) {
-		Usuario usuarioValidado = validarUsuario(usuario);
-		if (usuarioValidado != null)
-		{
-			if (usuarioValidado.validarClave(pass))
-			{
-				return true;
-			} else
-			{
-				//clave invalida
-				return false;
-			}
-		} else
-		{
-			//usuario invalido
-			return false;
-		}
 		
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		
+		Criteria criteria = session.createCriteria(Usuario.class)
+		.add(Restrictions.eq("nombre", usuario))
+		.add(Restrictions.eq("clave", pass));
+		
+		Usuario user = (Usuario) criteria.uniqueResult();
+		
+		session.close();
+		
+		return (user != null);
 	}
 
-	private Usuario validarUsuario(String usuario) {
-		Usuario user = this.getUsuario(usuario);
-		if ( user == null)
-		{
-			//usuario invalido
-			return null;
-		} else
-		{	
-			return user;
-		}
-	}
 	
 	public HashSet<Proyecto> listarProyectosUsuario(Usuario usuario){
 		Iterator<Proyecto> pr = proyectos.iterator();
