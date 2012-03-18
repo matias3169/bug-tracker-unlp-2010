@@ -3,9 +3,13 @@ package unlp.edu.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.*;
+import org.hibernate.Criteria;
+import org.hibernate.classic.Session;
+import org.hibernate.criterion.Restrictions;
 
 import unlp.edu.core.Sistema;
 import unlp.edu.core.Usuario;
+import unlp.edu.util.HibernateUtil;
 
 public class EliminarUsuarioAction extends Action{
 
@@ -18,28 +22,19 @@ public class EliminarUsuarioAction extends Action{
 		// Extraemos los datos del formulario 
 		String  nombreUsuario = (String) eliminarUsuarioForm.get("nombreUsuario");
 		
-		Sistema sistema = Sistema.getInstance();
-		Usuario usuario = sistema.getUsuario(nombreUsuario);
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
 		
-		if (usuario != null)
-		{
-			if (sistema.eliminarUsuario(usuario))
-			{
-				// Mostramos la siguiente vista
-				return mapping.findForward("ok");
-			} 
-			else 
-			{
-				errors.add(ActionErrors.GLOBAL_MESSAGE,new ActionMessage("fallo.eliminar"));
-				saveErrors(request, errors);
-				return mapping.findForward("error");			
-			}
-		} 
-		else
-		{
-			errors.add(ActionErrors.GLOBAL_MESSAGE,new ActionMessage("fallo.eliminar"));
-			saveErrors(request, errors);
-			return mapping.findForward("error");	
-		}
+		//Recupero el usuario
+		Criteria criteria = session.createCriteria(Usuario.class)
+		.add(Restrictions.eq("nombre", nombreUsuario));
+		Usuario usuario = (Usuario) criteria.uniqueResult();
+		
+		session.delete(usuario);
+		session.getTransaction().commit();
+		
+		// Mostramos la siguiente vista
+		return mapping.findForward("ok");
+		
 	}
 }
