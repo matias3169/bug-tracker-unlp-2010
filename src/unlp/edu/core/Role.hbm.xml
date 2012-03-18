@@ -14,9 +14,5 @@
         <property name="nombre" type="java.lang.String">
             <column name="nombre" />
         </property>
-        <set name="permisos" table="ROLE">
-            <key column="RoleID" /> 
-            <element type="java.lang.String" column="permisos" />
-        </set>
     </class>
 </hibernate-mapping>

@@ -14,7 +14,6 @@
     <h2>Acciones del sistema</h2>
     <h3>Usuario:<bean:write name="user" property="nombre"/> </h3>
     <table>
-    	<c:if test="${sessionScope.sistema.getUsuario(sessionScope.user.getNombre()).getRole().getPermisos().contains('proyectos')}">
 	    	<tr id= "proyectos" >
 	    		<td>
 	    			Proyectos
@@ -30,8 +29,7 @@
 	    			</a>
 	    		</td>
 	    	</tr>
-    	</c:if>
-    	<c:if test="${sessionScope.sistema.getUsuario(sessionScope.user.getNombre()).getRole().getPermisos().contains('usuarios')}">
+    	<c:if test="${sessionScope.user.getRole().getNombre() == 'Administrador'}">
 	    	<tr id= "usuarios">
 	    		<td>
 	    			Usuarios
@@ -47,7 +45,7 @@
 	    			</a>
 	    		</td>
 	    	</tr>
-	    </c:if>
+	      </c:if>
 	</table>
 	<%@ include file="footer.jsp" %>
 </body>

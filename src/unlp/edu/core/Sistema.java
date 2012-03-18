@@ -116,8 +116,14 @@ public class Sistema {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		
-		Criteria criteria = session.createCriteria(Usuario.class)
-		.add(Restrictions.in("role", new Long[]{(long) 1,(long) 2}));
+		Criteria criteria = session.createCriteria(Role.class)
+		.add(Restrictions.eq("tipo", "Sistema"));
+		
+		List<Role> roles = criteria.list();
+		
+		criteria = session.createCriteria(Usuario.class)
+		.add(Restrictions.in("role", roles));
+		//.add(Restrictions.in("role", new Long[]{(long) 1,(long) 2}));
 				
 		usuarios = (Collection<Usuario>) criteria.list();
 		
@@ -140,9 +146,9 @@ public class Sistema {
     private void setRolesSistema(){
     	rolesSistema = new HashSet<Role>();
     	setIdRole();
-    	rolesSistema.add(new Role(getIdRole(),"Sistema","Administrador",this.getPermisosSistema("Administrador")));
+    	rolesSistema.add(new Role(getIdRole(),"Sistema","Administrador"));
     	setIdRole();
-    	rolesSistema.add(new Role(getIdRole(),"Sistema","Desarrollador",this.getPermisosSistema("Desarrollador")));
+    	rolesSistema.add(new Role(getIdRole(),"Sistema","Desarrollador"));
     }
 
 	/**
@@ -152,45 +158,15 @@ public class Sistema {
     private void setRolesProyecto(){
     	rolesProyecto = new HashSet<Role>();
     	setIdRole();
-    	rolesProyecto.add(new Role(getIdRole(),"Proyecto","Lider",this.getPermisosProyecto("Lider")));
+    	rolesProyecto.add(new Role(getIdRole(),"Proyecto","Lider"));
     	setIdRole();
-    	rolesProyecto.add(new Role(getIdRole(),"Proyecto","Desarrollador",this.getPermisosProyecto("Desarrollador")));
+    	rolesProyecto.add(new Role(getIdRole(),"Proyecto","Desarrollador"));
     	setIdRole();
-    	rolesProyecto.add(new Role(getIdRole(),"Proyecto","DBA",this.getPermisosProyecto("DBA")));
+    	rolesProyecto.add(new Role(getIdRole(),"Proyecto","DBA"));
     	setIdRole();
-    	rolesProyecto.add(new Role(getIdRole(),"Proyecto","Tester",this.getPermisosProyecto("Tester")));
+    	rolesProyecto.add(new Role(getIdRole(),"Proyecto","Tester"));
     }
     
-    private HashSet<String> getPermisosSistema(String role){
-      	Collection<String> permisos = new HashSet<String>();
-    	
-    	if (role.equals("Administrador")){
-    		permisos.add("usuarios");
-    		permisos.add("proyectos");
-    	}else {
-    		if (role.equals("Desarrollador")){
-    			permisos.add("proyectos");
-    		} 
-    	}
-    
-    	return (HashSet<String>)permisos;
-    }
-    
-    private HashSet<String> getPermisosProyecto(String role){
-      	Collection<String> permisos = new HashSet<String>();
-    	
-    	if (role.equals("Lider")){
-    		permisos.add("Creacion");
-    		permisos.add("Lectura");
-    		permisos.add("Escritura");
-    	}else {
-    		if (role.equals("Desarrollador") || role.equals("DBA") || role.equals("Tester")){
-    			permisos.add("Escritura");
-    			permisos.add("Lectura");
-    		}
-    	}
-    	return (HashSet<String>)permisos;
-    }
     
     public Miembro nuevoMiembro(Proyecto proyecto, Usuario usuario, Role rol){
     	Miembro miembro = new Miembro(proyecto, usuario, rol);

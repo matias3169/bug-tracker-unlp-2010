@@ -6,7 +6,6 @@ CREATE TABLE  `bugtrackerdb`.`role` (
   `RoleID` int(11) NOT NULL auto_increment,
   `tipo` varchar(45) NOT NULL,
   `nombre` varchar(45) NOT NULL,
-  `permisos` varchar(45) NOT NULL,
   PRIMARY KEY  (`RoleID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
