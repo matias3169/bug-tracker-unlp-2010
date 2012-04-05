@@ -1,8 +1,5 @@
 package unlp.edu.action;
 
-import java.util.Calendar;
-import java.util.HashSet;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.*;
@@ -19,11 +16,8 @@ public class CambiarEstadoAction extends Action{
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		DynaActionForm cambiarEstadoForm = (DynaActionForm) form;
-		ActionErrors errors = new ActionErrors();
 		
 		// Extraemos los datos del formulario 
-		String fecha[] = new String[3];
-		
 		String  nombreProyecto = (String) cambiarEstadoForm.get("nombreProyecto");
 		String nombreItem = (String) cambiarEstadoForm.get("nombreItem");
 		String descNuevoEstado = (String) cambiarEstadoForm.get("descNuevoEstado");
@@ -34,28 +28,18 @@ public class CambiarEstadoAction extends Action{
 		Sistema sistema = Sistema.getInstance();
 		
 		Proyecto proyecto = sistema.getProyectoPorNombre(nombreProyecto);
-		int idProyecto = proyecto.getId();
-		Item item = proyecto.getItem(nombreItem);
-		Estado nuevoEstado = item.getTipoItem().getEstado(descNuevoEstado);
-		Miembro nuevoResponsable = proyecto.getMiembro(nomNuevoResponsable);
+		Long idProyecto = proyecto.getId();
+		Item item = sistema.getItem(proyecto, nombreItem);
+		Estado nuevoEstado = sistema.getEstadoTipoItem(item.getTipoItem(), descNuevoEstado);
+		Miembro nuevoResponsable = sistema.getMiembro(proyecto, nomNuevoResponsable);
+				
+		sistema.cambiarEstadoItem(item, nuevoEstado, nuevoResponsable, fichaTrabajo);
 		
-		Calendar calendar = Calendar.getInstance();
-/*		fecha = fechaEstado.split("/");
-		
-		int year= Integer.parseInt(fecha[2]);
-		int month= Integer.parseInt(fecha[1]) - 1;
-		int day= Integer.parseInt(fecha[0]);
-		
-		calendar.set(year,month,day); */
-		
-		//Hay que pasar la lista de miembros del estadoitem
-		item.cambiarEstadoItem(nuevoEstado, nuevoResponsable, calendar.getTime(), fichaTrabajo);
-		
-		// Mostramos la siguiente vista
-		response.sendRedirect("proyecto_trabajar.jsp?id=" + idProyecto);
-		
-		return mapping.findForward("ok"); 
-		
+	    ActionRedirect redirect = new ActionRedirect(mapping.findForward("ok"));
+
+	    redirect.addParameter("id", idProyecto);
+
+	    return redirect;
 	}
 
 }

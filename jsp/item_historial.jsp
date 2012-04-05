@@ -8,7 +8,7 @@
 <html:html>
 	<%@ include file="html_head.jsp" %>
 	<c:set var="proyecto" value="${sessionScope.sistema.getProyecto(param.idP)}"/>
-	<c:set var="item" value="${proyecto.getItemPorId(param.idI)}"/>
+	<c:set var="item" value="${sessionScope.sistema.getItemId(param.idI)}"/>
 	
 <body>	
 	<h1><%= BTUNLP_Titulo %></h1>
@@ -42,7 +42,7 @@
    		</td>
    	</tr>
    	
-   	<c:forEach var="estadoItem" items="${item.getHistorialEstados().listar()}" varStatus="i">
+   	<c:forEach var="estadoItem" items="${sessionScope.sistema.getEstadosHistoricosItem(item)}" varStatus="i">
    		<c:choose>  
 			<c:when test="${(i.count) % 2 == 0}">  
 				<tr style="background-color:#eeeeee;">  
@@ -56,11 +56,11 @@
     			<c:out value="${estadoItem.getEstado().getDescripcion()}"/>
     		</td>
     		<td class="tabla_centrado">
-    			<fmt:formatDate type="both" dateStyle="short" timeStyle="long" value="${estadoItem.getFechaInicio()}"/>
+    			<fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${estadoItem.getFechaInicio()}"/>
     			<!-- <c:out value="${estadoItem.getFechaInicio().toString()}"/> -->
     		</td>
     		<td class="tabla_centrado">
-    			<fmt:formatDate type="both" dateStyle="short" timeStyle="long" value="${estadoItem.getFechaFin()}"/>
+    			<fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${estadoItem.getFechaFin()}"/>
 				<!-- <c:out value="${estadoItem.getFechaFin().toString()}"/> -->
     		</td>
     		<td class="tabla_centrado">

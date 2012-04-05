@@ -11,13 +11,13 @@
 	<html:javascript formName="agregarEstadoTipoItemForm" />
 	
 	<h1><%= BTUNLP_Titulo %></h1>
-    <h2>Agregar Estado a Tipo de Item <c:out value="${sessionScope.sistema.getProyecto(param.idP).getTipoItemPorId(param.idTI).getDescripcion()}"/></h2>
+    <h2>Agregar Estado a Tipo de Item <c:out value="${sessionScope.sistema.getTipoItemID(param.idTI).getDescripcion()}"/></h2>
     
     <html:form method="POST" action="/agregarEstadoTipoItem">
     
     <html:hidden property="idProyecto" value="${param.idP}" />
     <html:hidden property="idTipoItem" value="${param.idTI}" />
-    <html:hidden property="tipoItem" value="${sessionScope.sistema.getProyecto(param.idP).getTipoItemPorId(param.idTI).getDescripcion()}" />
+    <html:hidden property="tipoItem" value="${sessionScope.sistema.getTipoItemID(param.idTI).getDescripcion()}" />
     
     <table>
 			<tr>	

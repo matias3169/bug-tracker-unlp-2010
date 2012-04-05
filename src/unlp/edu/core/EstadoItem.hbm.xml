@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 20-mar-2012 18:06:50 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+ <class name="unlp.edu.core.EstadoItem" table="ESTADOITEM">
+  <id name="id" type="java.lang.Long">
+   <column name="ID_ESTADOITEM"/>
+   <generator class="increment"/>
+  </id>
+  <many-to-one class="unlp.edu.core.Estado" fetch="join" lazy="false" name="estado">
+   <column name="ESTADO"/>
+  </many-to-one>
+  <property generated="never" lazy="false" name="fechaInicio" type="java.util.Date">
+   <column name="FECHAINICIO"/>
+  </property>
+  <property generated="never" lazy="false" name="fechaFin" type="java.util.Date">
+   <column name="FECHAFIN"/>
+  </property>
+  <property generated="never" lazy="false" name="fichaDeTrabajo" type="java.lang.String">
+   <column name="FICHADETRABAJO"/>
+  </property>
+  <many-to-one class="unlp.edu.core.Miembro" fetch="join" lazy="false" name="responsable">
+   <column name="RESPONSABLE"/>
+  </many-to-one>
+  <many-to-one class="unlp.edu.core.Item" fetch="join" lazy="false" name="item">
+   <column name="ITEM"/>
+  </many-to-one>
+ </class>
+</hibernate-mapping>

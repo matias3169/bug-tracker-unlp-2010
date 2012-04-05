@@ -14,7 +14,6 @@ public class EliminarItemAction extends Action{
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		DynaActionForm editarItemForm = (DynaActionForm) form;
-		ActionErrors errors = new ActionErrors();
 				
 		String  nombreProyecto = (String) editarItemForm.get("nombreProyecto");
 		String nombreItem = (String) editarItemForm.get("nombreItem");
@@ -22,22 +21,15 @@ public class EliminarItemAction extends Action{
 		Sistema sistema = Sistema.getInstance();
 	
 		Proyecto proyecto = sistema.getProyectoPorNombre(nombreProyecto);
-		int idProyecto = proyecto.getId();
-		Item item = proyecto.getItem(nombreItem);
+		Long idProyecto = proyecto.getId();
+		Item item = sistema.getItem(proyecto, nombreItem);
 		
-		if (!sistema.eliminarItem(proyecto, item))
-		{
-			//No se pudo eliminar item
-			errors.add(ActionErrors.GLOBAL_MESSAGE,new ActionMessage("fallo.eliminar"));
-			saveErrors(request, errors);
-			return mapping.findForward("error");
-		}
-				
-		// Mostramos la siguiente vista
-		response.sendRedirect("proyecto_trabajar.jsp?id=" + idProyecto);
+		sistema.eliminarItem(item);
 		
-		return mapping.findForward("ok"); 
-		
+	    ActionRedirect redirect = new ActionRedirect(mapping.findForward("ok"));
+	    redirect.addParameter("id", idProyecto);
+	    
+	    return redirect;
 	}
 
 }

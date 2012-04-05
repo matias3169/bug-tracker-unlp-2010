@@ -1,22 +1,93 @@
 CREATE DATABASE bugtrackerdb;
 USE bugtrackerdb;
-
-DROP TABLE IF EXISTS `bugtrackerdb`.`role`;
-CREATE TABLE  `bugtrackerdb`.`role` (
-  `RoleID` int(11) NOT NULL auto_increment,
-  `tipo` varchar(45) NOT NULL,
-  `nombre` varchar(45) NOT NULL,
-  PRIMARY KEY  (`RoleID`)
+CREATE TABLE  `bugtrackerdb`.`estado` (
+  `ID_ESTADO` int(10) unsigned NOT NULL auto_increment,
+  `DESCRIPCION` varchar(45) NOT NULL,
+  `ID_TIPOITEM` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`ID_ESTADO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-DROP TABLE IF EXISTS `bugtrackerdb`.`usuario`;
+CREATE TABLE  `bugtrackerdb`.`estado_estadosiguiente` (
+  `ID_ESTADO_ESTADOSIG` int(10) unsigned NOT NULL auto_increment,
+  `ESTADOINICIAL` int(10) unsigned NOT NULL,
+  `ESTADOSIGUIENTE` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`ID_ESTADO_ESTADOSIG`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE  `bugtrackerdb`.`estado_miembro` (
+  `ID_ESTADO_MIEMBRO` int(10) unsigned NOT NULL auto_increment,
+  `ESTADO` int(10) unsigned NOT NULL,
+  `MIEMBRO` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`ID_ESTADO_MIEMBRO`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE  `bugtrackerdb`.`estadohistorico` (
+  `ID_ESTADOHISTORICO` int(10) unsigned NOT NULL auto_increment,
+  `ESTADOACTUAL` int(10) unsigned NOT NULL,
+  `ESTADOHISTORICO` int(10) unsigned default NULL,
+  PRIMARY KEY  (`ID_ESTADOHISTORICO`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE  `bugtrackerdb`.`estadoitem` (
+  `ID_ESTADOITEM` int(10) unsigned NOT NULL auto_increment,
+  `ESTADO` int(10) unsigned NOT NULL,
+  `FECHAINICIO` datetime NOT NULL,
+  `FECHAFIN` datetime default NULL,
+  `FICHADETRABAJO` varchar(200) default NULL,
+  `RESPONSABLE` int(10) unsigned NOT NULL,
+  `ITEM` int(10) unsigned default NULL,
+  PRIMARY KEY  (`ID_ESTADOITEM`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE  `bugtrackerdb`.`item` (
+  `ID_ITEM` int(10) unsigned NOT NULL auto_increment,
+  `NOMBRE` varchar(45) NOT NULL,
+  `DESCRIPCION` varchar(45) NOT NULL,
+  `TIPOITEM` int(10) unsigned NOT NULL,
+  `PRIORIDAD` int(10) unsigned NOT NULL,
+  `ESTADOACTUAL` int(10) unsigned default NULL,
+  `HISTORIALESTADOS` int(10) unsigned default NULL,
+  `ID_PROYECTO` int(10) unsigned default NULL,
+  `RESPONSABLE` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`ID_ITEM`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE  `bugtrackerdb`.`miembro` (
+  `ID_MIEMBRO` int(10) unsigned NOT NULL auto_increment,
+  `USUARIO` int(10) unsigned NOT NULL,
+  `ROLE` int(10) unsigned NOT NULL,
+  `PROYECTO` int(10) unsigned default NULL,
+  PRIMARY KEY  (`ID_MIEMBRO`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE  `bugtrackerdb`.`proyecto` (
+  `ID_PROYECTO` int(10) unsigned NOT NULL auto_increment,
+  `NOMBRE` varchar(45) NOT NULL,
+  `LIDER` int(10) unsigned default NULL,
+  PRIMARY KEY  (`ID_PROYECTO`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE  `bugtrackerdb`.`role` (
+  `ID_ROLE` int(11) NOT NULL auto_increment,
+  `TIPO` varchar(10) NOT NULL,
+  `NOMBRE` varchar(45) NOT NULL,
+  PRIMARY KEY  (`ID_ROLE`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE  `bugtrackerdb`.`tipoitem` (
+  `ID_TIPOITEM` int(10) unsigned NOT NULL auto_increment,
+  `DESCRIPCION` varchar(20) default NULL,
+  `ESTADOINICIAL` int(10) unsigned default NULL,
+  `ID_PROYECTO` int(10) unsigned default NULL,
+  PRIMARY KEY  (`ID_TIPOITEM`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 CREATE TABLE  `bugtrackerdb`.`usuario` (
-  `UsuarioID` int(10) unsigned NOT NULL auto_increment,
-  `Nombre` varchar(45) NOT NULL,
-  `clave` varchar(255) default NULL,
-  `role` int(11) NOT NULL,
-  PRIMARY KEY  (`UsuarioID`),
-  KEY `FK22E07F0E3AB82772` (`role`),
-  CONSTRAINT `FK22E07F0E3AB82772` FOREIGN KEY (`role`) REFERENCES `role` (`RoleID`)
+  `ID_USUARIO` int(10) unsigned NOT NULL auto_increment,
+  `NOMBRE` varchar(45) NOT NULL,
+  `CLAVE` varchar(20) NOT NULL,
+  `ROLE` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`ID_USUARIO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

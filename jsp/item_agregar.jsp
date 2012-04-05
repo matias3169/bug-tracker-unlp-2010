@@ -7,8 +7,7 @@
 <html:html>
 	<%@ include file="html_head.jsp" %>
 	<c:set var="proyecto" value="${sessionScope.sistema.getProyecto(param.id)}"/>
-	<c:set var="tiposItem" value="${proyecto.getTiposItems()}"/>
-	<c:set var="miembrosProyecto" value="${proyecto.getMiembros()}"/>
+	<c:set var="tiposItem" value="${sessionScope.sistema.getTiposItems(proyecto)}"/>
 	
 	<script type="text/javascript">
 		function cargarCombo()
@@ -17,7 +16,7 @@
 			var valorTipoItem = document.getElementById("comboindependiente").value;
 			var valorProyecto = document.getElementById("proy").value;
 		    var fragment_url = 'combodependiente.jsp?TipoItemId='+valorTipoItem+'&Proyecto='+valorProyecto;
-		    
+
 			if (window.XMLHttpRequest)
 			{// code for IE7+, Firefox, Chrome, Opera, Safari
 			  xmlhttp=new XMLHttpRequest();
@@ -74,14 +73,14 @@
 				</td>
 				<td class="tabla_input">
 					<select id="comboindependiente" name="tipo_item" onchange="javascript:cargarCombo()">
-						<option value="null">&nbsp;</option>
-	    					<c:forEach var="tipo" items="${tiposItem}">
-	    						<c:choose>
-									<c:when test="${tipo.getEstadoInicial() != null}">
-		    		   					<option><c:out value="${tipo.getDescripcion()}"/></option>
-									</c:when> 
-								</c:choose>
-			         		</c:forEach>
+					<option value="null">&nbsp;</option>
+	  					<c:forEach var="tipo" items="${tiposItem}">
+							<c:if test="${tipo.getEstadoInicial() != null}">
+								<c:if test="${sessionScope.sistema.getMiembrosEstado(tipo.getEstadoInicial()).size() gt 0}">
+		   							<option><c:out value="${tipo.getDescripcion()}"/></option>
+		   						</c:if> 
+							</c:if> 
+		         		</c:forEach>
 	    			</select>		
 				</td>
 			</tr>

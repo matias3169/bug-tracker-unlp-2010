@@ -6,10 +6,8 @@ import org.apache.struts.action.*;
 
 import unlp.edu.core.Sistema;
 import unlp.edu.core.Proyecto;
-import unlp.edu.core.Item;
 import unlp.edu.core.Estado;
 import unlp.edu.core.TipoItem;
-
 
 public class EditarTipoItemAction extends Action{
 	
@@ -17,7 +15,6 @@ public class EditarTipoItemAction extends Action{
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		DynaActionForm editarTipoItemForm = (DynaActionForm) form;
-		ActionErrors errors = new ActionErrors();
 		
 		// Extraemos los datos del formulario 
 		String  nombreProyecto = (String) editarTipoItemForm.get("nombreProyecto");
@@ -28,18 +25,17 @@ public class EditarTipoItemAction extends Action{
 		Sistema sistema = Sistema.getInstance();
 		
 		Proyecto proyecto = sistema.getProyectoPorNombre(nombreProyecto);
-		int idProyecto = proyecto.getId();
-		TipoItem tipoItem = proyecto.getTipoItem(descripcionInicialTipoItem);
-		Estado estadoIni = proyecto.getEstadoTipoItem(tipoItem, nuevoEstadoIni);
+		Long idProyecto = proyecto.getId();
+		TipoItem savedTipoItem = sistema.getTipoItem(descripcionInicialTipoItem, proyecto);
+		Estado estadoIni = sistema.getEstadoTipoItem(savedTipoItem, nuevoEstadoIni);
+	
+		sistema.editarTipoItem(savedTipoItem, descripcionNuevaTipoItem, estadoIni);
 		
-		tipoItem.setDescripcion(descripcionNuevaTipoItem);
-		tipoItem.setEstadoInicial(estadoIni);
-		
-		// Mostramos la siguiente vista
-		response.sendRedirect("proyecto_trabajar.jsp?id=" + idProyecto);
-		
-		return mapping.findForward("ok"); 
-		
+	    ActionRedirect redirect = new ActionRedirect(mapping.findForward("ok"));
+
+	    redirect.addParameter("id", idProyecto);
+	    return redirect;
+	
 	}
 
 }

@@ -9,16 +9,16 @@
 	<h2><c:out value="${sessionScope.sistema.getProyecto(param.id).getNombre()}"/> </h2>
    
     <c:set var="proyecto" value="${sessionScope.sistema.getProyecto(param.id)}" />
-    <c:set var="itemsProyecto" value="${sessionScope.sistema.getProyecto(param.id).getItems()}" />
+    <c:set var="itemsProyecto" value="${sessionScope.sistema.getItems(proyecto)}" />
     
     <h3>Items</h3>
     <%@ include file="_tablaItem.jsp" %>
     
-    <c:set var="miembrosProyecto" value="${sessionScope.sistema.getProyecto(param.id).getMiembros()}" />
+    <c:set var="miembrosProyecto" value="${sessionScope.sistema.getMiembrosProyecto(proyecto)}" />
     <h3>Miembros</h3>
     <%@ include file="_tablaMiembros.jsp" %>
     
-    <c:set var="tiposItem" value="${sessionScope.sistema.getProyecto(param.id).getTiposItems()}" />
+    <c:set var="tiposItem" value="${sessionScope.sistema.getTiposItems(proyecto)}" />
     <h3>Tipos de &iacute;tems</h3>
     <%@ include file="_tablaTiposItem.jsp" %>
     

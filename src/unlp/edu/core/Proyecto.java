@@ -3,7 +3,6 @@
  */
 package unlp.edu.core;
 
-import java.util.*;
 
 /**
  * @author G2_UNLP
@@ -12,42 +11,20 @@ import java.util.*;
  */
 public class Proyecto {
 
-	private int id;
+	private Long id;
 	private String nombre;
 	private Miembro liderProyecto;
-	private static int id_item = 0;
-	private static int id_tipo_item = 0;
-	private LinkedList<Item> items;		// implemento los items en una lista ordenada
-	private Collection<TipoItem> tiposItems;
-	private Collection<Miembro> miembros;
 	
-	public Proyecto(int id, String nombre) {
+	public Proyecto(){
+		
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
 		this.id = id;
-		this.setNombre(nombre);
-		this.setItems(new LinkedList<Item>());
-		this.setTiposItems(new HashSet<TipoItem>());
-		this.setMiembros(new HashSet<Miembro>());
-	}
-
-	
-	private static int getIdItem()
-	{
-		return id_item;
-	}
-	
-	private static void setIdItem()
-	{
-		id_item++;
-	}
-	
-	private static int getIdTipoItem()
-	{
-		return id_tipo_item;
-	}
-	
-	private static void setIdTipoItem()
-	{
-		id_tipo_item++;
 	}
 	
 	/**
@@ -55,10 +32,6 @@ public class Proyecto {
 	 */
 	public String getNombre() {
 		return nombre;
-	}
-	
-	public int getId() {
-		return id;
 	}
 
 	/**
@@ -68,229 +41,12 @@ public class Proyecto {
 		this.nombre = nombre;
 	}
 
-	/**
-	 * @return the items
-	 */
-	public LinkedList<Item> getItems() {
-		return items;
-	}
+	
 
-	/**
-	 * @param items the items to set
-	 */
-	public void setItems(LinkedList<Item> items) {
-		this.items = items;
-	}
-
-	/**
-	 * @return the tiposItems
-	 */
-	public Collection<TipoItem> getTiposItems() {
-		return tiposItems;
-	}
-
-	/**
-	 * @param tiposItems the tiposItems to set
-	 */
-	public void setTiposItems(Collection<TipoItem> tiposItems) {
-		this.tiposItems = tiposItems;
-	}
-
-	/**
-	 * @return the miembros
-	 */
-	public Collection<Miembro> getMiembros() {
-		return miembros;
-	}
-
-	/**
-	 * @param miembros the miembros to set
-	 */
-	public void setMiembros(Collection<Miembro> miembros) {
-		this.miembros = miembros;
-	}
-	
-	public Estado nuevoEstado(TipoItem tipo, String descripcion){ //crea un nuevo estado y lo agrega a la lista de estados del TipoItem
-		 return tipo.agregarEstado(descripcion);
-	}
-	
-	public void agregarItem(Item item){
-		
-		if (this.items.isEmpty()) {
-			
-			this.items.add(item);
-			
-		} else {
-			
-			Iterator<Item> it= this.items.iterator();
-			Item itm= this.items.getFirst();
-			while (it.hasNext() && item.getPrioridad()> itm.getPrioridad()) {
-				
-				itm= (Item) it.next();	
-			}
-			
-			if (item.getPrioridad()<= itm.getPrioridad()) { 
-				Integer n= this.items.indexOf(itm);
-				this.items.add(n, item);
-				
-			} else {
-				this.items.addLast(item);
-			}
-		}
-		
-	}
-	
-	public Item nuevoItem(String nombre, String desc, TipoItem tipo, int prioridad1, Miembro responsable){
-		setIdItem();
-		Item item = new Item(getIdItem(),nombre, desc, tipo, prioridad1, responsable);
-		agregarItem(item);	//agrega el item ordenando por prioridad
-		return item;
-	}
-	
-	public void agregarMiembro(Miembro miembro){
-		this.miembros.add(miembro);
-	}
-	
-	public TipoItem nuevoTipoItem(String descripcion){ //creo el tipo de item sin estados
-		setIdTipoItem();
-		TipoItem tipoItem = new TipoItem(getIdTipoItem(), descripcion, null, new HashSet<Estado>());
-		this.tiposItems.add(tipoItem);
-		return tipoItem;
-	}
-	
-	public void cambiarEstadoItem( Item item, Estado estado, Miembro responsable, Date fecha, String fichaTrabajo) throws Exception{
-		
-			item.cambiarEstadoItem(estado, responsable, fecha, fichaTrabajo);
-	}
-
-	public Estado getEstadoTipoItem(TipoItem tipoItem, String descripcion) {
-		return tipoItem.getEstado(descripcion);
-	}
-	
-    public TipoItem getTipoItem(String descripcion){
-    	Iterator<TipoItem> it = this.getTiposItems().iterator();
-    	boolean notFound = true;
-    	TipoItem tit, tipoItem = null; 
-    		
-    	while (it.hasNext() && notFound) {
-    		
-			tit = (TipoItem) it.next();
-			if (tit.getDescripcion().equals(descripcion)){
-				notFound = false;
-				tipoItem = tit;
-			}
-		}
-    	return tipoItem;
-    }
-    
-    public TipoItem getTipoItemPorId(int id){
-	   	Iterator<TipoItem> it = this.getTiposItems().iterator();
-	   	boolean notFound = true;
-	   	TipoItem tit, tItem = null; 
-	    		
-    	while (it.hasNext() && notFound) {
-    		
-			tit = (TipoItem) it.next();
-			if (tit.getId() == id){
-				notFound = false;
-				tItem = tit;
-			}
-		}
-    	return tItem;
-    }
-    
-    public Item getItem(String nombre){
-    	Iterator<Item> it = this.getItems().iterator();
-    	boolean notFound = true;
-    	Item iit, item = null; 
-    		
-    	while (it.hasNext() && notFound) {
-    		
-			iit = (Item) it.next();
-			if (iit.getNombre().equals(nombre)){
-				notFound = false;
-				item = iit;
-			}
-		}
-    	return item;
-    }
-
-    public Item getItemPorId(int id){
-	   	Iterator<Item> it = this.getItems().iterator();
-	   	boolean notFound = true;
-	   	Item iit, item = null; 
-	    		
-    	while (it.hasNext() && notFound) {
-    		
-			iit = (Item) it.next();
-			if (iit.getId() == id){
-				notFound = false;
-				item = iit;
-			}
-		}
-    	return item;
-    }
-    
-	public Miembro getMiembro(String nombre) {
-    	Iterator<Miembro> it = this.getMiembros().iterator();
-    	boolean notFound = true;
-    	Miembro mit, miembro = null; 
-    		
-    	while (it.hasNext() && notFound) {
-    		
-			mit = (Miembro) it.next();
-			if (mit.getUsuario().getNombre().equals(nombre)){
-				notFound = false;
-				miembro = mit;
-			}
-		}
-    	return miembro;
-	}
-	public void agregarEstadoSiguiente(TipoItem tipo, String estadoI, String estadoF){
-		tipo.agregarEstadoSiguiente(estadoI, estadoF);
-	}
-	
 	public String verEstadoActualItem(Item item){
 		return item.verEstadoActual();
 	}
 	
-	public void listarTiposItem(){
-		System.out.println("Tipos de item del proyecto:");
-		Iterator<TipoItem> it = tiposItems.iterator();
-    	while(it.hasNext())
-    	{
-    		System.out.print(it.next().getDescripcion());
-    		System.out.print(", ");
-    	}
-    	System.out.println("\n");
-	}
-	
-	public void listarItems(){
-		System.out.print("Items del proyecto ");
-		System.out.print(this.getNombre());
-		System.out.println(":");
-		Iterator<Item> it = items.iterator();
-    	while(it.hasNext())
-    	{
-    		System.out.print(it.next().getNombre());
-    		System.out.print(", ");
-    	}
-    	System.out.println("\n");
-	}
-	
-	public void listarEstadosPosibles(TipoItem tipo){
-		tipo.listarEstadosPosibles();
-	}
-	
-	public void listarEstadosSiguientes(TipoItem tipo, Estado estado){
-		tipo.listarEstadosSiguientes(estado);
-	}
-
-	public HashSet<EstadoItem> getEstadosHistoricosItem(Item item, Date fec_inicio,
-			Date fec_fin) {
-		return this.getItem(item.getNombre()).getEstadosHistoricos(fec_inicio,fec_fin);
-		
-	}
 	
 	public Miembro getLiderProyecto()
 	{
@@ -302,19 +58,37 @@ public class Proyecto {
 		this.liderProyecto = lider;
 	}
 	
-	public boolean eliminarItem(Item item)
-	{
-		return this.items.remove(item);
-	}
 	
-	public void editarMiembro(String nombre, Role rol)
-	{
-		this.getMiembro(nombre).setRole(rol);
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
-	
-	public void eliminarMiembro(Miembro miembro)
-	{
-		this.getMiembros().remove(miembro);
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Proyecto other = (Proyecto) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 }
 

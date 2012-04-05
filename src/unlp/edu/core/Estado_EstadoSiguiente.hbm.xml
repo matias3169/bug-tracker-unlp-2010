@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-mar-2012 19:00:42 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="unlp.edu.core.Estado_EstadoSiguiente" table="ESTADO_ESTADOSIGUIENTE">
+        <id name="id" type="java.lang.Long" access="field">
+            <column name="ID_ESTADO_ESTADOSIG" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="EstadoInicial" class="unlp.edu.core.Estado" fetch="join" lazy="false">
+            <column name="ESTADOINICIAL" />
+        </many-to-one>
+        <many-to-one name="EstadoSiguiente" class="unlp.edu.core.Estado" fetch="join" lazy="false">
+            <column name="ESTADOSIGUIENTE" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

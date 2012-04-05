@@ -4,13 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts.action.*;
-import org.hibernate.Criteria;
-import org.hibernate.classic.Session;
-import org.hibernate.criterion.Restrictions;
 
 import unlp.edu.core.Role;
-import unlp.edu.core.Usuario;
-import unlp.edu.util.HibernateUtil;
+import unlp.edu.core.Sistema;
 
 public class AgregarUsuarioAction extends Action{
 
@@ -28,23 +24,11 @@ public class AgregarUsuarioAction extends Action{
 		String  claveUsuario = (String) agregarProyectoForm.get("clave_usuario");
 		String  rol = (String) agregarProyectoForm.get("rol_usuario");
 		
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
+		Sistema sistema = Sistema.getInstance();
+		Role savedRole = sistema.getRoleSistema(rol);
 		
-		Criteria criteria = session.createCriteria(Role.class)
-		.add(Restrictions.eq("nombre", rol))
-		.add(Restrictions.eq("tipo", "Sistema"));
-		
-		Role role = (Role) criteria.uniqueResult();
-		
-		Usuario nuevoUsuario = new Usuario(nombreUsuario, claveUsuario, role);
-		nuevoUsuario.setNombre(nombreUsuario);
-		nuevoUsuario.setClave(claveUsuario);
-		nuevoUsuario.setRole(role);
-        session.save(nuevoUsuario);
-        session.getTransaction().commit();
+		sistema.nuevoUsuario(nombreUsuario,claveUsuario,savedRole);
 
-		// Mostramos la siguiente vista
 		return mapping.findForward("ok"); 
 		
 	}

@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.*;
 
-import unlp.edu.core.Proyecto;
 import unlp.edu.core.Sistema;
 import unlp.edu.core.TipoItem;
 import unlp.edu.core.Estado;
@@ -19,21 +18,22 @@ public class AgregarEstadoSiguienteAction extends Action{
 		// Extraemos los datos del formulario 
 		String  idProyecto = (String) agregarEstadoSiguienteForm.get("idProyecto");
 		String  idTipoItem = (String) agregarEstadoSiguienteForm.get("idTipoItem");
-		String tipoItemDesc = (String) agregarEstadoSiguienteForm.get("tipoItemDesc");
-		String estadoDesc =  (String) agregarEstadoSiguienteForm.get("estadoDesc");
+		String idEstadoInicial =  (String) agregarEstadoSiguienteForm.get("idEstado");
 		String estadoSiguienteDesc =  (String) agregarEstadoSiguienteForm.get("estadoSiguienteDesc");
 		
 		Sistema sistema = Sistema.getInstance();
-		Proyecto proyecto = sistema.getProyecto(Integer.valueOf(idProyecto));
-		TipoItem tipoItem = sistema.getTipoItem(tipoItemDesc, proyecto);
-		Estado estado = tipoItem.getEstado(estadoDesc);
-		Estado estadoSiguiente = tipoItem.getEstado(estadoSiguienteDesc);
 		
-		estado.agregarEstadoSiguiente(estadoSiguiente);
-					
-		// Mostramos la siguiente vista
-		response.sendRedirect("tipoItem_editar.jsp?idTI=" + idTipoItem + "&idP=" + idProyecto);				
-		return mapping.findForward("ok");		
+		TipoItem tipoItem = sistema.getTipoItemID(Long.valueOf(idTipoItem));
+		Estado savedEstadoInicial = sistema.getEstadoID(Long.valueOf(idEstadoInicial));
+		Estado savedEstadoSiguiente = sistema.getEstadoTipoItem(tipoItem, estadoSiguienteDesc);
+				
+		sistema.agregarEstadoSiguiente(tipoItem, savedEstadoInicial, savedEstadoSiguiente);
+		
+	    ActionRedirect redirect = new ActionRedirect(mapping.findForward("ok"));
+
+	    redirect.addParameter("idTI", idTipoItem);
+	    redirect.addParameter("idP", idProyecto);
+	    return redirect;
 	}
 		
 }

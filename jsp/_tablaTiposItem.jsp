@@ -38,7 +38,7 @@
     			<c:out value="${tipoItem.getEstadoInicial().getDescripcion()}"/>
     		</td>
     		<td class="tabla_centrado">
-				<c:set var="estadosPosibles" value="${tipoItem.getEstadosPosibles()}" />
+				<c:set var="estadosPosibles" value="${sessionScope.sistema.getEstadosTipoItem(tipoItem)}" />
 				<select>
 					<c:forEach var="estadoPosible" items="${estadosPosibles}"  varStatus="m">
 						<option>

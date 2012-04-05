@@ -1,5 +1,8 @@
 <table cellpadding="0" cellspacing="0" border="0">
    	<tr class="encabezado_tabla">
+   		<td class="tabla_centrado" style="width:70px;">
+   			Nombre
+   		</td> 	
    		<td class="tabla_centrado" style="width:170px;">
    			Tipo
    		</td>
@@ -29,7 +32,7 @@
    		</td>
    	</tr>
    	<tr>
-   		<td colspan="9">
+   		<td colspan="10">
    			<hr>
    		</td>
    	</tr>
@@ -43,22 +46,23 @@
 				<tr>  
 			</c:otherwise>  
 		</c:choose> 
-   		
-   		
+   		    <td class="tabla_centrado">
+    			<c:out value="${itemProyecto.getNombre()}"/>
+    		</td>
     		<td class="tabla_centrado">
     			<c:out value="${itemProyecto.getTipoItem().getDescripcion()}"/>
     		</td>
-    		<td>
+    		<td class="tabla_centrado">
     			<c:out value="${itemProyecto.getDescripcion()}"/>
     		</td>
     		<td class="tabla_centrado">
-				<c:out value="${itemProyecto.verEstadoActual()}"/>
+				<c:out value="${itemProyecto.getEstadoActual().getEstado().getDescripcion()}"/>
     		</td>
     		<td class="tabla_centrado">
 				<c:out value="${itemProyecto.getPrioridad()}"/>
     		</td>
     		<td class="tabla_centrado">
-				<c:out value="${itemProyecto.responsableActual().getNombre()}"/>
+				<c:out value="${itemProyecto.getResponsable().getUsuario().getNombre()}"/>
     		</td>
     		<td class="tabla_centrado">
     			<a href="item_editar.jsp?idI=<c:out value="${itemProyecto.getId()}"/>&idP=<c:out value="${proyecto.getId()}"/>"> 
@@ -87,7 +91,7 @@
    		</tr>
    	</c:forEach>
    	<tr>
-   		<td colspan="9">
+   		<td colspan="10">
    			<hr>
    		</td>
    	</tr>

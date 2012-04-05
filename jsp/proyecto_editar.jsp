@@ -6,10 +6,18 @@
 <html:html>
 	<%@ include file="html_head.jsp" %>
 	<c:set var="proyecto" value="${sessionScope.sistema.getProyecto(param.id)}"/>
-	<c:set var="miembrosProyecto" value="${sessionScope.sistema.getMiembrosProyecto(proyecto)}"/>
-	<c:set var="lider" value="${sessionScope.sistema.getLiderProyecto(proyecto)}"/>
+	<c:set var="usuarios" value="${sessionScope.sistema.getUsuarios()}"/>
+	<c:set var="lider" value="${proyecto.getLiderProyecto()}"/>
+
 <body>
 <html:javascript formName="editarProyectoForm" />
+
+<script type='text/javascript'>
+function warning()
+{
+	alert('El antiguo lider de proyecto tomara un rol de Desarrollador');
+}
+</script> 
 
 	<h1><%= BTUNLP_Titulo %></h1>
 	<h2>Editar datos del proyecto</h2>
@@ -38,14 +46,14 @@
     		    <input name="nombreProyecto" maxlength="15" type="text" value="${proyecto.getNombre()}" />
     		</td>
     		<td>
-    		<select name="liderProyecto">
-	    			<c:forEach var="miembro" items="${miembrosProyecto}">
+    		<select name="liderProyecto" onchange='javascript:warning();'>
+	    			<c:forEach var="usuario" items="${usuarios}">
 	    				<c:choose>
-							<c:when test="${miembro.getUsuario().getNombre() == lider.getUsuario().getNombre()}">
-		    		   			<option selected="selected"><c:out value="${miembro.getUsuario().getNombre()}"/></option>
+							<c:when test="${usuario.getNombre() == lider.getUsuario().getNombre()}">
+		    		   			<option selected="selected"><c:out value="${usuario.getNombre()}"/></option>
 							</c:when>
 							<c:otherwise>
-								<option><c:out value="${miembro.getUsuario().getNombre()}"/></option>
+								<option><c:out value="${usuario.getNombre()}"/></option>
 							</c:otherwise>
 						</c:choose>
 	         		</c:forEach>

@@ -7,7 +7,6 @@ import org.apache.struts.action.*;
 
 import unlp.edu.core.Proyecto;
 import unlp.edu.core.Sistema;
-import unlp.edu.core.Miembro;;
 
 public class EliminarProyectoAction extends Action{
 

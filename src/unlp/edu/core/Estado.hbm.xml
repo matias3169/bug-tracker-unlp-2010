@@ -3,16 +3,16 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 20-mar-2012 18:06:50 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="unlp.edu.core.Role" table="ROLE">
+    <class name="unlp.edu.core.Estado" table="ESTADO">
         <id name="id" type="java.lang.Long">
-            <column name="ID_ROLE" />
+            <column name="ID_ESTADO" />
             <generator class="increment" />
         </id>
-        <property name="tipo" type="java.lang.String" lazy="false">
-            <column name="TIPO" />
+        <property name="descripcion" type="java.lang.String" lazy="false">
+            <column name="DESCRIPCION" />
         </property>
-        <property name="nombre" type="java.lang.String" lazy="false">
-            <column name="NOMBRE" />
-        </property>
+        <many-to-one name="tipoItem" class="unlp.edu.core.TipoItem" fetch="join" lazy="false">
+            <column name="ID_TIPOITEM" />
+        </many-to-one>
     </class>
 </hibernate-mapping>

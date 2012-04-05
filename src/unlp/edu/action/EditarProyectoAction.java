@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.*;
 
 import unlp.edu.core.Proyecto;
+import unlp.edu.core.Role;
 import unlp.edu.core.Sistema;
 import unlp.edu.core.Miembro;
 
@@ -19,27 +20,36 @@ public class EditarProyectoAction extends Action{
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		DynaActionForm editarProyectoForm = (DynaActionForm) form;
-		ActionErrors errors = new ActionErrors();
 		
 		// Extraemos los datos del formulario 
 		String  nombreActualProyecto = (String) editarProyectoForm.get("nombreActualProyecto");
-		
 		String  nuevoNombreProyecto = (String) editarProyectoForm.get("nombreProyecto");
 		String  nuevoLiderProyecto = (String) editarProyectoForm.get("liderProyecto");
 		
 		Sistema sistema = Sistema.getInstance();
 		
-		Proyecto proyecto = sistema.getProyectoPorNombre(nombreActualProyecto);
-				
-		proyecto.setNombre(nuevoNombreProyecto);
+		Proyecto savedProyecto = sistema.getProyectoPorNombre(nombreActualProyecto);		
+		Role roleLider = sistema.getRoleProyecto("Lider");
+		Miembro actualLider = savedProyecto.getLiderProyecto();
 		
-		Miembro actualLider = sistema.getLiderProyecto(proyecto);
-		Miembro nuevoLider = sistema.getMiembro(proyecto, nuevoLiderProyecto);
+		Miembro nuevoLider = sistema.getMiembro(savedProyecto, nuevoLiderProyecto);
+
+		//Es un usuario que aun no es miembro del proyecto - Se crea y persiste
+		if (nuevoLider == null)
+		{
+			nuevoLider = sistema.nuevoMiembro(savedProyecto, sistema.getUsuario(nuevoLiderProyecto), roleLider);
+		} else if (!nuevoLider.equals(actualLider)) {
+			//Es miembro del proyecto pero no es el lider actual	
+			sistema.editarMiembro(nuevoLider,roleLider);
+		}
 		
-		nuevoLider.setRole(sistema.getRoleProyecto("Lider"));
-		proyecto.setLiderProyecto(nuevoLider);
+		sistema.editarProyecto(savedProyecto,nuevoNombreProyecto,nuevoLider);
 		
-		proyecto.eliminarMiembro(actualLider);
+		//Se asigna un rol de desarrollador al antiguo Lider
+		if (!nuevoLider.equals(actualLider))
+		{
+			sistema.editarMiembro(actualLider, sistema.getRoleProyecto("Desarrollador"));
+		}
 		
 		// Mostramos la siguiente vista
 		return mapping.findForward("ok"); 
