@@ -17,7 +17,6 @@ public class AgregarProyectoAction extends Action{
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		DynaActionForm agregarProyectoForm = (DynaActionForm) form;
-		ActionErrors errors = new ActionErrors();
 		
 		// Extraemos los datos del formulario 
 		String  nombreProyecto = (String) agregarProyectoForm.get("nombre_proyecto");
@@ -25,7 +24,7 @@ public class AgregarProyectoAction extends Action{
 		
 		Sistema sistema = Sistema.getInstance();
 		
-		sistema.nuevoProyecto(nombreProyecto, sistema.getUsuario(liderProyecto));
+		sistema.nuevoProyecto(nombreProyecto, liderProyecto);
 		
 		// Mostramos la siguiente vista
 		return mapping.findForward("ok"); 

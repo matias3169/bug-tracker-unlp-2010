@@ -15,7 +15,6 @@ public class AgregarItemAction extends Action{
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		DynaActionForm agregarItemForm = (DynaActionForm) form;
-		ActionErrors errors = new ActionErrors();
 		
 		// Extraemos los datos del formulario 
 		String  proyectoNombre = (String) agregarItemForm.get("nombreProyecto");
@@ -28,23 +27,17 @@ public class AgregarItemAction extends Action{
 		Sistema sistema = Sistema.getInstance();
 		
 		Proyecto proyecto = sistema.getProyectoPorNombre(proyectoNombre);
-		int idProyecto = proyecto.getId();
-		TipoItem tipoItem = proyecto.getTipoItem(itemTipo);
+		Long idProyecto = proyecto.getId();
+		TipoItem tipoItem = sistema.getTipoItem(itemTipo, proyecto);
 		Integer prioridad =  Integer.parseInt(itemPrioridad.trim());
-		Miembro  responsable = proyecto.getMiembro(itemResponsable);
+		Miembro  responsable = sistema.getMiembro(proyecto, itemResponsable);
 				
-		if (proyecto == null || tipoItem == null || responsable == null)
-		{
-			return mapping.findForward("error");
-		} else {
-			
-			proyecto.nuevoItem(itemNombre, itemDescripcion, tipoItem, prioridad, responsable);
-			// Mostramos la siguiente vista
-			response.sendRedirect("proyecto_trabajar.jsp?id=" + idProyecto);			
-
-		}
+		sistema.nuevoItem(itemNombre, itemDescripcion, tipoItem, prioridad, proyecto, responsable);
 		
-		return mapping.findForward("ok");		
+	    ActionRedirect redirect = new ActionRedirect(mapping.findForward("ok"));
+	    redirect.addParameter("id", idProyecto);
+	    
+		return redirect;		
 	}
 
 }

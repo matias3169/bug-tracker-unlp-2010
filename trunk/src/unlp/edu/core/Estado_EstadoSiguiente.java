@@ -1,43 +1,33 @@
 package unlp.edu.core;
 
-
-public class Estado {
+public class Estado_EstadoSiguiente {
 	
 	private Long id;
-	private String descripcion;
-	private TipoItem tipoItem;
+	private Estado EstadoInicial;
+	private Estado EstadoSiguiente;
 	
-	public Estado(){
+	public Estado_EstadoSiguiente() {
 	}
 	
-	public String getDescripcion() {
-		return descripcion;
+	public void setEstadoSiguiente(Estado estadoSiguiente) {
+		EstadoSiguiente = estadoSiguiente;
 	}
-	
-	public Long getId() {
-		return id;
+	public Estado getEstadoSiguiente() {
+		return EstadoSiguiente;
 	}
-	
-	public void setId(Long id) {
+	public void setEstadoInicial(Estado estadoInicial) {
+		EstadoInicial = estadoInicial;
+	}
+	public Estado getEstadoInicial() {
+		return EstadoInicial;
+	}
+
+	public void setIdEstado_EstadoSiguiente(Long id) {
 		this.id = id;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	
-	/**
-	 * Metodos
-	 */
-
-
-	public void setTipoItem(TipoItem tipoItem) {
-		this.tipoItem = tipoItem;
-	}
-
-	public TipoItem getTipoItem() {
-		return tipoItem;
+	public Long getIdEstado_EstadoSiguiente() {
+		return id;
 	}
 
 	/* (non-Javadoc)
@@ -62,7 +52,7 @@ public class Estado {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Estado other = (Estado) obj;
+		Estado_EstadoSiguiente other = (Estado_EstadoSiguiente) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -70,5 +60,4 @@ public class Estado {
 			return false;
 		return true;
 	}
-
 }

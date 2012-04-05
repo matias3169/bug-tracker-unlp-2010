@@ -20,7 +20,6 @@ public class AgregarMiembroAction extends Action{
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		DynaActionForm agregarMiembroForm = (DynaActionForm) form;
-		ActionErrors errors = new ActionErrors();
 		
 		// Extraemos los datos del formulario 
 		String  usuarioNombre = (String) agregarMiembroForm.get("usuario");
@@ -30,24 +29,19 @@ public class AgregarMiembroAction extends Action{
 		Sistema sistema = Sistema.getInstance();
 		
 		Proyecto proyecto = sistema.getProyectoPorNombre(proyectoNombre);
-		int idProyecto = proyecto.getId();
+		Long idProyecto = proyecto.getId();
+		
 		Usuario usuario = sistema.getUsuario(usuarioNombre);
 		Role rol = sistema.getRoleProyecto(rolNombre);
 		
-		if (proyecto == null || usuario == null || rol == null)
-		{
-			return mapping.findForward("error");
-		} else {
-
-			sistema.nuevoMiembro(proyecto, usuario, rol);
-			// Mostramos la siguiente vista
-			response.sendRedirect("proyecto_trabajar.jsp?id=" + idProyecto);			
-
-		}
+		sistema.nuevoMiembro(proyecto, usuario, rol);
 		
-		//Aqui nunca se llega es solo para que compile
-		return mapping.findForward("ok");
-		
+	    ActionRedirect redirect = new ActionRedirect(mapping.findForward("ok"));
+	    redirect.addParameter("id", idProyecto);
+
+	    return redirect;
+
 	}
+	
 
 }

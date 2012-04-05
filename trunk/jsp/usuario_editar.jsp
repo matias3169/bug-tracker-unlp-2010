@@ -45,7 +45,7 @@
 	    		<select name="nuevoRol">
 	    			<c:forEach var="rol" items="${rolesUsuario}">
 	    				<c:choose>
-							<c:when test="${rol.getNombre() == usuario.getRole().getNombre()}">
+							<c:when test="${rol.equals(usuario.getRole())}">
 		    		   			<option selected="selected"><c:out value="${rol.getNombre()}"/></option>
 							</c:when> 
 							<c:otherwise>
@@ -56,7 +56,7 @@
 	    		</select>
 	    	</td>
     		<td>
-    		    <input name="password" maxlength="8" type="password" value="${sessionScope.sistema.getUsuarioPorID(param.id).getClave()}"/>
+    		    <input name="password" maxlength="8" type="password" value="${usuario.getClave()}"/>
     		</td>
     	</tr> 
     	<tr height="4"></tr>

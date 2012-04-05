@@ -6,7 +6,6 @@ import org.apache.struts.action.*;
 
 import unlp.edu.core.Proyecto;
 import unlp.edu.core.Sistema;
-import unlp.edu.core.TipoItem;
 import unlp.edu.core.Miembro;
 import unlp.edu.core.Estado;
 
@@ -20,20 +19,20 @@ public class AgregarMiembroDisponibleAction extends Action{
 		// Extraemos los datos del formulario 
 		String idProyecto = (String) agregarMiembroDisponibleForm.get("idProyecto");
 		String idTipoItem = (String) agregarMiembroDisponibleForm.get("idTipoItem");
-		String tipoItemDesc = (String) agregarMiembroDisponibleForm.get("tipoItemDesc");
-		String estadoDesc = (String) agregarMiembroDisponibleForm.get("estadoDesc");
+		String idEstado = (String) agregarMiembroDisponibleForm.get("idEstado");
 		String nuevoMiembroDispNombre =  (String) agregarMiembroDisponibleForm.get("nuevoMiembroDispNombre");
 		
 		Sistema sistema = Sistema.getInstance();
-		Proyecto proyecto = sistema.getProyecto(Integer.valueOf(idProyecto));
-		TipoItem tipoItem = sistema.getTipoItem(tipoItemDesc, proyecto);
-		Estado	estadoItem = sistema.getEstadoTipoItem(proyecto, tipoItem, estadoDesc);
-		Miembro nuevoMiembro = proyecto.getMiembro(nuevoMiembroDispNombre);
+		Proyecto proyecto = sistema.getProyecto(Long.valueOf(idProyecto));
+		Estado	estadoItem = sistema.getEstadoID(Long.valueOf(idEstado));
+		Miembro nuevoMiembro = sistema.getMiembro(proyecto, nuevoMiembroDispNombre);
 		
-		estadoItem.agregarMiembroDisponible(nuevoMiembro);
-					
-		// Mostramos la siguiente vista
-		response.sendRedirect("tipoItem_editar.jsp?idTI=" + idTipoItem + "&idP=" + idProyecto);				
-		return mapping.findForward("ok");		
+		sistema.agregarMiembroDisponible(nuevoMiembro, estadoItem);
+
+	    ActionRedirect redirect = new ActionRedirect(mapping.findForward("ok"));
+	    redirect.addParameter("idTI", idTipoItem);
+	    redirect.addParameter("idP", idProyecto);
+	    
+	    return redirect;
 	}
 }

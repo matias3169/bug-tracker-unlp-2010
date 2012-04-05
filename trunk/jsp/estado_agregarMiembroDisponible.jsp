@@ -8,8 +8,8 @@
 	<%@ include file="html_head.jsp" %>
 	
 	<c:set var="proyecto" value="${sessionScope.sistema.getProyecto(param.idP)}"/>
-	<c:set var="tipoItem" value="${proyecto.getTipoItemPorId(param.idTI)}"/>
-	<c:set var="estado" value="${tipoItem.getEstadoPorId(param.idE)}"/>
+	<c:set var="tipoItem" value="${sessionScope.sistema.getTipoItemID(param.idTI)}"/>
+	<c:set var="estado" value="${sessionScope.sistema.getEstadoID(param.idE)}"/>
 	
 <body>	
 	<html:javascript formName="agregarMiembroDisponibleForm" />
@@ -21,9 +21,7 @@
   	
   	<html:hidden property="idProyecto" value="${param.idP}" />
     <html:hidden property="idTipoItem" value="${param.idTI}" />
-   	<html:hidden property="proyecto" value="${sessionScope.sistema.getProyecto(param.idP)}" />
-    <html:hidden property="tipoItemDesc" value="${tipoItem.getDescripcion()}" />
-    <html:hidden property="estadoDesc" value="${estado.getDescripcion()}" />
+    <html:hidden property="idEstado" value="${param.idE}" />
     
     <table>
 			<tr>	
@@ -32,10 +30,8 @@
 				</td>
 				<td class="tabla_centrado">
 		    		<select name="nuevoMiembroDispNombre">
-		    			<c:forEach var="miembroProyecto" items="${proyecto.getMiembros()}">
-			    			<c:if test="${!estado.getMiembrosDisponibles().contains(miembroProyecto)}">
-			    				<option><c:out value="${miembroProyecto.getUsuario().getNombre()}"/></option>
-			    			</c:if>		         		
+		    			<c:forEach var="miembroProyecto" items="${sessionScope.sistema.getMiembrosDisponibles(estado)}">
+		    				<option><c:out value="${miembroProyecto.getUsuario().getNombre()}"/></option>         		
 		         		</c:forEach>
 		    		</select>
 		    	</td>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 20-mar-2012 18:06:50 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="unlp.edu.core.TipoItem" table="TIPOITEM">
+        <id name="id" type="java.lang.Long">
+            <column name="ID_TIPOITEM" />
+            <generator class="increment" />
+        </id>
+        <property name="descripcion" type="java.lang.String" lazy="false">
+            <column name="DESCRIPCION" />
+        </property>
+        <many-to-one name="estadoInicial" class="unlp.edu.core.Estado" not-null="false" cascade="delete" lazy="false">
+            <column name="ESTADOINICIAL" />
+        </many-to-one>
+        <many-to-one name="proyecto" class="unlp.edu.core.Proyecto" lazy="false">
+            <column name="ID_PROYECTO" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

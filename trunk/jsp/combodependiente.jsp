@@ -5,23 +5,24 @@
 
 if(request.getParameter("TipoItemId")!=null){
 	
-	String tipoItemId = request.getParameter("TipoItemId");
+	String tipoItemDesc = request.getParameter("TipoItemId");
 	String proyecto = request.getParameter("Proyecto");
 	String estadoparam = request.getParameter("Estado");
 	
 	Sistema sistema = Sistema.getInstance();
 	Proyecto proy = sistema.getProyectoPorNombre(proyecto);
+	TipoItem tipoItem = sistema.getTipoItem(tipoItemDesc,proy);
 	
 	Estado estado;
 
 	if (estadoparam == null)
-	{
-		estado = sistema.getTipoItem(tipoItemId,proy).getEstadoInicial();	
+	{	
+		estado = tipoItem.getEstadoInicial();	
 	} else {
-		estado = sistema.getTipoItem(tipoItemId,proy).getEstado(estadoparam);
+		estado = sistema.getEstadoTipoItem(tipoItem,estadoparam);
 	}
 	
-	for (Miembro miembro: estado.getMiembrosDisponibles())
+	for (Miembro miembro: sistema.getMiembrosEstado(estado))
 	{
 		out.println("<option>" + miembro.getUsuario().getNombre() + "</option>");
 	}

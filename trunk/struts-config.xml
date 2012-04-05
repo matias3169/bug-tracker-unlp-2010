@@ -7,8 +7,7 @@
         <form-bean name="loginForm" type="org.apache.struts.validator.DynaValidatorForm">  
               <form-property name="nombre_usuario" type="java.lang.String"></form-property>  
               <form-property name="clave_usuario"  type="java.lang.String"></form-property>    
-        </form-bean>
-        
+        </form-bean>      
         <form-bean name="agregarProyectoForm" type="org.apache.struts.action.DynaActionForm">  
               <form-property name="nombre_proyecto" type="java.lang.String"></form-property>  
               <form-property name="lider_proyecto" type="java.lang.String"></form-property>    
@@ -21,7 +20,6 @@
         <form-bean name="eliminarProyectoForm" type="org.apache.struts.action.DynaActionForm">  
               <form-property name="nombreProyecto" type="java.lang.String"></form-property>  
         </form-bean>
-        
          <form-bean name="agregarUsuarioForm" type="org.apache.struts.action.DynaActionForm">  
               <form-property name="nombre_usuario" type="java.lang.String"></form-property>  
               <form-property name="clave_usuario" type="java.lang.String"></form-property>
@@ -35,13 +33,11 @@
         <form-bean name="eliminarUsuarioForm" type="org.apache.struts.action.DynaActionForm">  
               <form-property name="nombreUsuario" type="java.lang.String"></form-property>  
         </form-bean> 
-    
         <form-bean name="agregarMiembroForm" type="org.apache.struts.action.DynaActionForm">  
               <form-property name="usuario" type="java.lang.String"></form-property>  
               <form-property name="rol_miembro" type="java.lang.String"></form-property>
               <form-property name="nombreProyecto" type="java.lang.String"></form-property>
         </form-bean>
-        
         <form-bean name="agregarItemForm" type="org.apache.struts.action.DynaActionForm">  
         	  <form-property name="nombreProyecto" type="java.lang.String"></form-property>
               <form-property name="nombre_item" type="java.lang.String"></form-property>  
@@ -56,7 +52,6 @@
               <form-property name="descNuevoEstado" type="java.lang.String"></form-property>
               <form-property name="responsable_item" type="java.lang.String"></form-property>
               <form-property name="fichaTrabajoItem" type="java.lang.String"></form-property>
-          
         </form-bean>  
         <form-bean name="editarItemForm" type="org.apache.struts.action.DynaActionForm">  
               <form-property name="nombreProyecto" type="java.lang.String"></form-property>  
@@ -70,11 +65,11 @@
               <form-property name="nombreProyecto" type="java.lang.String"></form-property>  
               <form-property name="nombreItem" type="java.lang.String"></form-property>
         </form-bean> 
-        <form-bean name="agregarTipoItemForm" type="org.apache.struts.validator.DynaValidatorForm">
+        <form-bean name="agregarTipoItemForm" type="org.apache.struts.action.DynaActionForm">
         	  <form-property name="nombreProyecto" type="java.lang.String"></form-property>
               <form-property name="descripcion_tipoItem" type="java.lang.String"></form-property> 
         </form-bean>
-        <form-bean name="editarTipoItemForm" type="org.apache.struts.validator.DynaValidatorForm">  
+        <form-bean name="editarTipoItemForm" type="org.apache.struts.action.DynaActionForm">  
         	  <form-property name="nombreProyecto" type="java.lang.String"></form-property>
               <form-property name="descripcion_inicial" type="java.lang.String"></form-property>
               <form-property name="descripcion_nueva" type="java.lang.String"></form-property>
@@ -86,25 +81,39 @@
               <form-property name="idTipoItem" type="java.lang.String"></form-property>
               <form-property name="descripcionEstado" type="java.lang.String"></form-property>              
         </form-bean>
+        <form-bean name="eliminarEstadoTipoItemForm" type="org.apache.struts.action.DynaActionForm">  
+              <form-property name="idTipoItem" type="java.lang.String"></form-property>
+              <form-property name="idProyecto" type="java.lang.String"></form-property>
+              <form-property name="descripcionEstado" type="java.lang.String"></form-property>              
+        </form-bean>
         <form-bean name="agregarEstadoSiguienteForm" type="org.apache.struts.action.DynaActionForm">  
               <form-property name="idProyecto" type="java.lang.String"></form-property>
               <form-property name="idTipoItem" type="java.lang.String"></form-property>
-              <form-property name="tipoItemDesc" type="java.lang.String"></form-property>
-              <form-property name="estadoDesc" type="java.lang.String"></form-property>
+              <form-property name="idEstado" type="java.lang.String"></form-property>
               <form-property name="estadoSiguienteDesc" type="java.lang.String"></form-property>               
         </form-bean>
         <form-bean name="agregarMiembroDisponibleForm" type="org.apache.struts.action.DynaActionForm">  
               <form-property name="idProyecto" type="java.lang.String"></form-property>
               <form-property name="idTipoItem" type="java.lang.String"></form-property>
-              <form-property name="proyecto" type="java.lang.String"></form-property>
-              <form-property name="tipoItemDesc" type="java.lang.String"></form-property>
-              <form-property name="estadoDesc" type="java.lang.String"></form-property>
+              <form-property name="idEstado" type="java.lang.String"></form-property>
               <form-property name="nuevoMiembroDispNombre" type="java.lang.String"></form-property>     
         </form-bean>
         <form-bean name="editarMiembroForm" type="org.apache.struts.action.DynaActionForm">  
         	  <form-property name="descRol" type="java.lang.String"></form-property>
               <form-property name="nombreMiembro" type="java.lang.String"></form-property>
               <form-property name="nombreProyecto" type="java.lang.String"></form-property>              
+        </form-bean>
+        <form-bean name="eliminarEstadoSiguienteForm" type="org.apache.struts.action.DynaActionForm">  
+        	  <form-property name="descripcionEstadoInicial" type="java.lang.String"></form-property>
+        	  <form-property name="descripcionEstadoSiguiente" type="java.lang.String"></form-property>
+              <form-property name="idTipoItem" type="java.lang.String"></form-property>
+              <form-property name="idProyecto" type="java.lang.String"></form-property>                           
+        </form-bean>
+        <form-bean name="eliminarMiembroDisponibleForm" type="org.apache.struts.action.DynaActionForm">  
+        	  <form-property name="descripcionEstado" type="java.lang.String"></form-property>
+        	  <form-property name="descripcionMiembro" type="java.lang.String"></form-property>
+              <form-property name="idTipoItem" type="java.lang.String"></form-property>
+              <form-property name="idProyecto" type="java.lang.String"></form-property>                           
         </form-bean>
     </form-beans>  
       
@@ -177,8 +186,8 @@
             name="agregarMiembroForm"  
             scope="session"  
             validate="true"  
-            input="/agregar_miembro.jsp">  
-             <forward name="ok" path="/proyecto_trabajar.jsp" />  
+            input="/agregar_miembro.jsp">             
+             <forward name="ok" path="/proyecto_trabajar.jsp" /> 
              <forward name="error" path="/agregar_miembro.jsp"/>
         </action>
         <action path="/agregar_item"   
@@ -187,7 +196,7 @@
             scope="session"  
             validate="true"  
             input="/item_agregar.jsp">  
-             <forward name="ok" path="/listar_proyectos.jsp"/> 
+             <forward name="ok" path="/proyecto_trabajar.jsp"/> 
              <forward name="error" path="/item_agregar.jsp"/>
         </action>
         <action path="/cambiarEstado"   
@@ -196,7 +205,7 @@
             scope="session"  
             validate="true"  
             input="/item_cambiarEstado.jsp">  
-             <forward name="ok" path="/listar_proyectos.jsp"/>  
+             <forward name="ok" path="/proyecto_trabajar.jsp"/>  
              <forward name="error" path="/item_cambiarEstado.jsp"/>
         </action>
         <action path="/editarItem"   
@@ -205,7 +214,7 @@
             scope="session"  
             validate="true"  
             input="/item_editar.jsp">  
-             <forward name="ok" path="/listar_proyectos.jsp"/>  
+             <forward name="ok" path="/proyecto_trabajar.jsp"/>  
              <forward name="error" path="/item_editar.jsp"/>
         </action>
         <action path="/eliminarItem"   
@@ -214,7 +223,7 @@
             scope="session"  
             validate="true"  
             input="/item_eliminar.jsp">  
-             <forward name="ok" path="/listar_proyectos.jsp"/>  
+             <forward name="ok" path="/proyecto_trabajar.jsp"/>  
              <forward name="error" path="/item_eliminar.jsp"/>
         </action>
         <action path="/agregar_tipoItem"   
@@ -223,7 +232,7 @@
             scope="session"  
             validate="true"  
             input="/tipoItem_agregar.jsp">  
-             <forward name="ok" path="/listar_proyectos.jsp"/> 
+             <forward name="ok" path="/proyecto_trabajar.jsp"/> 
              <forward name="error" path="/tipoItem_agregar.jsp"/>
         </action>
         <action path="/editarTipoItem"   
@@ -232,7 +241,7 @@
             scope="session"  
             validate="true"  
             input="/tipoItem_editar.jsp">  
-             <forward name="ok" path="/listar_proyectos.jsp"/>  
+             <forward name="ok" path="/proyecto_trabajar.jsp"/>  
              <forward name="error" path="/tipoItem_editar.jsp" />
         </action>
         <action path="/agregarEstadoTipoItem"   
@@ -241,8 +250,17 @@
             scope="session"  
             validate="true"  
             input="/tipoItem_agregarEstado.jsp">  
-             <forward name="ok" path="/listar_proyectos.jsp"/>  
+             <forward name="ok" path="/tipoItem_editar.jsp"/>  
              <forward name="error" path="/tipoItem_agregarEstado.jsp" />
+        </action>
+        <action path="/eliminarEstadoTipoItem"   
+            type="unlp.edu.action.EliminarEstadoTipoItemAction"   
+            name="eliminarEstadoTipoItemForm"  
+            scope="session"  
+            validate="true"  
+            input="/tipoItem_eliminarEstado.jsp">  
+             <forward name="ok" path="/tipoItem_editar.jsp"/>  
+             <forward name="error" path="/tipoItem_eliminarEstado.jsp" />
         </action>
         <action path="/agregarEstadoSiguiente"   
             type="unlp.edu.action.AgregarEstadoSiguienteAction"   
@@ -250,7 +268,7 @@
             scope="session"  
             validate="true"  
             input="/estado_agregarEstadoSiguiente.jsp">  
-             <forward name="ok" path="/listar_proyectos.jsp"/>  
+             <forward name="ok" path="/tipoItem_editar.jsp"/>  
              <forward name="error" path="/estado_agregarEstadoSiguiente.jsp" />
         </action> 
         <action path="/agregarMiembroDisponible"   
@@ -259,7 +277,7 @@
             scope="session"  
             validate="true"  
             input="/estado_agregarMiembroDisponible.jsp">  
-             <forward name="ok" path="/listar_proyectos.jsp"/>  
+             <forward name="ok" path="/tipoItem_editar.jsp"/>  
              <forward name="error" path="/estado_agregarMiembroDisponible.jsp" />
         </action>  
         <action path="/editarMiembro"   
@@ -268,11 +286,30 @@
             scope="session"  
             validate="true"  
             input="/miembro_editarMiembro.jsp">  
-             <forward name="ok" path="/listar_proyectos.jsp"/>  
+             <forward name="ok" path="/proyecto_trabajar.jsp"/>  
              <forward name="error" path="/miembro_editarMiembro.jsp" />
-        </action>  
+        </action>
+        <action path="/eliminarEstadoSiguiente"   
+            type="unlp.edu.action.EliminarEstadoSiguienteAction"   
+            name="eliminarEstadoSiguienteForm"  
+            scope="session"  
+            validate="true"  
+            input="/estado_eliminarEstadoSiguiente.jsp">  
+             <forward name="ok" path="/tipoItem_editar.jsp"/>  
+             <forward name="error" path="/estado_eliminarEstadoSiguiente.jsp" />
+        </action>     
+        <action path="/eliminarMiembroDisponible"   
+            type="unlp.edu.action.EliminarMiembroDisponibleAction"   
+            name="eliminarMiembroDisponibleForm"  
+            scope="session"  
+            validate="true"  
+            input="/estado_eliminarMiembroDisponible.jsp">  
+             <forward name="ok" path="/tipoItem_editar.jsp"/>  
+             <forward name="error" path="/estado_eliminarMiembroDisponible.jsp" />
+        </action>          
     </action-mappings>  
   
+
     <message-resources parameter="ApplicationResources" null="false"/>  
       
     <plug-in className="org.apache.struts.validator.ValidatorPlugIn">  

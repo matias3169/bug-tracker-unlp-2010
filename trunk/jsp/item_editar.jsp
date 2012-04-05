@@ -7,7 +7,7 @@
 	<%@ include file="html_head.jsp" %>
 	
 	<c:set var="proyecto" value="${sessionScope.sistema.getProyecto(param.idP)}"/>
-	<c:set var="item" value="${proyecto.getItemPorId(param.idI)}"/>
+	<c:set var="item" value="${sessionScope.sistema.getItemId(param.idI)}"/>
 
 <body>
 	<html:javascript formName="editarItemForm" />
@@ -50,9 +50,9 @@
     		</td>
     		<td>
 	    		<select name="nomNuevoResponsable">
-	    			<c:forEach var="responsable" items="${item.getEstadoActual().getEstado().getMiembrosDisponibles()}">
+	    			<c:forEach var="responsable" items="${sessionScope.sistema.getMiembrosEstado(item.getEstadoActual().getEstado())}">
 	    				<c:choose>
-							<c:when test="${responsable.getUsuario().getNombre() == item.getEstadoActual().getResponsable().getUsuario().getNombre()}">
+							<c:when test="${responsable.equals(item.getEstadoActual().getResponsable())}">
 		    		   			<option selected="selected"><c:out value="${responsable.getUsuario().getNombre()}"/></option>
 							</c:when> 
 							<c:otherwise>

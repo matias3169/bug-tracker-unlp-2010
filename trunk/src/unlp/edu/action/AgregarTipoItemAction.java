@@ -6,7 +6,6 @@ import org.apache.struts.action.*;
 
 import unlp.edu.core.Proyecto;
 import unlp.edu.core.Sistema;
-import unlp.edu.core.Proyecto;;
 
 public class AgregarTipoItemAction extends Action{
 	
@@ -22,14 +21,13 @@ public class AgregarTipoItemAction extends Action{
 		Sistema sistema = Sistema.getInstance();
 		
 		Proyecto proyecto = sistema.getProyectoPorNombre(proyectoNombre);
-		int idProyecto = proyecto.getId();
+		Long idProyecto = proyecto.getId();
 		
-		proyecto.nuevoTipoItem(tipoItemDescripcion);
-			
-		// Mostramos la siguiente vista
-		response.sendRedirect("proyecto_trabajar.jsp?id=" + idProyecto);			
-
+		sistema.nuevoTipoItem(tipoItemDescripcion, proyecto);
 		
-		return mapping.findForward("ok");		
+	    ActionRedirect redirect = new ActionRedirect(mapping.findForward("ok"));
+	    redirect.addParameter("id", idProyecto);
+		
+		return redirect;		
 	}
 }

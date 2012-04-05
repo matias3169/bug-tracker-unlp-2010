@@ -8,7 +8,7 @@
 	<%@ include file="html_head.jsp" %>
 	
 	<c:set var="proyecto" value="${sessionScope.sistema.getProyecto(param.idP)}"/>
-	<c:set var="tipoItem" value="${proyecto.getTipoItemPorId(param.idTI)}"/>
+	<c:set var="tipoItem" value="${sessionScope.sistema.getTipoItemID(param.idTI)}"/>
 
 <body>
 	<html:javascript formName="editarTipoItemForm" />
@@ -42,10 +42,9 @@
     		</td>
     		<td class="tabla_centrado">
 	    		<select name="nuevoEstadoInicial">
-	    			<c:forEach var="estado" items="${tipoItem.getEstadosPosibles()}">
+	    			<c:forEach var="estado" items="${sessionScope.sistema.getEstadosTipoItem(tipoItem)}">
 	    				<c:choose>
-							<c:when test="${estado.getDescripcion() == tipoItem.getEstadoInicial().getDescripcion()}"> 
-								<!-- muestra por default el estado inicial actual -->
+							<c:when test="${estado.equals(tipoItem.getEstadoInicial())}"> 
 		    		   			<option selected="selected"><c:out value="${estado.getDescripcion()}"/></option>
 							</c:when> 
 							<c:otherwise>
@@ -94,7 +93,7 @@
     		</td>
     	</tr>
 	    <tr>
-			<c:forEach var="estadoPosible" items="${tipoItem.getEstadosPosibles()}" varStatus="j">
+			<c:forEach var="estadoPosible" items="${sessionScope.sistema.getEstadosTipoItem(tipoItem)}" varStatus="j">
 				<c:choose>  
 					<c:when test="${(j.count) % 2 == 0}">  
 						<tr style="background-color:#eeeeee;">  
@@ -115,7 +114,7 @@
 				
 				<td class="tabla_centrado" style="width:150px;">
 		    		<select name="estadoSiguiente1">
-		    			<c:forEach var="estadoSiguiente" items="${estadoPosible.getEstadosSiguientes()}">
+		    			<c:forEach var="estadoSiguiente" items="${sessionScope.sistema.getEstadosSiguientes(estadoPosible)}">
 		    				<option><c:out value="${estadoSiguiente.getDescripcion()}"/></option>
 		         		</c:forEach>
 		    		</select>
@@ -142,7 +141,7 @@
 	    		
 	    		<td class="tabla_centrado">
 		    		<select name="miembroDisponible1">
-		    			<c:forEach var="miembroDisponible" items="${estadoPosible.getMiembrosDisponibles()}">
+		    			<c:forEach var="miembroDisponible" items="${sessionScope.sistema.getMiembrosEstado(estadoPosible)}">
 		    				<option><c:out value="${miembroDisponible.getUsuario().getNombre()}"/></option>
 		         		</c:forEach>
 		    		</select>

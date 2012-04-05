@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-mar-2012 18:54:16 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="unlp.edu.core.Estado_Miembro" table="ESTADO_MIEMBRO">
+         <id name="id" type="java.lang.Long" access="field">
+            <column name="ID_ESTADO_MIEMBRO" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="estado" class="unlp.edu.core.Estado" fetch="join" lazy="false">
+            <column name="ESTADO" />
+        </many-to-one>
+        <many-to-one name="miembro" class="unlp.edu.core.Miembro" fetch="join" lazy="false">
+            <column name="MIEMBRO" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

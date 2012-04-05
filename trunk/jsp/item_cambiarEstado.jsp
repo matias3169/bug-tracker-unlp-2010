@@ -7,7 +7,7 @@
 	<%@ include file="html_head.jsp" %>
 	
 	<c:set var="proyecto" value="${sessionScope.sistema.getProyecto(param.idP)}"/>
-	<c:set var="item" value="${proyecto.getItemPorId(param.idI)}"/>
+	<c:set var="item" value="${sessionScope.sistema.getItemId(param.idI)}"/>
 
 	<script type="text/javascript">
 		function cargarCombo()
@@ -93,7 +93,7 @@
     		<td class="tabla_centrado" style="width:90px;">
 	    		<select id="comboindependiente" name="descNuevoEstado" onchange="javascript:cargarCombo()">
 	    			<option value="null">&nbsp;</option>
-						<c:forEach var="estado" items="${item.getEstadoActual().getEstado().getEstadosSiguientes()}">
+						<c:forEach var="estado" items="${sessionScope.sistema.getEstadosSiguientes(item.getEstadoActual().getEstado())}">
 							<option><c:out value="${estado.getDescripcion()}"/></option>
 						</c:forEach>
 				</select>

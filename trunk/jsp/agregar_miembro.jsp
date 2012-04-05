@@ -10,7 +10,7 @@
 	<c:set var="proyecto" value="${sessionScope.sistema.getProyecto(param.id)}"/>
 	<c:set var="rolesProyecto" value="${sessionScope.sistema.getRolesProyecto()}"/>
 	<c:set var="usuarios" value="${sessionScope.sistema.getUsuarios()}"/>
-	<c:set var="miembrosProyecto" value="${sessionScope.sistema.getProyecto(param.id).getMiembros()}"/>
+	<c:set var="miembrosProyecto" value="${sessionScope.sistema.getMiembrosProyecto(proyecto)}"/>
 		
 <body>
 
@@ -38,7 +38,7 @@
 	    					<c:forEach var="usuario" items="${usuarios}">
 	    						<c:set var="contains" value="false" />
 	    						<c:forEach var="miembroProyecto" items="${miembrosProyecto}">
-	    							<c:if test="${miembroProyecto.getUsuario().getNombre() eq usuario.getNombre()}">
+	    							<c:if test="${miembroProyecto.getUsuario().equals(usuario)}">
 	    								<c:set var="contains" value="true" />								
 									</c:if>
 			         			</c:forEach>
@@ -54,7 +54,7 @@
 					<select name="rol_miembro">
 						<option value="null">&nbsp;</option>
 	    					<c:forEach var="rol" items="${rolesProyecto}">
-	    						<c:if test='${rol.getNombre() != "Lider"}'>
+	    						<c:if test='${rol.getNombre() ne "Lider"}'>
 									<option><c:out value="${rol.getNombre()}"/></option>
 								</c:if>
 			         		</c:forEach>

@@ -1,7 +1,5 @@
 package unlp.edu.action;
 
-import java.util.Calendar;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.*;
@@ -17,11 +15,8 @@ public class EditarItemAction extends Action{
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		DynaActionForm editarItemForm = (DynaActionForm) form;
-		ActionErrors errors = new ActionErrors();
 		
-		// Extraemos los datos del formulario 
-		String fecha[] = new String[3];
-		
+		// Extraemos los datos del formulario 	
 		String  nombreProyecto = (String) editarItemForm.get("nombreProyecto");
 		String nombreItem = (String) editarItemForm.get("nombreItem");
 		String nomNuevoResponsable = (String) editarItemForm.get("nomNuevoResponsable");
@@ -30,32 +25,18 @@ public class EditarItemAction extends Action{
 		String descripcion = (String) editarItemForm.get("descripcion");
 		
 		Sistema sistema = Sistema.getInstance();
-		Calendar calendar = Calendar.getInstance();
 	
 		Proyecto proyecto = sistema.getProyectoPorNombre(nombreProyecto);
-		int idProyecto = proyecto.getId();
-		Item item = proyecto.getItem(nombreItem);
+		Long idProyecto = proyecto.getId();
+		Item item = sistema.getItem(proyecto, nombreItem);
 		Miembro nuevoResponsable = sistema.getMiembro(proyecto, nomNuevoResponsable);
 		
-		//No se trata del mismo responsable - Crear nuevo estado item
-		if (!item.getEstadoActual().getResponsable().getUsuario().getNombre().equals(nomNuevoResponsable))
-		{
-			item.cambiarResponsable(nuevoResponsable, calendar.getTime(), fichaTrabajo);
-			item.setPrioridad(Integer.parseInt(prioridad));
-			item.setDescripcion(descripcion);
-		}
-		else
-		{		
-			item.setPrioridad(Integer.parseInt(prioridad));
-			item.setDescripcion(descripcion);
-			item.getEstadoActual().setFichaDeTrabajo(fichaTrabajo);
-		}
-		
-		// Mostramos la siguiente vista
-		response.sendRedirect("proyecto_trabajar.jsp?id=" + idProyecto);
-		
-		return mapping.findForward("ok"); 
-		
+		sistema.editarItem(item,nuevoResponsable,descripcion,prioridad,fichaTrabajo);
+			
+	    ActionRedirect redirect = new ActionRedirect(mapping.findForward("ok"));
+	    redirect.addParameter("id", idProyecto);
+
+	    return redirect;
 	}
 
 }

@@ -8,14 +8,16 @@ package unlp.edu.core;
 
 public class Usuario{
 
-	/**
-	 * 
-	 */
+
 	private Long id;
 	private String clave;
 	private String nombre;
 	private Role role;
 
+
+	public Usuario() {
+	}
+	
 	public String getClave() {
 		return clave;
 	}
@@ -34,25 +36,7 @@ public class Usuario{
 	{
 		this.id = id;
 	}
-	/**
-	 * @param nombre
-	 * @param role
-	 */
-	public Usuario(String nombre, String clave, Role role) {
-		this.clave = clave;
-		this.nombre = nombre;
-		this.role = role;
-	}
-	
-	public Usuario(Long id, String nombre, String clave, Role role) {
-		this.id = id;
-		this.clave = clave;
-		this.nombre = nombre;
-		this.role = role;
-	}
-	
-	public Usuario() {
-	}
+
 	
 	/**
 	 * @return the nombre
@@ -77,5 +61,36 @@ public class Usuario{
 	 */
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}	
 }

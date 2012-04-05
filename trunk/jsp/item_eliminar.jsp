@@ -7,7 +7,7 @@
 <html:html>
 	<%@ include file="html_head.jsp" %>
 	<c:set var="proyecto" value="${sessionScope.sistema.getProyecto(param.idP)}"/>
-	<c:set var="item" value="${proyecto.getItemPorId(param.idI)}"/>
+	<c:set var="item" value="${sessionScope.sistema.getItemId(param.idI)}"/>
 	
 <body>
 <html:javascript formName="eliminarItemForm" />
