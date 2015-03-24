@@ -1,0 +1,1 @@
+The project is a bug tracker tool. The main purpose is to exercise modeling states transition and dbo connection
